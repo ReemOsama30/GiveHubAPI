@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34916.146
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "charityPulse.API", "charityPulse.API\charityPulse.API.csproj", "{E04DC6F7-C661-4A0D-BE1B-A0AB63843B5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "charityPulse.API", "charityPulse.API\charityPulse.API.csproj", "{E04DC6F7-C661-4A0D-BE1B-A0AB63843B5C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "charityPulse.core", "charityPulse.core\charityPulse.core.csproj", "{9E26513B-2116-4442-92FC-BC853913A791}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "charityPulse.core", "charityPulse.core\charityPulse.core.csproj", "{9E26513B-2116-4442-92FC-BC853913A791}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "charityPulse.Application", "charityPulse.Application\charityPulse.Application.csproj", "{9AAFF209-BD73-4B33-8119-048CC89A42EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "charityPulse.Application", "charityPulse.Application\charityPulse.Application.csproj", "{9AAFF209-BD73-4B33-8119-048CC89A42EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "charityPulse.Infrastructure", "charityPulse.Infrastructure\charityPulse.Infrastructure.csproj", "{3C9A4EEC-1DA2-4FD9-A7A0-E5AE9D5AD9EE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "charityPulse.Infrastructure", "charityPulse.Infrastructure\charityPulse.Infrastructure.csproj", "{CF518C4D-67B5-48D9-B35F-2EDD5D47270A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{9AAFF209-BD73-4B33-8119-048CC89A42EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9AAFF209-BD73-4B33-8119-048CC89A42EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9AAFF209-BD73-4B33-8119-048CC89A42EB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3C9A4EEC-1DA2-4FD9-A7A0-E5AE9D5AD9EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3C9A4EEC-1DA2-4FD9-A7A0-E5AE9D5AD9EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3C9A4EEC-1DA2-4FD9-A7A0-E5AE9D5AD9EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3C9A4EEC-1DA2-4FD9-A7A0-E5AE9D5AD9EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF518C4D-67B5-48D9-B35F-2EDD5D47270A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF518C4D-67B5-48D9-B35F-2EDD5D47270A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF518C4D-67B5-48D9-B35F-2EDD5D47270A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF518C4D-67B5-48D9-B35F-2EDD5D47270A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

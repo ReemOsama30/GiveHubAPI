@@ -8,8 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace charityPulse.core.Models
-{
-    public class ApplicationUser:IdentityUser,ISoftDeletable
+{public class ApplicationUser:IdentityUser,ISoftDeletable
 {
 
         [ForeignKey("Admin")]

@@ -10,6 +10,7 @@ namespace charityPulse.core.Models
 {
     public class Advertisment:ISoftDeletable
     {
+       
         public int Id { get; set; }
         public byte[] AdDesign { get; set; }
 
