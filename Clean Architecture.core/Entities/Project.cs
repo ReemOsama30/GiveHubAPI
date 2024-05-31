@@ -31,5 +31,8 @@ namespace charityPulse.core.Models
         public Charity Charity { get; set; }
 
         public ICollection<Donation> Donations { get; set; }
+
+
+        //
     }
 }
