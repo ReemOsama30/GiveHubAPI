@@ -1,11 +1,5 @@
 ﻿using Clean_Architecture.Application.Interfaces;
 using Clean_Architecture.Infrastructure.DbContext;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Clean_Architecture.Infrastructure.Repositories
 {
@@ -21,13 +15,21 @@ namespace Clean_Architecture.Infrastructure.Repositories
         public ICollection<T> GetAll()
         {
 
-            return context.Set<T>().ToList();
+            //return context.Set<T>().ToList();
+            return context.Set<T>().Where(e => !((IsoftDeletable)e).IsDeleted).ToList();
         }
 
 
-        public T Get(int id)
+        //public T Get(int id)
+        //{
+        //    return context.Set<T>().Find(id);
+        //}
+
+        public T Get(Func<T, bool> predicate) //find object by name ,id anything
         {
-            return context.Set<T>().Find(id);
+            //return context.Set<T>().FirstOrDefault(predicate);
+            var entities = context.Set<T>().Where(e => !((IsoftDeletable)e).IsDeleted).ToList();
+            return entities.FirstOrDefault(predicate);
         }
 
 
