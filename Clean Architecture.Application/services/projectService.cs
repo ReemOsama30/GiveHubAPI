@@ -26,9 +26,11 @@ namespace Clean_Architecture.Application.services
         public void AddProject(addProjectDTO projectDTO)
         {
             var project = mapper.Map<Project>(projectDTO);
+
             project.IsDeleted = false;
 
-             unitOfWork.projects.insert(project);
+            project.Img = File.ReadAllBytes(projectDTO.ImgPath);
+            unitOfWork.projects.insert(project);
              unitOfWork.save();
         }
 
@@ -54,6 +56,7 @@ namespace Clean_Architecture.Application.services
         public void updateProject(updateProjectDTO newproject)
         {
             Project project=mapper.Map<Project>(newproject);
+
             project.Img = File.ReadAllBytes(newproject.Imgpath);
             unitOfWork.projects.update(project);
             unitOfWork.save();  
