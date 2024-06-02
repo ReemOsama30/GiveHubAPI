@@ -192,9 +192,6 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.Property<int?>("CharityId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CharityId1")
-                        .HasColumnType("int");
-
                     b.Property<int?>("CorporateId")
                         .HasColumnType("int");
 
@@ -216,8 +213,6 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CharityId");
-
-                    b.HasIndex("CharityId1");
 
                     b.HasIndex("CorporateId");
 
@@ -310,6 +305,88 @@ namespace Clean_Architecture.Infrastructure.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "e43201d5-204e-4b66-80e8-f6cd8999083f",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "7f9be0be-f6e9-44cb-882b-ccd69a76c1dc",
+                            Email = "user1@example.com",
+                            EmailConfirmed = false,
+                            IsDeleted = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "Doe",
+                            PhoneNumber = "+1-555-1234",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "0a8d5d0f-fc2b-4bc2-b66e-ebf2d53ba53c",
+                            TwoFactorEnabled = false,
+                            UserName = "user1@example.com"
+                        },
+                        new
+                        {
+                            Id = "b1190c3b-c773-401c-9df6-74a267330255",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "ce1a0496-1b29-4444-ace1-c31e4d656a5e",
+                            Email = "user2@example.com",
+                            EmailConfirmed = false,
+                            IsDeleted = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "Doe",
+                            PhoneNumber = "+1-555-5678",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "b1c60598-2a02-49b5-8daf-e3c47ec76857",
+                            TwoFactorEnabled = false,
+                            UserName = "user2@example.com"
+                        },
+                        new
+                        {
+                            Id = "7395d769-fbb4-476e-ad52-1fd8c197ea76",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "d3e18527-ac57-4643-a92f-00d3cbd83837",
+                            Email = "user3@example.com",
+                            EmailConfirmed = false,
+                            IsDeleted = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "Smith",
+                            PhoneNumber = "+1-555-9012",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "87c9d6d6-c95f-4274-b164-7e7677c4c9d3",
+                            TwoFactorEnabled = false,
+                            UserName = "user3@example.com"
+                        },
+                        new
+                        {
+                            Id = "8b3582ec-0f20-46a0-8d98-39b6d489b18b",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "dd91ed34-4a5d-4793-913f-40c6184f9335",
+                            Email = "user4@example.com",
+                            EmailConfirmed = false,
+                            IsDeleted = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "Johnson",
+                            PhoneNumber = "+1-555-3456",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "f9af17da-c001-4572-a1d9-a311f74a001b",
+                            TwoFactorEnabled = false,
+                            UserName = "user4@example.com"
+                        },
+                        new
+                        {
+                            Id = "439213c3-e1c8-4fc5-a601-9d441a657dbd",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "d2e47942-3a68-4a99-b752-789a8d7a7a81",
+                            Email = "user5@example.com",
+                            EmailConfirmed = false,
+                            IsDeleted = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "William",
+                            PhoneNumber = "+1-555-7890",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "d92c5224-c71f-4c56-ad61-1d8b9a529f02",
+                            TwoFactorEnabled = false,
+                            UserName = "user5@example.com"
+                        });
                 });
 
             modelBuilder.Entity("charityPulse.core.Models.Badge", b =>
@@ -602,9 +679,6 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.Property<int?>("CharityId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CharityId1")
-                        .HasColumnType("int");
-
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -624,8 +698,6 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CharityId");
-
-                    b.HasIndex("CharityId1");
 
                     b.HasIndex("DonorID");
 
@@ -721,13 +793,9 @@ namespace Clean_Architecture.Infrastructure.Migrations
 
             modelBuilder.Entity("charityPulse.core.Models.Advertisment", b =>
                 {
-                    b.HasOne("charityPulse.core.Models.Project", "Charity")
-                        .WithMany()
-                        .HasForeignKey("CharityId");
-
-                    b.HasOne("charityPulse.core.Models.Charity", null)
+                    b.HasOne("charityPulse.core.Models.Charity", "Charity")
                         .WithMany("Advertisments")
-                        .HasForeignKey("CharityId1");
+                        .HasForeignKey("CharityId");
 
                     b.HasOne("charityPulse.core.Models.Corporate", "Corporate")
                         .WithMany("Advertisments")
@@ -744,7 +812,7 @@ namespace Clean_Architecture.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("AdminId");
 
-                    b.HasOne("charityPulse.core.Models.Project", "Charity")
+                    b.HasOne("charityPulse.core.Models.Charity", "Charity")
                         .WithMany()
                         .HasForeignKey("CharityId");
 
@@ -767,12 +835,12 @@ namespace Clean_Architecture.Infrastructure.Migrations
 
             modelBuilder.Entity("charityPulse.core.Models.Badge", b =>
                 {
-                    b.HasOne("charityPulse.core.Models.Project", "Charity")
-                        .WithMany()
+                    b.HasOne("charityPulse.core.Models.Charity", "Charity")
+                        .WithMany("Badges")
                         .HasForeignKey("CharityId");
 
                     b.HasOne("charityPulse.core.Models.Corporate", "Corporate")
-                        .WithMany()
+                        .WithMany("Badges")
                         .HasForeignKey("CorporateId");
 
                     b.HasOne("charityPulse.core.Models.Donor", "Donor")
@@ -878,13 +946,9 @@ namespace Clean_Architecture.Infrastructure.Migrations
 
             modelBuilder.Entity("charityPulse.core.Models.Review", b =>
                 {
-                    b.HasOne("charityPulse.core.Models.Project", "Charity")
-                        .WithMany()
-                        .HasForeignKey("CharityId");
-
-                    b.HasOne("charityPulse.core.Models.Charity", null)
+                    b.HasOne("charityPulse.core.Models.Charity", "Charity")
                         .WithMany("Reviews")
-                        .HasForeignKey("CharityId1");
+                        .HasForeignKey("CharityId");
 
                     b.HasOne("charityPulse.core.Models.Donor", "Donor")
                         .WithMany("Reviews")
@@ -899,6 +963,8 @@ namespace Clean_Architecture.Infrastructure.Migrations
                 {
                     b.Navigation("Advertisments");
 
+                    b.Navigation("Badges");
+
                     b.Navigation("Donations");
 
                     b.Navigation("Projects");
@@ -909,6 +975,8 @@ namespace Clean_Architecture.Infrastructure.Migrations
             modelBuilder.Entity("charityPulse.core.Models.Corporate", b =>
                 {
                     b.Navigation("Advertisments");
+
+                    b.Navigation("Badges");
 
                     b.Navigation("Donations");
                 });

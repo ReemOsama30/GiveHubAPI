@@ -15,15 +15,13 @@ namespace charityPulse.core.Models
         [ForeignKey("Admin")]
         public int? AdminId { get; set; }
         public Admin? Admin { get; set; }
-
-
         [ForeignKey("Donor")]
         public int? DonorId { get; set; }
         public Donor? Donor { get; set; }
 
         [ForeignKey("Charity")]
         public int? CharityId { get; set; }
-        public Project? Charity { get; set; }
+        public Charity? Charity { get; set; }
 
         [ForeignKey("Corporate")]
         public int? CorporateId { get; set; }
