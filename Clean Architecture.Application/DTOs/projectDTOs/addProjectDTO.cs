@@ -9,13 +9,13 @@ namespace Clean_Architecture.Application.DTOs.projectDTOs
 {
     public class addProjectDTO
     {
-        public int Id { get; set; }
+       
         public string Title { get; set; }
         public string Description { get; set; }
         public decimal FundingGoal { get; set; }
         public decimal AmountRaised { get; set; }
-        public byte[] Img { get; set; }
+        public string ImgPath { get; set; }
         public ProjectState State { get; set; } = ProjectState.Initiated;
-
+        public int CharityId { get; set; }
     }
 }

@@ -131,5 +131,30 @@ namespace Clean_Architecture.APIs.Controllers
                 };
             }
         }
+
+
+
+        [HttpPost]
+        public ActionResult<GeneralResponse>InsertProject(addProjectDTO addProjectDTO)
+        {
+
+            if (ModelState.IsValid) {
+                projectService.AddProject(addProjectDTO);
+
+                return new GeneralResponse
+            {
+              IsPass=true,
+              Status = 200,
+              Message=addProjectDTO
+            };
+            }
+            return new GeneralResponse
+            {
+                IsPass = false,
+                Status=400,
+                Message="unable to add new project"
+            };
+
+        }
     }
 }
