@@ -61,8 +61,14 @@ namespace Clean_Architecture.Application.services
         public List<showprojectDTO>getProjectByCharityID(int charityID)
         {
             var projects= unitOfWork.projects.GetAll().Where(p => p.CharityId == charityID);
-            return mapper.Map<List<showprojectDTO>>(projects).ToList();
-
+            if (projects.Count() > 0)
+            {
+                return mapper.Map<List<showprojectDTO>>(projects).ToList();
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }
