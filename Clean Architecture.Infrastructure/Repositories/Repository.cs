@@ -1,5 +1,6 @@
 ﻿using Clean_Architecture.Application.Interfaces;
 using Clean_Architecture.Infrastructure.DbContext;
+using Microsoft.EntityFrameworkCore;
 
 namespace Clean_Architecture.Infrastructure.Repositories
 {
@@ -12,6 +13,10 @@ namespace Clean_Architecture.Infrastructure.Repositories
             this.context = context;
         }
 
+        public async Task<IEnumerable<T>> GetAllAsync()
+        {
+            return await context.Set<T>().Where(e => !((IsoftDeletable)e).IsDeleted).ToListAsync();
+        }
         public ICollection<T> GetAll()
         {
 
@@ -32,6 +37,7 @@ namespace Clean_Architecture.Infrastructure.Repositories
             return entities.FirstOrDefault(predicate);
         }
 
+     
 
         //public T Getbyid(int id,string include=null)
         //{

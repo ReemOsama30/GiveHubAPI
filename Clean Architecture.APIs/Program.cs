@@ -3,6 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using Clean_Architecture.Infrastructure.DbContext;
 
 using Clean_Architecture.Application.Mapper;
+using Clean_Architecture.Infrastructure.Repositories;
+using Clean_Architecture.core.Interfaces;
+using Clean_Architecture.Application.Interfaces;
+using charityPulse.core.Models;
 
 namespace Clean_Architecture.APIs
 {
@@ -24,6 +28,9 @@ namespace Clean_Architecture.APIs
             builder.Services.AddDbContext<ApplicationDbContext>(Options => {
                 Options.UseSqlServer(builder.Configuration.GetConnectionString("cs"));
             });
+
+            builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();  
+            builder.Services.AddScoped<IRepository<Project>,Repository<Project>>();
 
             var app = builder.Build();
 

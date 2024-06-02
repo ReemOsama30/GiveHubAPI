@@ -20,7 +20,7 @@ namespace charityPulse.core.Models
         public byte[] Img { get; set; }
         public ProjectState State { get; set; } = ProjectState.Initiated;
 
-        public bool IsDeleted { get; set; }
+        public bool IsDeleted { get; set; } = false;
 
         [ForeignKey("Report")]
         public int? ReportId { get; set; }
