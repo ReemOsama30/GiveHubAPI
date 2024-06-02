@@ -7,6 +7,7 @@ using Clean_Architecture.Infrastructure.Repositories;
 using Clean_Architecture.core.Interfaces;
 using Clean_Architecture.Application.Interfaces;
 using charityPulse.core.Models;
+using Clean_Architecture.Application.services;
 
 namespace Clean_Architecture.APIs
 {
@@ -31,7 +32,7 @@ namespace Clean_Architecture.APIs
 
             builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();  
             builder.Services.AddScoped<IRepository<Project>,Repository<Project>>();
-
+            builder.Services.AddScoped<projectService>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
