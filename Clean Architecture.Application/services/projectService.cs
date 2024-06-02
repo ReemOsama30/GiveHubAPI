@@ -54,6 +54,7 @@ namespace Clean_Architecture.Application.services
         public void updateProject(updateProjectDTO newproject)
         {
             Project project=mapper.Map<Project>(newproject);
+            project.Img = File.ReadAllBytes(newproject.Imgpath);
             unitOfWork.projects.update(project);
             unitOfWork.save();  
         }
