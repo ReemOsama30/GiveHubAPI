@@ -35,7 +35,7 @@ namespace Clean_Architecture.Infrastructure.DbContext
 
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<ApplicationUser>().HasData(
+         modelBuilder.Entity<ApplicationUser>().HasData(
          new List<ApplicationUser>
          {
                 new ApplicationUser
