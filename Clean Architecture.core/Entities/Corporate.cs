@@ -23,5 +23,6 @@ namespace charityPulse.core.Models
 
         public ICollection<Donation>? Donations { get; set; }
         public ICollection<Advertisment>? Advertisments { get; set; }
+        public ICollection<Badge>? Badges { get; set; }
     }
 }

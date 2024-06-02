@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Clean_Architecture.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class db : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -73,8 +75,7 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     Duration = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     CharityId = table.Column<int>(type: "int", nullable: true),
-                    CorporateId = table.Column<int>(type: "int", nullable: true),
-                    CharityId1 = table.Column<int>(type: "int", nullable: true)
+                    CorporateId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -271,6 +272,11 @@ namespace Clean_Architecture.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_Badges", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Badges_charities_CharityId",
+                        column: x => x.CharityId,
+                        principalTable: "charities",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_Badges_corporations_CorporateId",
                         column: x => x.CorporateId,
                         principalTable: "corporations",
@@ -278,6 +284,34 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     table.ForeignKey(
                         name: "FK_Badges_donors_DonorId",
                         column: x => x.DonorId,
+                        principalTable: "donors",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "reviews",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Rating = table.Column<int>(type: "int", nullable: false),
+                    DatePosted = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DonorID = table.Column<int>(type: "int", nullable: true),
+                    CharityId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_reviews", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_reviews_charities_CharityId",
+                        column: x => x.CharityId,
+                        principalTable: "charities",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_reviews_donors_DonorID",
+                        column: x => x.DonorID,
                         principalTable: "donors",
                         principalColumn: "Id");
                 });
@@ -375,38 +409,16 @@ namespace Clean_Architecture.Infrastructure.Migrations
                         principalColumn: "Id");
                 });
 
-            migrationBuilder.CreateTable(
-                name: "reviews",
-                columns: table => new
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "AdminId", "CharityId", "ConcurrencyStamp", "CorporateId", "DonorId", "Email", "EmailConfirmed", "IsDeleted", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[,]
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Rating = table.Column<int>(type: "int", nullable: false),
-                    DatePosted = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DonorID = table.Column<int>(type: "int", nullable: true),
-                    CharityId = table.Column<int>(type: "int", nullable: true),
-                    CharityId1 = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_reviews", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_reviews_charities_CharityId1",
-                        column: x => x.CharityId1,
-                        principalTable: "charities",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_reviews_donors_DonorID",
-                        column: x => x.DonorID,
-                        principalTable: "donors",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_reviews_projects_CharityId",
-                        column: x => x.CharityId,
-                        principalTable: "projects",
-                        principalColumn: "Id");
+                    { "439213c3-e1c8-4fc5-a601-9d441a657dbd", 0, null, null, "d2e47942-3a68-4a99-b752-789a8d7a7a81", null, null, "user5@example.com", false, false, false, null, null, null, "William", "+1-555-7890", false, "d92c5224-c71f-4c56-ad61-1d8b9a529f02", false, "user5@example.com" },
+                    { "7395d769-fbb4-476e-ad52-1fd8c197ea76", 0, null, null, "d3e18527-ac57-4643-a92f-00d3cbd83837", null, null, "user3@example.com", false, false, false, null, null, null, "Smith", "+1-555-9012", false, "87c9d6d6-c95f-4274-b164-7e7677c4c9d3", false, "user3@example.com" },
+                    { "8b3582ec-0f20-46a0-8d98-39b6d489b18b", 0, null, null, "dd91ed34-4a5d-4793-913f-40c6184f9335", null, null, "user4@example.com", false, false, false, null, null, null, "Johnson", "+1-555-3456", false, "f9af17da-c001-4572-a1d9-a311f74a001b", false, "user4@example.com" },
+                    { "b1190c3b-c773-401c-9df6-74a267330255", 0, null, null, "ce1a0496-1b29-4444-ace1-c31e4d656a5e", null, null, "user2@example.com", false, false, false, null, null, null, "Doe", "+1-555-5678", false, "b1c60598-2a02-49b5-8daf-e3c47ec76857", false, "user2@example.com" },
+                    { "e43201d5-204e-4b66-80e8-f6cd8999083f", 0, null, null, "7f9be0be-f6e9-44cb-882b-ccd69a76c1dc", null, null, "user1@example.com", false, false, false, null, null, null, "Doe", "+1-555-1234", false, "0a8d5d0f-fc2b-4bc2-b66e-ebf2d53ba53c", false, "user1@example.com" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -418,11 +430,6 @@ namespace Clean_Architecture.Infrastructure.Migrations
                 name: "IX_Advertisments_CharityId",
                 table: "Advertisments",
                 column: "CharityId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Advertisments_CharityId1",
-                table: "Advertisments",
-                column: "CharityId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Advertisments_CorporateId",
@@ -564,11 +571,6 @@ namespace Clean_Architecture.Infrastructure.Migrations
                 column: "CharityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_reviews_CharityId1",
-                table: "reviews",
-                column: "CharityId1");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_reviews_DonorID",
                 table: "reviews",
                 column: "DonorID");
@@ -582,9 +584,9 @@ namespace Clean_Architecture.Infrastructure.Migrations
                 onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Advertisments_charities_CharityId1",
+                name: "FK_Advertisments_charities_CharityId",
                 table: "Advertisments",
-                column: "CharityId1",
+                column: "CharityId",
                 principalTable: "charities",
                 principalColumn: "Id");
 
@@ -593,13 +595,6 @@ namespace Clean_Architecture.Infrastructure.Migrations
                 table: "Advertisments",
                 column: "CorporateId",
                 principalTable: "corporations",
-                principalColumn: "Id");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Advertisments_projects_CharityId",
-                table: "Advertisments",
-                column: "CharityId",
-                principalTable: "projects",
                 principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
@@ -627,6 +622,13 @@ namespace Clean_Architecture.Infrastructure.Migrations
                 onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
+                name: "FK_AspNetUsers_charities_CharityId",
+                table: "AspNetUsers",
+                column: "CharityId",
+                principalTable: "charities",
+                principalColumn: "Id");
+
+            migrationBuilder.AddForeignKey(
                 name: "FK_AspNetUsers_corporations_CorporateId",
                 table: "AspNetUsers",
                 column: "CorporateId",
@@ -638,20 +640,6 @@ namespace Clean_Architecture.Infrastructure.Migrations
                 table: "AspNetUsers",
                 column: "DonorId",
                 principalTable: "donors",
-                principalColumn: "Id");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_AspNetUsers_projects_CharityId",
-                table: "AspNetUsers",
-                column: "CharityId",
-                principalTable: "projects",
-                principalColumn: "Id");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Badges_projects_CharityId",
-                table: "Badges",
-                column: "CharityId",
-                principalTable: "projects",
                 principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
@@ -691,6 +679,10 @@ namespace Clean_Architecture.Infrastructure.Migrations
 
             migrationBuilder.DropForeignKey(
                 name: "FK_projects_charities_CharityId",
+                table: "projects");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_projects_donors_DonorId",
                 table: "projects");
 
             migrationBuilder.DropForeignKey(
@@ -740,13 +732,13 @@ namespace Clean_Architecture.Infrastructure.Migrations
                 name: "charities");
 
             migrationBuilder.DropTable(
+                name: "donors");
+
+            migrationBuilder.DropTable(
                 name: "projects");
 
             migrationBuilder.DropTable(
                 name: "donationsReport");
-
-            migrationBuilder.DropTable(
-                name: "donors");
         }
     }
 }

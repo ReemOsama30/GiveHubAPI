@@ -22,7 +22,7 @@ namespace charityPulse.core.Models
         public bool IsDeleted { get; set; }
         [ForeignKey("Charity")]
         public int? CharityId { get; set; }
-        public Project? Charity { get; set; }
+        public Charity? Charity { get; set; }
 
         [ForeignKey("Corporate")]
         public int? CorporateId { get; set; }

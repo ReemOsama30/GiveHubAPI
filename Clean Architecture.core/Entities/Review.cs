@@ -24,7 +24,7 @@ namespace charityPulse.core.Models
 
         [ForeignKey("Charity")]
         public int? CharityId { get; set; } // Id of the project being reviewed
-        public Project Charity { get; set; }       
+        public Charity Charity { get; set; }       
         
         // Add other relevant properties like reviewer name, project name, etc.
     }

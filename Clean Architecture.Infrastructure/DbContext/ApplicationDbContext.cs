@@ -30,7 +30,63 @@ namespace Clean_Architecture.Infrastructure.DbContext
         {
             base.OnConfiguring(optionsBuilder);
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
 
-      
+            base.OnModelCreating(modelBuilder);
+
+         modelBuilder.Entity<ApplicationUser>().HasData(
+         new List<ApplicationUser>
+         {
+                new ApplicationUser
+                {
+                    UserName = "user1@example.com",
+                    Email = "user1@example.com",
+                    PasswordHash = "Doe",
+                    PhoneNumber = "+1-555-1234",
+                    
+                    // Add other properties you want to set
+                },
+                new ApplicationUser
+                {
+                    UserName = "user2@example.com",
+                    Email = "user2@example.com",
+                    PasswordHash = "Doe",
+                    PhoneNumber = "+1-555-5678",
+                    
+                    // Add other properties you want to set
+                },
+                new ApplicationUser
+                {
+                    UserName = "user3@example.com",
+                    Email = "user3@example.com",
+                    PasswordHash = "Smith",
+                    PhoneNumber = "+1-555-9012",
+                   
+                },
+                new ApplicationUser
+                {
+                    UserName = "user4@example.com",
+                    Email = "user4@example.com",
+                   
+                    PasswordHash = "Johnson",
+                    PhoneNumber = "+1-555-3456",
+                      
+                    // Add other properties you want to set
+                },
+                new ApplicationUser
+                {
+                    UserName = "user5@example.com",
+                    Email = "user5@example.com",
+                    PasswordHash = "William",
+                    
+                    PhoneNumber = "+1-555-7890",
+                     
+                    // Add other properties you want to set
+                }
+         });
+        }
+
+
     }
 }
