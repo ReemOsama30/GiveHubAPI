@@ -5,7 +5,7 @@ namespace Clean_Architecture.Infrastructure.Repositories
 {
     public class Repository<T> : IRepository<T> where T : class, IsoftDeletable
     {
-        private readonly ApplicationDbContext context;
+        protected ApplicationDbContext context;
 
         public Repository(ApplicationDbContext context)
         {
@@ -60,9 +60,6 @@ namespace Clean_Architecture.Infrastructure.Repositories
 
         }
 
-        public int save()
-        {
-            return context.SaveChanges();
-        }
+
     }
 }
