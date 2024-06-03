@@ -1,25 +1,50 @@
-﻿using AutoMapper;
+using AutoMapper;
 using charityPulse.core.Models;
-using Clean_Architecture.Application.DTOs;
+using Clean_Architecture.Application.DTOs.DonationReportDTOs;
 using Clean_Architecture.Application.DTOs.projectDTOs;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Clean_Architecture.Application.DTOs.ReviewsDTOs;
+
 
 namespace Clean_Architecture.Application.Mapper
 {
-    public class MappingProfile:Profile
+    public class MappingProfile : Profile
     {
 
-        public MappingProfile() {
+        public MappingProfile()
+        {
+
 
             CreateMap<addProjectDTO, Project>();
             CreateMap<Project, showprojectDTO>();
             CreateMap<updateProjectDTO, Project>();
+
             CreateMap<AdvertismentDTO, Advertisment>();
             CreateMap<Advertisment, AdvertismentDTO>();
+
+
+            CreateMap<donationReportDTOWithProject, DonationReport>();
+            CreateMap<DonationReport, donationReportDTOWithProject>();
+            CreateMap<updateDonationReportDTO, DonationReport>();
+            CreateMap<DonationReport, updateDonationReportDTO>();
+            CreateMap<addDonationReportDTO, DonationReport>();
+            CreateMap<DonationReport, addDonationReportDTO>();
+
+
+            CreateMap<Review, ReviewDTOWithDoner>();
+            CreateMap<ReviewDTOWithDoner, Review>();
+            CreateMap<Review, ReviewDTO>();
+            CreateMap<ReviewDTO, Review>();
+
+            //CreateMap<Review, ReviewDTO>()
+            //   .ForMember(dest => dest.ApplicationUserId, opt => opt.MapFrom(src => src.Donor.ApplicationUserId)); 
+
+
+
+
+
+
         }
-     
-         
+
+
     }
 }
