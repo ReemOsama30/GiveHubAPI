@@ -10,31 +10,32 @@ namespace Clean_Architecture.Infrastructure.Repositories
     {
         private readonly ApplicationDbContext context;
 
-        public IDonationReportRepository DonationReportRepository { get; }
+      
 
-        public IRepository<Corporate>corporations { get; }
+        public IRepository<Corporate> corporations { get; }
         public IRepository<Project> projects { get; }
         public IRepository<Charity> charities { get; }
         public IRepository<Advertisment> advertisments { get; }
 
-        public IReviewRepository reviewRepository { get; }
+        public IRepository<Advertisment> advertisments { get; }
 
-        public UnitOfWork(ApplicationDbContext context)
+        private readonly IReviewRepository reviewRepository;
+        // public IReviewRepository ReviewRepository { get; }
+        public UnitOfWork(ApplicationDbContext context, IReviewRepository reviewRepository, IDonationReportRepository donationReportRepository)
         {
             this.context = context;
             projects = new Repository<Project>(context);
-            charities = new Repository<Charity>(context);
-            corporations = new Repository<Corporate>(context);
-            projects = new Repository<Project>(context);
             advertisments = new Repository<Advertisment>(context);
-            this.reviewRepository =new ReviewRepository(context);
-            this.DonationReportRepository = new DonationReportRepository(context);
+            this.reviewRepository = reviewRepository;
+            this.donationReportRepository = donationReportRepository;
+            corporations = new Repository<Corporate>(context);
+            charities = new Repository<Charity>(context);
+            //ReviewRepository = new ReviewRepository(context);
+
         }
-
-
-
-
-       
+         
+          public IDonationReportRepository DonationReportRepository => donationReportRepository;
+          public IReviewRepository ReviewRepository => reviewRepository;
 
 
         public int save()
