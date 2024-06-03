@@ -50,7 +50,11 @@ https://github.com/ReemOsama30/charityPulse/pull/17/conflict?name=Clean%2BArchit
 
             builder.Services.AddScoped<projectService>();
 
+            builder.Services.AddScoped<corporateService>();
+            builder.Services.AddScoped<IRepository<Corporate>,Repository<Corporate>>();
+
             builder.Services.AddScoped<AdvertismentService>();
+
 
 
             // ------------------------------------------------------------

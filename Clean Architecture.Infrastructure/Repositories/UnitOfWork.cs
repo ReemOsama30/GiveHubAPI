@@ -12,6 +12,7 @@ namespace Clean_Architecture.Infrastructure.Repositories
 
         private readonly IDonationReportRepository donationReportRepository;
 
+        public IRepository<Corporate>corporations { get; }
         public IRepository<Project> projects { get; }
         public IRepository<Charity> charities { get; }
 
@@ -33,6 +34,7 @@ namespace Clean_Architecture.Infrastructure.Repositories
            advertisments=new Repository<Advertisment>(context);
            this.reviewRepository = reviewRepository;
             this.donationReportRepository = donationReportRepository;
+            corporations = new Repository<Corporate>(context);
             //ReviewRepository = new ReviewRepository(context);
 
 
