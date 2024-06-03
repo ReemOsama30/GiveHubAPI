@@ -9,5 +9,7 @@
         public void update(T item);
         public void delete(T item);
 
+        public Task<IEnumerable<T>> GetAllAsync();
+
     }
 }

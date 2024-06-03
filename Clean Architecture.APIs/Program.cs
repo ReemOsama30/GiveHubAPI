@@ -5,6 +5,10 @@ using Clean_Architecture.Infrastructure.DbContext;
 using Clean_Architecture.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Clean_Architecture.Application.Interfaces;
+using charityPulse.core.Models;
+
+
 
 namespace Clean_Architecture.APIs
 {
@@ -31,30 +35,23 @@ namespace Clean_Architecture.APIs
 
 
 
-
-
-
-
-
-
-
-            builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
-            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddScoped<IReviewRepository, ReviewRepository>();         
             builder.Services.AddScoped<ReviewService>();
-
-
+            builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();  
+            builder.Services.AddScoped<IRepository<Project>,Repository<Project>>();
+            builder.Services.AddScoped<projectService>();
 
             // ------------------------------------------------------------
             builder.Services.AddSwaggerGen(swagger =>
             {
-                //This is to generate the Default UI of Swagger Documentation    
+                //Thisï¿½isï¿½toï¿½generateï¿½theï¿½Defaultï¿½UIï¿½ofï¿½Swaggerï¿½Documentationï¿½ï¿½ï¿½ï¿½
                 swagger.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
                     Title = "Charity Pulse",
                     Description = " ITI Projrcy"
                 });
-                // To Enable authorization using Swagger (JWT)    
+                //ï¿½Toï¿½Enableï¿½authorizationï¿½usingï¿½Swaggerï¿½(JWT)ï¿½ï¿½ï¿½ï¿½
                 swagger.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
                 {
                     Name = "Authorization",
@@ -62,7 +59,7 @@ namespace Clean_Architecture.APIs
                     Scheme = "Bearer",
                     BearerFormat = "JWT",
                     In = ParameterLocation.Header,
-                    Description = "Enter 'Bearer' [space] and then your valid token in the text input below.\r\n\r\nExample: \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\"",
+                    Description = "Enterï¿½'Bearer'ï¿½[space]ï¿½andï¿½thenï¿½yourï¿½validï¿½tokenï¿½inï¿½theï¿½textï¿½inputï¿½below.\r\n\r\nExample:ï¿½\"Bearerï¿½eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\"",
                 });
                 swagger.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
@@ -93,6 +90,7 @@ namespace Clean_Architecture.APIs
             });
 
 
+           
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
