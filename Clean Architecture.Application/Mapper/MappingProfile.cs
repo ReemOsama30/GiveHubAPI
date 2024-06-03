@@ -1,10 +1,7 @@
 using AutoMapper;
 using charityPulse.core.Models;
-using Clean_Architecture.Application.DTOs;
+using Clean_Architecture.Application.DTOs.DonationReportDTOs;
 using Clean_Architecture.Application.DTOs.projectDTOs;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace Clean_Architecture.Application.Mapper
@@ -20,6 +17,13 @@ namespace Clean_Architecture.Application.Mapper
             CreateMap<Project, showprojectDTO>();
             CreateMap<updateProjectDTO, Project>();
 
+            CreateMap<donationReportDTOWithProject, DonationReport>();
+            CreateMap<DonationReport, donationReportDTOWithProject>();
+            CreateMap<updateDonationReportDTO, DonationReport>();
+            CreateMap<DonationReport, updateDonationReportDTO>();
+            CreateMap<addDonationReportDTO, DonationReport>();
+            CreateMap<DonationReport, addDonationReportDTO>();
+
 
             CreateMap<Review, ReviewDTOWithDoner>();
             CreateMap<ReviewDTOWithDoner, Review>();
@@ -31,6 +35,7 @@ namespace Clean_Architecture.Application.Mapper
 
 
             
+
 
         }
 

@@ -1,3 +1,6 @@
+
+using charityPulse.core.Models;
+using Clean_Architecture.Application.Interfaces;
 using Clean_Architecture.Application.Mapper;
 using Clean_Architecture.Application.services;
 using Clean_Architecture.core.Interfaces;
@@ -5,8 +8,9 @@ using Clean_Architecture.Infrastructure.DbContext;
 using Clean_Architecture.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using Clean_Architecture.Application.Interfaces;
-using charityPulse.core.Models;
+
+
+
 
 
 
@@ -33,8 +37,8 @@ namespace Clean_Architecture.APIs
             });
 
 
-
-
+            builder.Services.AddScoped<DonationReportService>();
+            builder.Services.AddScoped<IDonationReportRepository, DonationReportRepository>();
             builder.Services.AddScoped<IReviewRepository, ReviewRepository>();         
             builder.Services.AddScoped<ReviewService>();
             builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();  
@@ -90,7 +94,7 @@ namespace Clean_Architecture.APIs
             });
 
 
-           
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
