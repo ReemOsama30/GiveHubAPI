@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using charityPulse.core.Models;
 using Clean_Architecture.Application.DTOs;
 
 using System.Linq;
@@ -11,7 +12,9 @@ namespace Clean_Architecture.Application.Mapper
     {
 
         public MappingProfile() {
+           
 
+                
         
         }
      
