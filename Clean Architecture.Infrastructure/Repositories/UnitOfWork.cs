@@ -10,40 +10,31 @@ namespace Clean_Architecture.Infrastructure.Repositories
     {
         private readonly ApplicationDbContext context;
 
-        private readonly IDonationReportRepository donationReportRepository;
+        public IDonationReportRepository DonationReportRepository { get; }
 
         public IRepository<Corporate>corporations { get; }
         public IRepository<Project> projects { get; }
         public IRepository<Charity> charities { get; }
+        public IRepository<Advertisment> advertisments { get; }
 
+        public IReviewRepository reviewRepository { get; }
 
         public UnitOfWork(ApplicationDbContext context)
         {
             this.context = context;
             projects = new Repository<Project>(context);
             charities = new Repository<Charity>(context);
-
-        public IRepository<Advertisment> advertisments { get; }
-
-        private readonly IReviewRepository reviewRepository;
-        // public IReviewRepository ReviewRepository { get; }
-        public UnitOfWork(ApplicationDbContext context, IReviewRepository reviewRepository, IDonationReportRepository donationReportRepository)
-        {
-            this.context = context;
-            projects = new Repository<Project>(context);
-           advertisments=new Repository<Advertisment>(context);
-           this.reviewRepository = reviewRepository;
-            this.donationReportRepository = donationReportRepository;
             corporations = new Repository<Corporate>(context);
-            //ReviewRepository = new ReviewRepository(context);
-
-
+            projects = new Repository<Project>(context);
+            advertisments = new Repository<Advertisment>(context);
+            this.reviewRepository =new ReviewRepository(context);
+            this.DonationReportRepository = new DonationReportRepository(context);
         }
 
 
-        public IReviewRepository ReviewRepository => reviewRepository;
-        public IDonationReportRepository DonationReportRepository => donationReportRepository;
 
+
+       
 
 
         public int save()

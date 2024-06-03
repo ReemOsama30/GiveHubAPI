@@ -5,10 +5,8 @@ using Clean_Architecture.Application.DTOs.corporateDTOs;
 
 using Clean_Architecture.Application.DTOs.charityDTOs;
 using Clean_Architecture.Application.DTOs.projectDTOs;
-
-uhttps://github.com/ReemOsama30/charityPulse/pull/18/conflict?name=Clean%2BArchitecture.Application%252FMapper%252FMappingProfile.cs&ancestor_oid=8cce098b1257e6fd11a09b18b9942635f777b731&base_oid=29830550411c24849930b3c62fca8f3ba2c4723e&head_oid=5d37a4df73fe3f00756986ad7470425af83b32ccsing Clean_Architecture.Application.DTOs.DonationReportDTOs;
-using Clean_Architecture.Application.DTOs.projectDTOs;
 using Clean_Architecture.Application.DTOs.ReviewsDTOs;
+using Clean_Architecture.Application.DTOs.DonationReportDTOs;
 
 
 namespace Clean_Architecture.Application.Mapper
@@ -49,6 +47,7 @@ namespace Clean_Architecture.Application.Mapper
 
             CreateMap<Corporate, showCorporateDTO>();
             CreateMap<updateCorporateDTO,Corporate>();
+            CreateMap<showCorporateDTO, Corporate>();
 
 
         }
