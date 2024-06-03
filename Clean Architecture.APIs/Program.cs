@@ -32,7 +32,11 @@ namespace Clean_Architecture.APIs
 
             builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();  
             builder.Services.AddScoped<IRepository<Project>,Repository<Project>>();
+            builder.Services.AddScoped<IRepository<Advertisment>, Repository<Advertisment>>();
+
             builder.Services.AddScoped<projectService>();
+            builder.Services.AddScoped<AdvertismentService>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

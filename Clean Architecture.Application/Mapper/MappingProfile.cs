@@ -16,6 +16,8 @@ namespace Clean_Architecture.Application.Mapper
             CreateMap<addProjectDTO, Project>();
             CreateMap<Project, showprojectDTO>();
             CreateMap<updateProjectDTO, Project>();
+            CreateMap<AdvertismentDTO, Advertisment>();
+            CreateMap<Advertisment, AdvertismentDTO>();
         }
      
          

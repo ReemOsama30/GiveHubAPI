@@ -15,10 +15,13 @@ namespace Clean_Architecture.Infrastructure.Repositories
     {
         private readonly ApplicationDbContext context;
         public IRepository<Project> projects { get; }
+        public IRepository<Advertisment> advertisments { get; }
+
         public UnitOfWork(ApplicationDbContext context)
         {
             this.context = context;
             projects=new Repository<Project>(context);
+            advertisments=new Repository<Advertisment>(context);
            
         }
 
