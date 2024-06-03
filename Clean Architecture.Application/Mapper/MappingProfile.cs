@@ -1,5 +1,6 @@
 using AutoMapper;
 using charityPulse.core.Models;
+using Clean_Architecture.Application.DTOs.corporateDTOs;
 using Clean_Architecture.Application.DTOs.DonationReportDTOs;
 using Clean_Architecture.Application.DTOs.projectDTOs;
 using Clean_Architecture.Application.DTOs.ReviewsDTOs;
@@ -34,7 +35,8 @@ namespace Clean_Architecture.Application.Mapper
             //CreateMap<Review, ReviewDTO>()
             //   .ForMember(dest => dest.ApplicationUserId, opt => opt.MapFrom(src => src.Donor.ApplicationUserId)); 
 
-
+            CreateMap<Corporate, showCorporateDTO>();
+            CreateMap<updateCorporateDTO,Corporate>();
 
 
 

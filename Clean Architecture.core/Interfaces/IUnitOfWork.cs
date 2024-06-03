@@ -12,6 +12,7 @@ namespace Clean_Architecture.core.Interfaces
         public IRepository<Project> projects { get; }
         public IDonationReportRepository DonationReportRepository { get; }
 
+        public IRepository<Corporate> corporations { get; }
 
 
 

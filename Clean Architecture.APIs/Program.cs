@@ -45,6 +45,8 @@ namespace Clean_Architecture.APIs
             builder.Services.AddScoped<IRepository<Project>,Repository<Project>>();
             builder.Services.AddScoped<projectService>();
 
+            builder.Services.AddScoped<corporateService>();
+            builder.Services.AddScoped<IRepository<Corporate>,Repository<Corporate>>();
             // ------------------------------------------------------------
             builder.Services.AddSwaggerGen(swagger =>
             {
