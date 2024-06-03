@@ -12,7 +12,7 @@ namespace Clean_Architecture.Infrastructure.Repositories
 
         private readonly IDonationReportRepository donationReportRepository;
 
-        public IRepository<Corporate>corporations { get; }
+        public IRepository<Corporate> corporations { get; }
         public IRepository<Project> projects { get; }
         public IRepository<Charity> charities { get; }
 
