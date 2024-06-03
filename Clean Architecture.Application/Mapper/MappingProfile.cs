@@ -1,7 +1,11 @@
-﻿using AutoMapper;
+using AutoMapper;
 using charityPulse.core.Models;
 using Clean_Architecture.Application.DTOs.charityDTOs;
 using Clean_Architecture.Application.DTOs.projectDTOs;
+using Clean_Architecture.Application.DTOs.DonationReportDTOs;
+using Clean_Architecture.Application.DTOs.projectDTOs;
+using Clean_Architecture.Application.DTOs.ReviewsDTOs;
+
 
 namespace Clean_Architecture.Application.Mapper
 {
@@ -10,7 +14,6 @@ namespace Clean_Architecture.Application.Mapper
 
         public MappingProfile()
         {
-
             CreateMap<addProjectDTO, Project>();
             CreateMap<Project, showprojectDTO>();
             CreateMap<updateProjectDTO, Project>();
@@ -20,6 +23,29 @@ namespace Clean_Architecture.Application.Mapper
             CreateMap<Charity, showCharityDTO>();
             CreateMap<showCharityDTO, Charity>();
             CreateMap<updateCharityDTO, Charity>();
+            CreateMap<AdvertismentDTO, Advertisment>();
+            CreateMap<Advertisment, AdvertismentDTO>();
+
+
+            CreateMap<donationReportDTOWithProject, DonationReport>();
+            CreateMap<DonationReport, donationReportDTOWithProject>();
+            CreateMap<updateDonationReportDTO, DonationReport>();
+            CreateMap<DonationReport, updateDonationReportDTO>();
+            CreateMap<addDonationReportDTO, DonationReport>();
+            CreateMap<DonationReport, addDonationReportDTO>();
+
+
+            CreateMap<Review, ReviewDTOWithDoner>();
+            CreateMap<ReviewDTOWithDoner, Review>();
+            CreateMap<Review, ReviewDTO>();
+            CreateMap<ReviewDTO, Review>();
+
+            //CreateMap<Review, ReviewDTO>()
+            //   .ForMember(dest => dest.ApplicationUserId, opt => opt.MapFrom(src => src.Donor.ApplicationUserId)); 
+
+
+
+
         }
 
 

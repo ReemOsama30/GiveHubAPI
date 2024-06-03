@@ -8,6 +8,8 @@
         public void insert(T item);
         public void update(T item);
         public void delete(T item);
-     public Task<IEnumerable<T>> GetAllAsync();
+
+        public Task<IEnumerable<T>> GetAllAsync();
+
     }
 }
