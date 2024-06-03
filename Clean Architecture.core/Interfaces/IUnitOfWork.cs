@@ -16,12 +16,8 @@ namespace Clean_Architecture.core.Interfaces
 
         public IRepository<Charity> charities { get; }
 
-
-        public IRepository<Project>projects { get; }
         public IRepository<Advertisment> advertisments { get; }
 
-
-        public IDonationReportRepository DonationReportRepository { get; }
         IReviewRepository ReviewRepository { get; }
 
 
