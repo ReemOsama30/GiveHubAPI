@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using charityPulse.core.Models;
-using Clean_Architecture.Application.DTOs;
+using Clean_Architecture.Application.DTOs.ReviewsDTOs;
 using Clean_Architecture.core.Interfaces;
 
 namespace Clean_Architecture.Application.services

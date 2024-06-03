@@ -2,6 +2,7 @@ using AutoMapper;
 using charityPulse.core.Models;
 using Clean_Architecture.Application.DTOs.DonationReportDTOs;
 using Clean_Architecture.Application.DTOs.projectDTOs;
+using Clean_Architecture.Application.DTOs.ReviewsDTOs;
 
 
 namespace Clean_Architecture.Application.Mapper
@@ -34,7 +35,7 @@ namespace Clean_Architecture.Application.Mapper
             //   .ForMember(dest => dest.ApplicationUserId, opt => opt.MapFrom(src => src.Donor.ApplicationUserId)); 
 
 
-            
+
 
 
         }
