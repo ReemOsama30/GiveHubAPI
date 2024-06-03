@@ -10,11 +10,12 @@ namespace Clean_Architecture.Infrastructure.Repositories
     {
         private readonly ApplicationDbContext context;
 
-        private readonly IDonationReportRepository donationReportRepository;
+      
 
         public IRepository<Corporate> corporations { get; }
         public IRepository<Project> projects { get; }
         public IRepository<Charity> charities { get; }
+        public IRepository<Advertisment> advertisments { get; }
 
         public IRepository<Advertisment> advertisments { get; }
 
@@ -31,12 +32,11 @@ namespace Clean_Architecture.Infrastructure.Repositories
             charities = new Repository<Charity>(context);
             //ReviewRepository = new ReviewRepository(context);
 
-
         }
+         
+          public IDonationReportRepository DonationReportRepository => donationReportRepository;
+          public IReviewRepository ReviewRepository => reviewRepository;
 
-
-        public IReviewRepository ReviewRepository => reviewRepository;
-        public IDonationReportRepository DonationReportRepository => donationReportRepository;
 
         public int save()
         {

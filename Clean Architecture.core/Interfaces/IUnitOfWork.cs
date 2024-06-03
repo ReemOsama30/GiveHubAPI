@@ -17,8 +17,10 @@ namespace Clean_Architecture.core.Interfaces
         public IRepository<Charity> charities { get; }
 
         public IRepository<Advertisment> advertisments { get; }
+        public IReviewRepository reviewRepository { get; }
 
         IReviewRepository ReviewRepository { get; }
+
 
 
         public int save();
