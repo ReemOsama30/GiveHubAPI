@@ -13,6 +13,14 @@ namespace Clean_Architecture.Infrastructure.Repositories
         private readonly IDonationReportRepository donationReportRepository;
 
         public IRepository<Project> projects { get; }
+        public IRepository<Charity> charities { get; }
+
+
+        public UnitOfWork(ApplicationDbContext context)
+        {
+            this.context = context;
+            projects = new Repository<Project>(context);
+            charities = new Repository<Charity>(context);
 
         public IRepository<Advertisment> advertisments { get; }
 
