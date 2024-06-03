@@ -14,15 +14,19 @@ namespace Clean_Architecture.Infrastructure.Repositories
 
         public IRepository<Project> projects { get; }
 
+        public IRepository<Advertisment> advertisments { get; }
+
         private readonly IReviewRepository reviewRepository;
         // public IReviewRepository ReviewRepository { get; }
         public UnitOfWork(ApplicationDbContext context, IReviewRepository reviewRepository, IDonationReportRepository donationReportRepository)
         {
             this.context = context;
             projects = new Repository<Project>(context);
-            this.reviewRepository = reviewRepository;
+           advertisments=new Repository<Advertisment>(context);
+           this.reviewRepository = reviewRepository;
             this.donationReportRepository = donationReportRepository;
             //ReviewRepository = new ReviewRepository(context);
+
 
         }
 

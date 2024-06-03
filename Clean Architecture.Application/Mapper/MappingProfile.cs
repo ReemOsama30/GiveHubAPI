@@ -18,6 +18,10 @@ namespace Clean_Architecture.Application.Mapper
             CreateMap<Project, showprojectDTO>();
             CreateMap<updateProjectDTO, Project>();
 
+            CreateMap<AdvertismentDTO, Advertisment>();
+            CreateMap<Advertisment, AdvertismentDTO>();
+
+
             CreateMap<donationReportDTOWithProject, DonationReport>();
             CreateMap<DonationReport, donationReportDTOWithProject>();
             CreateMap<updateDonationReportDTO, DonationReport>();
@@ -33,6 +37,7 @@ namespace Clean_Architecture.Application.Mapper
 
             //CreateMap<Review, ReviewDTO>()
             //   .ForMember(dest => dest.ApplicationUserId, opt => opt.MapFrom(src => src.Donor.ApplicationUserId)); 
+
 
 
 
