@@ -8,14 +8,20 @@ namespace Clean_Architecture.core.Interfaces
 {
     public interface IUnitOfWork
     {
-
         public IRepository<Project> projects { get; }
+
         public IDonationReportRepository DonationReportRepository { get; }
 
         public IRepository<Corporate> corporations { get; }
 
+        public IRepository<Charity> charities { get; }
 
 
+        public IRepository<Project>projects { get; }
+        public IRepository<Advertisment> advertisments { get; }
+
+
+        public IDonationReportRepository DonationReportRepository { get; }
         IReviewRepository ReviewRepository { get; }
 
 
