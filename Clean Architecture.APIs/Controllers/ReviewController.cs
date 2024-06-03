@@ -1,4 +1,4 @@
-﻿using Clean_Architecture.Application.DTOs;
+﻿using Clean_Architecture.Application.DTOs.ReviewsDTOs;
 using Clean_Architecture.Application.responses;
 using Clean_Architecture.Application.services;
 using Microsoft.AspNetCore.Mvc;

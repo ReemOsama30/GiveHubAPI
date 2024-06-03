@@ -1,4 +1,4 @@
-﻿namespace Clean_Architecture.Application.DTOs
+﻿namespace Clean_Architecture.Application.DTOs.ReviewsDTOs
 {
     public class ReviewDTOWithDoner
     {
