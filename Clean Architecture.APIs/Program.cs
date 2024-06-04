@@ -5,6 +5,7 @@ using Clean_Architecture.Application.services;
 using Clean_Architecture.core.Interfaces;
 using Clean_Architecture.Infrastructure.DbContext;
 using Clean_Architecture.Infrastructure.Repositories;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -18,9 +19,11 @@ namespace Clean_Architecture.APIs
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
             builder.Services.AddControllers();
             // Add services to the container.
-            builder.Services.AddAuthorization();
+         //   builder.Services.AddAuthorization();
+
         https://github.com/ReemOsama30/charityPulse/pull/17/conflict?name=Clean%2BArchitecture.APIs%252FProgram.cs&ancestor_oid=96f42df9f30310bc851aaa38be458841057fd71a&base_oid=3f445db0d6b35668b710190f8789342c89dfc8ea&head_oid=6b37adc6570c3237bde19cc0b3612293e5010d07
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -62,14 +65,29 @@ namespace Clean_Architecture.APIs
                 options.AddPolicy("MyPolicy",
                     builder =>
                     {
-                        builder.WithOrigins("http://localhost:4200")
+                        builder.AllowAnyOrigin()
                                .AllowAnyMethod()
                                .AllowAnyHeader()
                                .AllowCredentials();
                     });
             });
 
+            // Add services to the container.
+           // builder.Services.AddControllers();
 
+            // Add authentication services
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            })
+            .AddCookie()
+            .AddGoogle(options =>
+            {
+                options.ClientId = builder.Configuration["Authentication:Google:ClientId"];
+                options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
+                options.CallbackPath = "/signin-google"; // This should match the redirect URI set in Google Console
+            });
 
             var app = builder.Build();
 
@@ -78,9 +96,13 @@ namespace Clean_Architecture.APIs
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+                app.UseDeveloperExceptionPage();
             }
 
             app.UseHttpsRedirection();
+        
+            app.UseRouting();
+            app.UseAuthentication();
 
             app.UseAuthorization();
             app.MapControllers();
