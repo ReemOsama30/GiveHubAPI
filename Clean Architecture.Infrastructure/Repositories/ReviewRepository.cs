@@ -31,13 +31,16 @@ namespace Clean_Architecture.Infrastructure.Repositories
         public List<Review> GetAllReviewsWithDonorInfo()
         {
             return context.Set<Review>()
+                          .Where(r => !r.IsDeleted)
                           .Include(r => r.Donor)
                           .ToList();
         }
 
+
         public Review GetOneWithDonorInfo(int id)
         {
             return context.Set<Review>()
+                          .Where(r => !r.IsDeleted)
                           .Include(r => r.Donor)
                           .FirstOrDefault(r => r.Id == id);
 

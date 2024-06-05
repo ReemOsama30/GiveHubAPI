@@ -112,8 +112,10 @@ namespace Clean_Architecture.APIs.Controllers
         }
 
         [HttpDelete]
-        public ActionResult<GeneralResponse> RemoveReview(int id)
+
+        public ActionResult<GeneralResponse> DeleteReview(int id)
         {
+
             var review = reviewService.GetReviewById(id);
             if (review == null)
             {
@@ -121,17 +123,17 @@ namespace Clean_Architecture.APIs.Controllers
                 {
                     IsPass = false,
                     Status = 404,
-                    Message = "review not found"
+                    Message = "Review not found"
                 };
             }
             else
             {
-                reviewService.DeleteReview(id);
+                reviewService.deleteReview(id);
                 return new GeneralResponse
                 {
                     IsPass = true,
                     Status = 200,
-                    Message = "delete successfully"
+                    Message = review.Content + " delete successfully"
                 };
             }
         }

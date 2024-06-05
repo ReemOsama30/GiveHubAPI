@@ -57,10 +57,11 @@ namespace Clean_Architecture.Application.services
             unitOfWork.save();
         }
 
-        public void DeleteReview(int id)
+        public void deleteReview(int id)
         {
-            Review review = unitOfWork.reviewRepository.Get(r => r.Id == id);
+            Review review = unitOfWork.reviewRepository.Get(c => c.Id == id);
             unitOfWork.reviewRepository.delete(review);
+            unitOfWork.save();
         }
     }
 

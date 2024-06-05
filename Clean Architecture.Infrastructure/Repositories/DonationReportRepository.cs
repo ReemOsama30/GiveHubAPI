@@ -15,6 +15,7 @@ namespace Clean_Architecture.Infrastructure.Repositories
         public List<DonationReport> GetAllReportsIncludeProject()
         {
             return context.Set<DonationReport>()
+                          .Where(r => !r.IsDeleted)
                           .Include(dr => dr.Project)
                           .ToList();
 
@@ -23,6 +24,7 @@ namespace Clean_Architecture.Infrastructure.Repositories
         public DonationReport GetOneWithProject(int id)
         {
             return context.Set<DonationReport>()
+                          .Where(r => !r.IsDeleted)
                           .Include(dr => dr.Project)
                           .FirstOrDefault(dr => dr.id == id);
         }
