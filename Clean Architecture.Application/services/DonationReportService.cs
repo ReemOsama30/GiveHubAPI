@@ -46,10 +46,10 @@ namespace Clean_Architecture.Application.services
 
         public void DeleteDonationReport(int id)
         {
-            //Project project = unitOfWork.projects.Get(p => p.Id == id);
             DonationReport donationReport = unitOfWork.DonationReportRepository.GetOneWithProject(id);
 
             unitOfWork.DonationReportRepository.delete(donationReport);
+            unitOfWork.save();
         }
 
 
