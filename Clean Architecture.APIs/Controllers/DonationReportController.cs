@@ -114,7 +114,7 @@ namespace Clean_Architecture.APIs.Controllers
             }
             else
             {
-                // donationReportService.DeleteDonationReport(id);
+                donationReportService.DeleteDonationReport(id);
                 return new GeneralResponse
                 {
                     IsPass = true,

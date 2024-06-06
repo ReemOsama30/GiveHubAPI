@@ -14,7 +14,15 @@ namespace Clean_Architecture.core.Interfaces
         public IRepository<Charity> charities { get; }
         public IRepository<Advertisment> advertisments { get; }
         public IReviewRepository reviewRepository { get; }
+
         public IRepository<Badge> badgs { get; }
+
+
+        public IDonorRepository donorRepository { get; }
+
+
+
+
         public int save();
         public void Dispose();
     }
