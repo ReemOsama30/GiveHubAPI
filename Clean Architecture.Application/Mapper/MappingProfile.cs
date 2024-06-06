@@ -7,6 +7,7 @@ using Clean_Architecture.Application.DTOs.charityDTOs;
 using Clean_Architecture.Application.DTOs.projectDTOs;
 using Clean_Architecture.Application.DTOs.ReviewsDTOs;
 using Clean_Architecture.Application.DTOs.DonationReportDTOs;
+using Clean_Architecture.Application.DTOs.BadgeDTOs;
 
 
 namespace Clean_Architecture.Application.Mapper
@@ -50,6 +51,17 @@ namespace Clean_Architecture.Application.Mapper
             CreateMap<showCorporateDTO, Corporate>();
 
 
+            CreateMap<AddBadgeDTO, Badge>();
+            CreateMap<Badge, ShowBadgeDTO>();
+            CreateMap<AddBadgeDTO, Badge>()
+            .ForMember(dest => dest.Icon, opt => opt.MapFrom(src => ConvertIconToBytes(src.Icon)));
+            CreateMap<UpdateBadgeDTO, Badge>()
+             .ForMember(dest => dest.Icon, opt => opt.MapFrom(src => ConvertIconToBytes(src.Icon)));
+
+        }
+        private byte[] ConvertIconToBytes(string iconPath)
+        {
+            return File.Exists(iconPath) ? File.ReadAllBytes(iconPath) : null;
         }
 
 
