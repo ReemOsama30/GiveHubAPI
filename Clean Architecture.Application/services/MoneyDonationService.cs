@@ -60,7 +60,7 @@ namespace Clean_Architecture.Application.services
         {
             var moneyDonation = mapper.Map<MoneyDonation>(addMoneyDonationDTO);
             unitOfWork.moneyDonationRepository.insert(moneyDonation);
-            unitOfWork.save();
+            unitOfWork.Save();
         }
 
         public void UpdateMoneyDonation(int id, updateMoneyDonationDTO updateMoneyDonationDTO)
@@ -69,14 +69,14 @@ namespace Clean_Architecture.Application.services
             MoneyDonation moneyDonation = unitOfWork.moneyDonationRepository.Get(m => m.Id == id);
             mapper.Map(updateMoneyDonationDTO, moneyDonation);
             unitOfWork.moneyDonationRepository.update(moneyDonation);
-            unitOfWork.save();
+            unitOfWork.Save();
         }
 
         public void DeleteMoneyDonation(int id)
         {
             MoneyDonation moneyDonation = unitOfWork.moneyDonationRepository.Get(m => m.Id == id);
             unitOfWork.moneyDonationRepository.delete(moneyDonation);
-            unitOfWork.save();
+            unitOfWork.Save();
         }
     }
 }

@@ -42,6 +42,8 @@ namespace Clean_Architecture.Application.services
             DonationReport donationReport = mapper.Map<DonationReport>(updateDonationReportDTO);
             unitOfWork.DonationReportRepository.update(donationReport);
             unitOfWork.Save();
+                
+           
         }
 
         public void DeleteDonationReport(int id)

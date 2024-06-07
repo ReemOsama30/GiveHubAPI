@@ -77,7 +77,7 @@ namespace Clean_Architecture.Application.services
 
 
                     unitOfWork.projects.update(project);
-                    unitOfWork.save();
+                    unitOfWork.Save();
                 }
             }
 

@@ -4,7 +4,6 @@ using Clean_Architecture.Application.Interfaces;
 using Clean_Architecture.core.Interfaces;
 using Clean_Architecture.Infrastructure.DbContext;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 namespace Clean_Architecture.Infrastructure.Repositories
 {
@@ -25,17 +24,17 @@ namespace Clean_Architecture.Infrastructure.Repositories
         public IMoneyDonationRepository moneyDonationRepository { get; }
 
         public IRepository<Badge> badgs { get; }
-       
+
+
+        public IUserRepository UserRepository { get; }
      
-        public IUserRepository UserRepository { get; }    
-        public IReviewRepository reviewRepository { get; }
         public IDonorRepository donorRepository { get; }
 
-        public UnitOfWork(ApplicationDbContext context ,UserManager<ApplicationUser> userManager)
+        public UnitOfWork(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             this.context = context;
-           
-          
+
+
             projects = new Repository<Project>(context);
             charities = new Repository<Charity>(context);
             corporations = new Repository<Corporate>(context);
@@ -49,12 +48,6 @@ namespace Clean_Architecture.Infrastructure.Repositories
             UserRepository = new UserRepository(userManager);
 
             moneyDonationRepository = new MoneyDonationRepository(context);
-        }
-
-
-
-
-
         }
 
 
@@ -74,4 +67,7 @@ namespace Clean_Architecture.Infrastructure.Repositories
             context.Dispose();
         }
     }
+
+
+
 }
