@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using charityPulse.core.Models;
-using Clean_Architecture.Application.DTOs.projectDTOs;
+using Clean_Architecture.Application.DTOs.advertismentDTO;
 using Clean_Architecture.Application.responses;
 using Clean_Architecture.Application.services;
 using Clean_Architecture.Infrastructure.Repositories;
@@ -64,17 +64,33 @@ namespace Clean_Architecture.APIs.Controllers
             }
 
         }
-        [HttpPut]
-        public ActionResult<GeneralResponse> update(AdvertismentDTO advertismentDTO)
+        [HttpPut("{id}")]
+        public ActionResult<GeneralResponse> update(int id,UpdateAsdvertismentDTO advertismentDTO)
         {
-            advertismentService.updateAdvertisment(advertismentDTO);
-            var advertisment = advertismentService.GetAdvertismentById(advertismentDTO.Id);
-            return new GeneralResponse
+           
+            var advertisment = advertismentService.GetAdvertismentById(id);
+
+            if (advertisment != null)
             {
-                IsPass = true,
-                Status = 200,
-                Message = advertisment
-            };
+                advertismentService.updateAdvertisment(id, advertismentDTO);
+               
+                return new GeneralResponse
+                {
+                    IsPass = true,
+                    Status = 200,
+                    Message = "updated successfully!!!"
+                };
+            }
+            else
+            {
+                return new GeneralResponse
+                {
+                    IsPass = false,
+                    Status = 400,
+                    Message = "invalid advertisment id"
+
+                };
+            }
         }
 
 

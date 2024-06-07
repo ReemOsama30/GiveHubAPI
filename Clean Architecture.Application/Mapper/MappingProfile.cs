@@ -7,7 +7,11 @@ using Clean_Architecture.Application.DTOs.DonorDTOs;
 using Clean_Architecture.Application.DTOs.projectDTOs;
 using Clean_Architecture.Application.DTOs.ReviewsDTOs;
 using Clean_Architecture.Application.DTOs.DonationReportDTOs;
+
+using Clean_Architecture.Application.DTOs.advertismentDTO;
+
 using Clean_Architecture.Application.DTOs.BadgeDTOs;
+
 
 
 
@@ -27,8 +31,13 @@ namespace Clean_Architecture.Application.Mapper
             CreateMap<Charity, showCharityDTO>();
             CreateMap<showCharityDTO, Charity>();
             CreateMap<updateCharityDTO, Charity>();
+
+
             CreateMap<AdvertismentDTO, Advertisment>();
             CreateMap<Advertisment, AdvertismentDTO>();
+            CreateMap<Advertisment, UpdateAsdvertismentDTO>();
+            CreateMap<UpdateAsdvertismentDTO,Advertisment>();
+
 
 
             CreateMap<donationReportDTOWithProject, DonationReport>();
