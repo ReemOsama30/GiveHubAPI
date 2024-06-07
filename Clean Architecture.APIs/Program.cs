@@ -35,9 +35,11 @@ namespace Clean_Architecture.APIs
 
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IRepository<Project>, Repository<Project>>();
+            builder.Services.AddScoped<IRepository<Badge>, Repository<Badge>>();
             builder.Services.AddScoped<IRepository<Charity>, Repository<Charity>>();
             builder.Services.AddScoped<projectService>();
             builder.Services.AddScoped<charityService>();
+            builder.Services.AddScoped<BadgeService>();
 
             builder.Services.AddScoped<DonationReportService>();
             builder.Services.AddScoped<IDonationReportRepository, DonationReportRepository>();

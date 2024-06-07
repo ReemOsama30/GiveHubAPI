@@ -15,7 +15,6 @@ namespace charityPulse.core.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime DateRecived { get; set; }
-
         public byte[] Icon { get; set; }
         public bool IsDeleted { get; set; }
         [ForeignKey("Donor")]

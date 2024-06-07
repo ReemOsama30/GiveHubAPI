@@ -19,7 +19,11 @@ namespace Clean_Architecture.Infrastructure.Repositories
 
         public IReviewRepository reviewRepository { get; }
 
+
+        public IRepository<Badge> badgs { get; }
+
         public IDonorRepository donorRepository { get; }
+
         public UnitOfWork(ApplicationDbContext context)
         {
             this.context = context;
@@ -27,6 +31,7 @@ namespace Clean_Architecture.Infrastructure.Repositories
             charities = new Repository<Charity>(context);
             corporations = new Repository<Corporate>(context);
             projects = new Repository<Project>(context);
+            badgs = new Repository<Badge>(context);
             advertisments = new Repository<Advertisment>(context);
             reviewRepository = new ReviewRepository(context);
             DonationReportRepository = new DonationReportRepository(context);
