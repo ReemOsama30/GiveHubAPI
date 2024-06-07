@@ -20,7 +20,7 @@ namespace Clean_Architecture.core.Interfaces
 
         public IDonorRepository donorRepository { get; }
 
-
+        public IMoneyDonationRepository moneyDonationRepository { get; }
 
 
         public int save();

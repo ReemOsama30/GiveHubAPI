@@ -57,8 +57,8 @@ namespace Clean_Architecture.APIs
             builder.Services.AddScoped<AdvertismentService>();
             builder.Services.AddScoped<DonorService>();
             builder.Services.AddScoped<IDonorRepository, DonorRepository>();
-
-
+            builder.Services.AddScoped<IMoneyDonationRepository, MoneyDonationRepository>();
+            builder.Services.AddScoped<MoneyDonationService>();
 
 
             builder.Services.AddCors(options =>
