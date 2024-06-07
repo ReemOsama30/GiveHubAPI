@@ -39,7 +39,7 @@ namespace Clean_Architecture.Application.services
             donor.ProfileImg = File.ReadAllBytes(addDonorDTO.Img);
             donor.ApplicationUserId = "439213c3-e1c8-4fc5-a601-9d441a657dbd";
             unitOfWork.donorRepository.insert(donor);
-            unitOfWork.save();
+            unitOfWork.Save();
         }
 
         public void UpdateDonor(updateDonorDTO updateDonorDTO)
@@ -49,14 +49,14 @@ namespace Clean_Architecture.Application.services
             donor.ProfileImg = File.ReadAllBytes(updateDonorDTO.img);
             donor.ApplicationUserId = "439213c3-e1c8-4fc5-a601-9d441a657dbd";
             unitOfWork.donorRepository.update(donor);
-            unitOfWork.save();
+            unitOfWork.Save();
 
         }
         public void DeleteDonor(int id)
         {
             Donor donor = unitOfWork.donorRepository.Get(d => d.Id == id);
             unitOfWork.donorRepository.delete(donor);
-            unitOfWork.save();
+            unitOfWork.Save();
         }
 
     }

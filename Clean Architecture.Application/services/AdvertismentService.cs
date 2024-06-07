@@ -55,14 +55,14 @@ namespace Clean_Architecture.Application.services
 
 
             unitOfWork.advertisments.insert(advertisment);
-            unitOfWork.save();
+            unitOfWork.Save();
         }
 
         public void DeleteAdvertisment(int id)
         {
             Advertisment advertisment = unitOfWork.advertisments.Get(p => p.Id == id);
             unitOfWork.advertisments.delete(advertisment);
-            unitOfWork.save();
+            unitOfWork.Save();
         }
 
         public void updateAdvertisment(int id,UpdateAsdvertismentDTO new_Advertisment)
@@ -72,7 +72,7 @@ namespace Clean_Architecture.Application.services
 
                 mapper.Map(new_Advertisment, advertisment);
             unitOfWork.advertisments.update(advertisment);
-            unitOfWork.save();
+            unitOfWork.Save();
         }
 
 

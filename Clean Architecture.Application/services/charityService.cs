@@ -22,7 +22,7 @@ namespace Clean_Architecture.Application.services
             //need to be changed after register is done
             charity.ApplicationUserId = "e43201d5-204e-4b66-80e8-f6cd8999083f";
             unitOfWork.charities.insert(charity);
-            unitOfWork.save();
+            unitOfWork.Save();
 
         }
         public async Task<List<showCharityDTO>> getCharities()
@@ -52,13 +52,13 @@ namespace Clean_Architecture.Application.services
             existingCharity.ProfileImg = File.ReadAllBytes(newCharity.ImgUrl);
             existingCharity.ApplicationUserId = accountId;
             unitOfWork.charities.update(existingCharity);
-            unitOfWork.save();
+            unitOfWork.Save();
         }
         public void deleteCharity(int id)
         {
             Charity charity = unitOfWork.charities.Get(c => c.Id == id);
             unitOfWork.charities.delete(charity);
-            unitOfWork.save();
+            unitOfWork.Save();
         }
     }
 }

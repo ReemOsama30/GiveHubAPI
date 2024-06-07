@@ -26,7 +26,7 @@ namespace Clean_Architecture.Application.services
 
             project.Img = File.ReadAllBytes(projectDTO.ImgPath);
             unitOfWork.projects.insert(project);
-            unitOfWork.save();
+            unitOfWork.Save();
         }
 
         public async Task<List<showprojectDTO>> GetProjects()
@@ -46,12 +46,17 @@ namespace Clean_Architecture.Application.services
         {
             Project project = unitOfWork.projects.Get(p => p.Id == id);
             unitOfWork.projects.delete(project);
-            unitOfWork.save();
+            unitOfWork.Save();
         }
 
         public void updateProject(int id, updateProjectDTO newproject)
         {
             var project = unitOfWork.projects.Get(p => p.Id == id);
+
+
+            project.Img = File.ReadAllBytes(newproject.Imgpath);
+            unitOfWork.projects.update(project);
+            unitOfWork.Save();
 
             if (project != null)
             {
@@ -75,6 +80,7 @@ namespace Clean_Architecture.Application.services
                     unitOfWork.save();
                 }
             }
+
         }
         public List<showprojectDTO> getProjectByCharityID(int charityID)
         {

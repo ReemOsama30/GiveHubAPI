@@ -4,6 +4,7 @@ using Clean_Architecture.Infrastructure.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Clean_Architecture.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240607150126_nina")]
+    partial class nina
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -312,12 +315,10 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-
                             Id = "cc412f8f-c6c2-4d4b-9295-770e9f3fdb6b",
                             AccessFailedCount = 0,
                             AccountType = "Donor",
                             ConcurrencyStamp = "28e50d36-7585-4178-96f9-c25acb941638",
-
                             Email = "user1@example.com",
                             EmailConfirmed = false,
                             IsDeleted = false,
@@ -325,20 +326,16 @@ namespace Clean_Architecture.Infrastructure.Migrations
                             PasswordHash = "Doe",
                             PhoneNumber = "+1-555-1234",
                             PhoneNumberConfirmed = false,
-
-                            SecurityStamp = "9aaa8e93-bbb5-4bfc-81dc-ee2098dc68ca",
-
+                            SecurityStamp = "af1c01ff-143f-4dea-9090-f779a8abddde",
                             TwoFactorEnabled = false,
                             UserName = "user1@example.com"
                         },
                         new
                         {
-
                             Id = "f163ce9f-1b64-496f-b18e-43ba132bb445",
                             AccessFailedCount = 0,
                             AccountType = "Donor",
                             ConcurrencyStamp = "daf7c596-b2cc-494b-8045-577e05b8c2b1",
-
                             Email = "user2@example.com",
                             EmailConfirmed = false,
                             IsDeleted = false,
@@ -346,21 +343,16 @@ namespace Clean_Architecture.Infrastructure.Migrations
                             PasswordHash = "Doe",
                             PhoneNumber = "+1-555-5678",
                             PhoneNumberConfirmed = false,
-
-
-                            SecurityStamp = "3518266c-6662-4727-bba2-db621a903d5c",
-
+                            SecurityStamp = "9a6b6fe8-24e1-4f71-a890-44352d1065d9",
                             TwoFactorEnabled = false,
                             UserName = "user2@example.com"
                         },
                         new
                         {
-
                             Id = "fea2d9c3-9866-4ae9-9e11-e38697a401b1",
                             AccessFailedCount = 0,
                             AccountType = "Donor",
                             ConcurrencyStamp = "5c77549d-8cce-4e4e-a7be-f5689ff4a545",
-
                             Email = "user3@example.com",
                             EmailConfirmed = false,
                             IsDeleted = false,
@@ -368,20 +360,16 @@ namespace Clean_Architecture.Infrastructure.Migrations
                             PasswordHash = "Smith",
                             PhoneNumber = "+1-555-9012",
                             PhoneNumberConfirmed = false,
-
                             SecurityStamp = "318fd67f-7e1b-4946-86d3-244925d1dfd0",
-
                             TwoFactorEnabled = false,
                             UserName = "user3@example.com"
                         },
                         new
                         {
-
                             Id = "ac260993-7771-4b05-a003-6abca811ff7e",
                             AccessFailedCount = 0,
                             AccountType = "Donor",
                             ConcurrencyStamp = "4b705f79-ac6a-4547-b197-29f8a0e9b752",
-
                             Email = "user4@example.com",
                             EmailConfirmed = false,
                             IsDeleted = false,
@@ -389,20 +377,16 @@ namespace Clean_Architecture.Infrastructure.Migrations
                             PasswordHash = "Johnson",
                             PhoneNumber = "+1-555-3456",
                             PhoneNumberConfirmed = false,
-
                             SecurityStamp = "ec22db7a-1ed9-4e65-b23c-b8e4a9b5e1c2",
-
                             TwoFactorEnabled = false,
                             UserName = "user4@example.com"
                         },
                         new
                         {
-
                             Id = "88cc91c6-559e-4fc1-b517-fcd6d7c32d61",
                             AccessFailedCount = 0,
                             AccountType = "Donor",
                             ConcurrencyStamp = "e98b2378-c501-43ba-917b-fb1297047cad",
-
                             Email = "user5@example.com",
                             EmailConfirmed = false,
                             IsDeleted = false,
@@ -410,9 +394,7 @@ namespace Clean_Architecture.Infrastructure.Migrations
                             PasswordHash = "William",
                             PhoneNumber = "+1-555-7890",
                             PhoneNumberConfirmed = false,
-
                             SecurityStamp = "bde2bccf-3748-47a2-b1f8-2b7eafa0d5c6",
-
                             TwoFactorEnabled = false,
                             UserName = "user5@example.com"
                         });
@@ -540,19 +522,22 @@ namespace Clean_Architecture.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int?>("CharityId")
                         .HasColumnType("int");
 
                     b.Property<int?>("CorporateId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(21)
+                        .HasColumnType("nvarchar(21)");
+
                     b.Property<DateTime>("DonationDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("DonationType")
-                        .IsRequired()
-                        .HasMaxLength(8)
-                        .HasColumnType("nvarchar(8)");
 
                     b.Property<int>("DonorId")
                         .HasColumnType("int");
@@ -560,7 +545,7 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("projectId")
+                    b.Property<int?>("ProjectId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -571,11 +556,11 @@ namespace Clean_Architecture.Infrastructure.Migrations
 
                     b.HasIndex("DonorId");
 
-                    b.HasIndex("projectId");
+                    b.HasIndex("ProjectId");
 
                     b.ToTable("donations");
 
-                    b.HasDiscriminator<string>("DonationType").HasValue("Donation");
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Donation");
 
                     b.UseTphMappingStrategy();
                 });
@@ -741,21 +726,18 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.HasDiscriminator().HasValue("InKind");
+                    b.HasDiscriminator().HasValue("InKindDonation");
                 });
 
             modelBuilder.Entity("charityPulse.core.Models.MoneyDonation", b =>
                 {
                     b.HasBaseType("charityPulse.core.Models.Donation");
 
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<string>("PaymentMethod")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasDiscriminator().HasValue("Monetary");
+                    b.HasDiscriminator().HasValue("MoneyDonation");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -907,7 +889,7 @@ namespace Clean_Architecture.Infrastructure.Migrations
 
             modelBuilder.Entity("charityPulse.core.Models.Donation", b =>
                 {
-                    b.HasOne("charityPulse.core.Models.Charity", "Charity")
+                    b.HasOne("charityPulse.core.Models.Charity", null)
                         .WithMany("Donations")
                         .HasForeignKey("CharityId");
 
@@ -921,17 +903,13 @@ namespace Clean_Architecture.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("charityPulse.core.Models.Project", "Project")
+                    b.HasOne("charityPulse.core.Models.Project", null)
                         .WithMany("Donations")
-                        .HasForeignKey("projectId");
-
-                    b.Navigation("Charity");
+                        .HasForeignKey("ProjectId");
 
                     b.Navigation("Corporate");
 
                     b.Navigation("Donor");
-
-                    b.Navigation("Project");
                 });
 
             modelBuilder.Entity("charityPulse.core.Models.DonationReport", b =>
