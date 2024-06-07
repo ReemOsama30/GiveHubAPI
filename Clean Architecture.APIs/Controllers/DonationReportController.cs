@@ -85,16 +85,28 @@ namespace Clean_Architecture.APIs.Controllers
 
         }
 
-        [HttpPut]
-        public ActionResult<GeneralResponse> UpdateDonationReport(updateDonationReportDTO updateDonationReportDTO)
+        [HttpPut("{id}")]
+        public ActionResult<GeneralResponse> UpdateDonationReport(int id,updateDonationReportDTO updateDonationReportDTO)
         {
-            donationReportService.UpdateDonationReport(updateDonationReportDTO);
-            var report = donationReportService.GetOne(updateDonationReportDTO.Id);
+            var report = donationReportService.GetOne(id);
+            if (report == null)
+            {
+                return new GeneralResponse
+                {
+                    IsPass = false,
+                    Status=404,
+                    Message="invalid report"
+                };
+            }
+
+            donationReportService.UpdateDonationReport(id,updateDonationReportDTO);
+
+            var r = donationReportService.GetOne(id);
             return new GeneralResponse
             {
                 IsPass = true,
                 Status = 200,
-                Message = report
+                Message = r
             };
         }
 

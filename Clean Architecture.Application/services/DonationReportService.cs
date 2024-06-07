@@ -22,6 +22,8 @@ namespace Clean_Architecture.Application.services
             return mapper.Map<List<donationReportDTOWithProject>>(reports);
         }
 
+
+
         public donationReportDTOWithProject GetOne(int id)
         {
             var report = unitOfWork.DonationReportRepository.GetOneWithProject(id);
@@ -36,10 +38,13 @@ namespace Clean_Architecture.Application.services
             unitOfWork.save();
         }
 
-        public void UpdateDonationReport(updateDonationReportDTO updateDonationReportDTO)
+        public void UpdateDonationReport(int id,updateDonationReportDTO updateDonationReportDTO)
         {
+            var donationReport=unitOfWork.DonationReportRepository.Get(d=>d.id==id);    
+            mapper.Map(donationReport, updateDonationReportDTO);
+            
 
-            DonationReport donationReport = mapper.Map<DonationReport>(updateDonationReportDTO);
+
             unitOfWork.DonationReportRepository.update(donationReport);
             unitOfWork.save();
         }
