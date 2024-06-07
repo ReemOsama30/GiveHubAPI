@@ -134,11 +134,12 @@ namespace Clean_Architecture.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    AccountType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     AdminId = table.Column<int>(type: "int", nullable: true),
                     DonorId = table.Column<int>(type: "int", nullable: true),
                     CharityId = table.Column<int>(type: "int", nullable: true),
                     CorporateId = table.Column<int>(type: "int", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -411,14 +412,14 @@ namespace Clean_Architecture.Infrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "AdminId", "CharityId", "ConcurrencyStamp", "CorporateId", "DonorId", "Email", "EmailConfirmed", "IsDeleted", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                columns: new[] { "Id", "AccessFailedCount", "AccountType", "AdminId", "CharityId", "ConcurrencyStamp", "CorporateId", "DonorId", "Email", "EmailConfirmed", "IsDeleted", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "178b2dc9-c5d5-49aa-a998-3ceeaaaaad55", 0, null, null, "50f95f9d-9f21-4e75-818c-95aa9d3961bd", null, null, "user2@example.com", false, false, false, null, null, null, "Doe", "+1-555-5678", false, "3518266c-6662-4727-bba2-db621a903d5c", false, "user2@example.com" },
-                    { "2a6b19db-b826-4d3b-ba7a-f593ec445c18", 0, null, null, "3fbfe53e-8a7b-489d-bf2d-cef39239c930", null, null, "user1@example.com", false, false, false, null, null, null, "Doe", "+1-555-1234", false, "9aaa8e93-bbb5-4bfc-81dc-ee2098dc68ca", false, "user1@example.com" },
-                    { "361d319a-2026-40f1-a0df-1a5e2cc917d6", 0, null, null, "ba78db0b-6927-41a3-9081-c2cd7a2efecd", null, null, "user3@example.com", false, false, false, null, null, null, "Smith", "+1-555-9012", false, "b6d414c6-928d-4845-adf8-ac86970a0953", false, "user3@example.com" },
-                    { "afe14b7c-eca5-43ff-a140-768cb086cadc", 0, null, null, "6883d03f-2755-4cce-81e3-e88e00696107", null, null, "user4@example.com", false, false, false, null, null, null, "Johnson", "+1-555-3456", false, "b520d1a5-0a1b-48f2-b29c-de47a33bc3eb", false, "user4@example.com" },
-                    { "ea3796bf-d98f-4543-bf3b-748e251dc328", 0, null, null, "e8dadf99-cc5b-40cd-8d5f-6d74a738178a", null, null, "user5@example.com", false, false, false, null, null, null, "William", "+1-555-7890", false, "56c3e57e-011f-44fd-af5d-b93f3094fcb0", false, "user5@example.com" }
+                    { "3d871073-cc23-473d-bfd8-68129b9b9005", 0, "Donor", null, null, "d25bd572-d7d6-4985-890d-a4207f35e9ea", null, null, "user3@example.com", false, false, false, null, null, null, "Smith", "+1-555-9012", false, "4c76ac2f-72f6-4e2b-bded-bdf56387f822", false, "user3@example.com" },
+                    { "4f36c01f-0e1a-4d4c-8a44-80c3b9b9af00", 0, "Donor", null, null, "5416cfb1-e645-49f7-aea9-1018df12ee1d", null, null, "user2@example.com", false, false, false, null, null, null, "Doe", "+1-555-5678", false, "b6b2f00b-e7a7-4250-9e69-1f661d497ce1", false, "user2@example.com" },
+                    { "72cf3156-6864-4e9c-9488-b8fac6396a81", 0, "Donor", null, null, "7f591a89-8272-4b27-a627-73310bcafaf3", null, null, "user1@example.com", false, false, false, null, null, null, "Doe", "+1-555-1234", false, "e5dd76df-8282-470d-80c0-ef5c09d828fa", false, "user1@example.com" },
+                    { "c4a669ab-841e-4dce-ae0c-ee461f7c50d6", 0, "Donor", null, null, "a1ac0a32-9cd3-4740-a49d-c8ddb383ba59", null, null, "user4@example.com", false, false, false, null, null, null, "Johnson", "+1-555-3456", false, "c1562e22-b995-49f1-919b-d7d342e3d056", false, "user4@example.com" },
+                    { "d77cfd1c-3d7a-4177-9ed7-499cf2765e94", 0, "Donor", null, null, "0d605a5e-3958-4b40-ab6f-f2b9fdef7665", null, null, "user5@example.com", false, false, false, null, null, null, "William", "+1-555-7890", false, "532dab97-79e8-4546-a123-75e021702ae1", false, "user5@example.com" }
                 });
 
             migrationBuilder.CreateIndex(
