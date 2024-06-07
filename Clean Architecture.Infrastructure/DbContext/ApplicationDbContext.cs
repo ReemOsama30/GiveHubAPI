@@ -1,15 +1,10 @@
 ﻿using charityPulse.core.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Clean_Architecture.Infrastructure.DbContext
 {
-    public class ApplicationDbContext:IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         DbSet<Admin> Admins { get; set; }
         DbSet<Advertisment> Advertisments { get; set; }
@@ -24,6 +19,8 @@ namespace Clean_Architecture.Infrastructure.DbContext
         DbSet<MoneyDonation> moneyDonations { get; set; }
         DbSet<Project> projects { get; set; }
         DbSet<Review> reviews { get; set; }
+
+        // removed??
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -35,9 +32,9 @@ namespace Clean_Architecture.Infrastructure.DbContext
 
             base.OnModelCreating(modelBuilder);
 
-         modelBuilder.Entity<ApplicationUser>().HasData(
-         new List<ApplicationUser>
-         {
+            modelBuilder.Entity<ApplicationUser>().HasData(
+            new List<ApplicationUser>
+            {
                 new ApplicationUser
                 {
                     UserName = "user1@example.com",
@@ -62,13 +59,13 @@ namespace Clean_Architecture.Infrastructure.DbContext
                     Email = "user3@example.com",
                     PasswordHash = "Smith",
                     PhoneNumber = "+1-555-9012",
-                   
+
                 },
                 new ApplicationUser
                 {
                     UserName = "user4@example.com",
                     Email = "user4@example.com",
-                   
+
                     PasswordHash = "Johnson",
                     PhoneNumber = "+1-555-3456",
                       
@@ -79,12 +76,19 @@ namespace Clean_Architecture.Infrastructure.DbContext
                     UserName = "user5@example.com",
                     Email = "user5@example.com",
                     PasswordHash = "William",
-                    
+
                     PhoneNumber = "+1-555-7890",
                      
                     // Add other properties you want to set
                 }
-         });
+            });
+
+
+            // Configure inheritance using TPH (Table per Hierarchy) strategy
+            modelBuilder.Entity<Donation>()
+                .HasDiscriminator<string>("DonationType")
+                .HasValue<MoneyDonation>("Monetary")
+                .HasValue<InKindDonation>("InKind");
         }
 
 

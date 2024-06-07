@@ -1,13 +1,18 @@
 using AutoMapper;
 using charityPulse.core.Models;
-
-using Clean_Architecture.Application.DTOs.corporateDTOs;
-
 using Clean_Architecture.Application.DTOs.charityDTOs;
+using Clean_Architecture.Application.DTOs.corporateDTOs;
+using Clean_Architecture.Application.DTOs.DonationReportDTOs;
+using Clean_Architecture.Application.DTOs.DonorDTOs;
 using Clean_Architecture.Application.DTOs.projectDTOs;
 using Clean_Architecture.Application.DTOs.ReviewsDTOs;
 using Clean_Architecture.Application.DTOs.DonationReportDTOs;
+
 using Clean_Architecture.Application.DTOs.advertismentDTO;
+
+using Clean_Architecture.Application.DTOs.BadgeDTOs;
+
+
 
 
 namespace Clean_Architecture.Application.Mapper
@@ -48,13 +53,40 @@ namespace Clean_Architecture.Application.Mapper
             CreateMap<Review, ReviewDTO>();
             CreateMap<ReviewDTO, Review>();
 
+
+
             //CreateMap<Review, ReviewDTO>()
             //   .ForMember(dest => dest.ApplicationUserId, opt => opt.MapFrom(src => src.Donor.ApplicationUserId)); 
 
             CreateMap<Corporate, showCorporateDTO>();
-            CreateMap<updateCorporateDTO,Corporate>();
+            CreateMap<updateCorporateDTO, Corporate>();
             CreateMap<showCorporateDTO, Corporate>();
 
+
+
+            CreateMap<AddBadgeDTO, Badge>();
+            CreateMap<Badge, ShowBadgeDTO>();
+            CreateMap<AddBadgeDTO, Badge>()
+            .ForMember(dest => dest.Icon, opt => opt.MapFrom(src => ConvertIconToBytes(src.Icon)));
+            CreateMap<UpdateBadgeDTO, Badge>()
+             .ForMember(dest => dest.Icon, opt => opt.MapFrom(src => ConvertIconToBytes(src.Icon)));
+
+        }
+        private byte[] ConvertIconToBytes(string iconPath)
+        {
+            return File.Exists(iconPath) ? File.ReadAllBytes(iconPath) : null;
+
+            CreateMap<Donor, addDonorDTO>();
+            CreateMap<addDonorDTO, Donor>();
+            CreateMap<Donor, showDonorDTO>();
+            CreateMap<showDonorDTO, Donor>();
+            //   CreateMap<Donor, showDonorWithBadgeDTO>();
+            CreateMap<showDonorWithBadgeDTO, Donor>();
+            CreateMap<Donor, showDonorWithBadgeDTO>()
+            .ForMember(dest => dest.BadgeName, opt => opt.MapFrom(src => src.Badges.Select(b => b.Name).ToList()));
+
+            CreateMap<updateDonorDTO, Donor>();
+            CreateMap<Donor, updateDonorDTO>();
 
         }
 
