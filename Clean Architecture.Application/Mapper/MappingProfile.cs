@@ -1,14 +1,19 @@
 using AutoMapper;
 using charityPulse.core.Models;
+using Clean_Architecture.Application.DTOs.advertismentDTO;
+using Clean_Architecture.Application.DTOs.BadgeDTOs;
 using Clean_Architecture.Application.DTOs.charityDTOs;
 using Clean_Architecture.Application.DTOs.corporateDTOs;
 using Clean_Architecture.Application.DTOs.DonationReportDTOs;
 using Clean_Architecture.Application.DTOs.DonorDTOs;
+using Clean_Architecture.Application.DTOs.MoneyDonationDTOs;
 using Clean_Architecture.Application.DTOs.projectDTOs;
 using Clean_Architecture.Application.DTOs.ReviewsDTOs;
+
 using Clean_Architecture.Application.DTOs.DonationReportDTOs;
 using Clean_Architecture.Application.DTOs.BadgeDTOs;
 using Clean_Architecture.Application.DTOs.AccountDTOs;
+
 
 
 
@@ -28,8 +33,13 @@ namespace Clean_Architecture.Application.Mapper
             CreateMap<Charity, showCharityDTO>();
             CreateMap<showCharityDTO, Charity>();
             CreateMap<updateCharityDTO, Charity>();
+
+
             CreateMap<AdvertismentDTO, Advertisment>();
             CreateMap<Advertisment, AdvertismentDTO>();
+            CreateMap<Advertisment, UpdateAsdvertismentDTO>();
+            CreateMap<UpdateAsdvertismentDTO, Advertisment>();
+
 
 
             CreateMap<donationReportDTOWithProject, DonationReport>();
@@ -63,7 +73,30 @@ namespace Clean_Architecture.Application.Mapper
             CreateMap<UpdateBadgeDTO, Badge>()
              .ForMember(dest => dest.Icon, opt => opt.MapFrom(src => ConvertIconToBytes(src.Icon)));
 
-            
+
+            CreateMap<showMoneyDonationDTO, MoneyDonation>();
+            CreateMap<MoneyDonation, showMoneyDonationDTO>();
+
+            CreateMap<addMoneyDonationDTO, MoneyDonation>();
+            CreateMap<MoneyDonation, addMoneyDonationDTO>();
+
+            CreateMap<updateMoneyDonationDTO, MoneyDonation>();
+            CreateMap<MoneyDonation, updateMoneyDonationDTO>();
+
+
+            CreateMap<addDonorDTO, Donor>();
+            CreateMap<Donor, addDonorDTO>();
+
+            CreateMap<showDonorDTO, Donor>();
+            CreateMap<Donor, showDonorDTO>();
+
+            CreateMap<showDonorWithBadgeDTO, Donor>();
+            CreateMap<Donor, showDonorWithBadgeDTO>();
+
+            CreateMap<updateDonorDTO, Donor>();
+            CreateMap<Donor, updateDonorDTO>();
+
+
 
         }
         private byte[] ConvertIconToBytes(string iconPath)
@@ -83,6 +116,8 @@ namespace Clean_Architecture.Application.Mapper
             CreateMap<Donor, updateDonorDTO>();
 
         }
+
+
 
 
     }

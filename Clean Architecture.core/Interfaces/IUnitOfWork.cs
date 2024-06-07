@@ -19,8 +19,13 @@ namespace Clean_Architecture.core.Interfaces
         public IReviewRepository reviewRepository { get; }
         public IDonorRepository donorRepository { get; }
 
+
         public int Save();
         public Task<int> SaveAsync();
+
+        public IMoneyDonationRepository moneyDonationRepository { get; }
+
+
         public void Dispose();
     }
 }

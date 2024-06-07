@@ -24,8 +24,6 @@ namespace Clean_Architecture.APIs
             // Add services to the container.
             builder.Services.AddAuthorization();
             
-        https://github.com/ReemOsama30/charityPulse/pull/17/conflict?name=Clean%2BArchitecture.APIs%252FProgram.cs&ancestor_oid=96f42df9f30310bc851aaa38be458841057fd71a&base_oid=3f445db0d6b35668b710190f8789342c89dfc8ea&head_oid=6b37adc6570c3237bde19cc0b3612293e5010d07
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -73,6 +71,8 @@ namespace Clean_Architecture.APIs
             
           
 
+            builder.Services.AddScoped<IMoneyDonationRepository, MoneyDonationRepository>();
+            builder.Services.AddScoped<MoneyDonationService>();
 
 
             builder.Services.AddCors(options =>

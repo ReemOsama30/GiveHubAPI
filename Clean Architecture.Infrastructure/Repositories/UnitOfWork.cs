@@ -18,6 +18,12 @@ namespace Clean_Architecture.Infrastructure.Repositories
         public IRepository<Project> projects { get; }
         public IRepository<Charity> charities { get; }
         public IRepository<Advertisment> advertisments { get; }
+
+
+        public IReviewRepository reviewRepository { get; }
+
+        public IMoneyDonationRepository moneyDonationRepository { get; }
+
         public IRepository<Badge> badgs { get; }
        
      
@@ -39,7 +45,14 @@ namespace Clean_Architecture.Infrastructure.Repositories
             reviewRepository = new ReviewRepository(context);
             DonationReportRepository = new DonationReportRepository(context);
             donorRepository = new DonorRepository(context);
+
             UserRepository = new UserRepository(userManager);
+
+            moneyDonationRepository = new MoneyDonationRepository(context);
+        }
+
+
+
 
 
         }
