@@ -1,23 +1,18 @@
 ﻿
 using Clean_Architecture.Application.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace charityPulse.core.Models
 {
-    public class Donation:IsoftDeletable
+    public class Donation : IsoftDeletable
     {
         public int Id { get; set; }
-       
+
         public DateTime DonationDate { get; set; } = DateTime.Now;
 
         public bool IsDeleted { get; set; }
 
-        [ForeignKey ("Donor")]
+        [ForeignKey("Donor")]
         public int DonorId { get; set; }
         public Donor Donor { get; set; }
 
@@ -28,6 +23,12 @@ namespace charityPulse.core.Models
         [ForeignKey("Project")]
         public int? projectId { get; set; }
         public Project? Project { get; set; }
+
+        [ForeignKey("Charity")]
+        public int? CharityId { get; set; }
+        public Charity? Charity { get; set; }
+
+
 
 
     }

@@ -19,7 +19,7 @@ namespace Clean_Architecture.Infrastructure.Repositories
 
         public IReviewRepository reviewRepository { get; }
 
-
+        public IMoneyDonationRepository moneyDonationRepository { get; }
         public IRepository<Badge> badgs { get; }
 
         public IDonorRepository donorRepository { get; }
@@ -36,6 +36,7 @@ namespace Clean_Architecture.Infrastructure.Repositories
             reviewRepository = new ReviewRepository(context);
             DonationReportRepository = new DonationReportRepository(context);
             donorRepository = new DonorRepository(context);
+            moneyDonationRepository = new MoneyDonationRepository(context);
         }
 
 
