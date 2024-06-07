@@ -8,6 +8,7 @@ using Clean_Architecture.Application.DTOs.projectDTOs;
 using Clean_Architecture.Application.DTOs.ReviewsDTOs;
 using Clean_Architecture.Application.DTOs.DonationReportDTOs;
 using Clean_Architecture.Application.DTOs.BadgeDTOs;
+using Clean_Architecture.Application.DTOs.AccountDTOs;
 
 
 
@@ -61,6 +62,8 @@ namespace Clean_Architecture.Application.Mapper
             .ForMember(dest => dest.Icon, opt => opt.MapFrom(src => ConvertIconToBytes(src.Icon)));
             CreateMap<UpdateBadgeDTO, Badge>()
              .ForMember(dest => dest.Icon, opt => opt.MapFrom(src => ConvertIconToBytes(src.Icon)));
+
+            
 
         }
         private byte[] ConvertIconToBytes(string iconPath)
