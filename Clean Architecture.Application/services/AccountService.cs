@@ -42,7 +42,7 @@ namespace Clean_Architecture.Application.services
             var result = await unitOfWork.UserRepository.CreateUserAsync(user, userDTO.Password);
             if (result.Succeeded)
             {
-                await unitOfWork.CompleteAsync();
+                await unitOfWork.SaveAsync();
             }
             return result;
         }
