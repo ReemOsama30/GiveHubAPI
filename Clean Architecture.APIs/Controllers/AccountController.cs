@@ -43,9 +43,9 @@ namespace Clean_Architecture.APIs.Controllers
             return BadRequest(ModelState);
 
         }
-/*
+
         [HttpPost("log-in")]
-        public async IActionResult LogIn(UserLogInDTO userLogInDTO)
+        public async Task<IActionResult> LogIn(UserLogInDTO userLogInDTO)
         {
 
             if (ModelState.IsValid)
@@ -59,8 +59,9 @@ namespace Clean_Architecture.APIs.Controllers
 
                     if (ValidUser)
                     {
+                        ValidTokenDTO validToken = await  _accountService.GenerateJWTtoken(UserFromDB);
 
-                        _accountService.GenerateJWTtoken(UserFromDB);
+                        return Ok(validToken);  
 
                     }
                    
@@ -69,6 +70,6 @@ namespace Clean_Architecture.APIs.Controllers
                 return Unauthorized("Invalid Email or Password");
             }
             return BadRequest(ModelState);
-        }*/
+        }
     }
 }

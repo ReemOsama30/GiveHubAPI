@@ -11,6 +11,7 @@ namespace Clean_Architecture.Infrastructure.Repositories
     {
         private readonly ApplicationDbContext context;
 
+
         public IDonationReportRepository DonationReportRepository { get; }
 
         public IRepository<Corporate> corporations { get; }

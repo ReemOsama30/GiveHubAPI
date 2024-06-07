@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.IdentityModel.Tokens.Jwt;
 using System.Data;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Configuration;
 
 
 namespace Clean_Architecture.Application.services
@@ -22,28 +23,30 @@ namespace Clean_Architecture.Application.services
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
+        private readonly IConfiguration config;
 
-        public AccountService(IUnitOfWork unitOfWork, IMapper mapper)
+        public AccountService(IUnitOfWork unitOfWork, IMapper mapper, IConfiguration config)
         {
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
+            this.config = config;
         }
 
-      
+
         public async Task<IdentityResult> RegisterUserAsync(UserRegisterDTO userDTO)
         {
             //ApplicationUser user = mapper.Map<ApplicationUser>(userDTO)
-            
+
             ApplicationUser user = new ApplicationUser()
             {
                 UserName = userDTO.UserName,
                 Email = userDTO.Email,
                 PasswordHash = userDTO.Password,
-                AccountType=userDTO.AccountType,
+                AccountType = userDTO.AccountType,
             };
 
-           
-            
+
+
             var result = await unitOfWork.UserRepository.CreateUserAsync(user, userDTO.Password);
             if (result.Succeeded)
             {
@@ -51,7 +54,7 @@ namespace Clean_Architecture.Application.services
             }
             return result;
         }
-        
+
         public async Task<ApplicationUser> FindByNameAsync(UserLogInDTO userDTO)
         {
 
@@ -65,7 +68,7 @@ namespace Clean_Architecture.Application.services
 
         }
 
-        public async void GenerateJWTtoken(ApplicationUser UserFromDB)
+        private async Task<List<Claim>> CreateClaims(ApplicationUser UserFromDB)
         {
             List<Claim> UserLoginClaims = new List<Claim>();
             UserLoginClaims.Add(new Claim(ClaimTypes.Name, UserFromDB.UserName));
@@ -78,22 +81,38 @@ namespace Clean_Architecture.Application.services
                 UserLoginClaims.Add(new Claim(ClaimTypes.Role, role));
             }
 
+            return UserLoginClaims;
+
+        }
+        private async Task<SigningCredentials> CreateSigningCredentials()
+        {
             var SignKey = new SymmetricSecurityKey(
-                         Encoding.UTF8.GetBytes("hello"));
+                         Encoding.UTF8.GetBytes(config["JWT:SecritKey"]));
 
             SigningCredentials signingCredentials =
                 new SigningCredentials(SignKey, SecurityAlgorithms.HmacSha256);
 
+            return signingCredentials;
+
+        }
+        public async Task<ValidTokenDTO> GenerateJWTtoken(ApplicationUser UserFromDB)
+        {
+            List<Claim> UserLoginClaims = await CreateClaims(UserFromDB);
+            SigningCredentials signingCredentials = await CreateSigningCredentials();
+
 
             JwtSecurityToken LoginJWTToken = new JwtSecurityToken(
-                issuer: "http://localhost:5026/",
-                audience: "http://localhost:4200",
-                claims: UserLoginClaims,
-                expires: DateTime.Now.AddHours(1)
+                 issuer: config["JWT:ValidIss"],
+                 audience: config["JWT:ValidAud"],
+                 expires: DateTime.Now.AddHours(1),
+                 claims: UserLoginClaims,
+                 signingCredentials: signingCredentials
+                 );
 
-                );
+            ValidTokenDTO validToken = new ValidTokenDTO(LoginJWTToken);
+
+            return validToken;
         }
 
     }
 }
-        
