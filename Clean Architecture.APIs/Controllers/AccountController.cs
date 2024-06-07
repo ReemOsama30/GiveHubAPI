@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Clean_Architecture.Application.DTOs.AccountDTOs;
 using charityPulse.core.Models;
 using Clean_Architecture.Application.services;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Clean_Architecture.APIs.Controllers
 {
@@ -24,12 +27,12 @@ namespace Clean_Architecture.APIs.Controllers
 
             if (ModelState.IsValid)
             {
-                var result = await _accountService.RegisterUserAsync(UserRegisterDTO);
+                IdentityResult result = await _accountService.RegisterUserAsync(UserRegisterDTO);
 
                 if (result.Succeeded)
                 {
                     return Created();
-                   // return Ok("Account Created");
+                    // return Ok("Account Created");
                 }
 
                 //foreach (var error in result.Errors)
@@ -38,15 +41,34 @@ namespace Clean_Architecture.APIs.Controllers
                 //}
             }
             return BadRequest(ModelState);
-            
-          
 
         }
+/*
+        [HttpPost("log-in")]
+        public async IActionResult LogIn(UserLogInDTO userLogInDTO)
+        {
 
-        //[HttpPost("log-in")]
-        //public IActionResult LogIn()
-        //{
+            if (ModelState.IsValid)
+            {
+                ApplicationUser? UserFromDB = await _accountService.FindByNameAsync(userLogInDTO);
 
-        //}
+                if (UserFromDB != null)
+                {
+
+                    bool ValidUser = await _accountService.CheckPasswordAsync(UserFromDB, userLogInDTO.Password);
+
+                    if (ValidUser)
+                    {
+
+                        _accountService.GenerateJWTtoken(UserFromDB);
+
+                    }
+                   
+                }
+
+                return Unauthorized("Invalid Email or Password");
+            }
+            return BadRequest(ModelState);
+        }*/
     }
 }

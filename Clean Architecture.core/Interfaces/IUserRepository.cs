@@ -12,6 +12,10 @@ namespace Clean_Architecture.core.Interfaces
     {
        
         Task<IdentityResult> CreateUserAsync(ApplicationUser user, string password);
-        Task<ApplicationUser> FindByIdAsync(string userId);
+        Task<ApplicationUser> FindByNameAsync(string userName);
+        Task<bool> CheckPasswordAsync(ApplicationUser UserFromDB, string PasswordFromDTO);
+        Task<IList<string>?> GetRolesAsync(ApplicationUser UserFromDB)
+
+
     }
 }
