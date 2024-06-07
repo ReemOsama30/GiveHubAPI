@@ -12,7 +12,7 @@ namespace charityPulse.core.Models
     public class Donation:IsoftDeletable
     {
         public int Id { get; set; }
-        public decimal Amount { get; set; }
+       
         public DateTime DonationDate { get; set; } = DateTime.Now;
 
         public bool IsDeleted { get; set; }
@@ -25,6 +25,10 @@ namespace charityPulse.core.Models
         public int? CorporateId { get; set; }
         public Corporate? Corporate { get; set; }
 
-        
+        [ForeignKey("Project")]
+        public int? projectId { get; set; }
+        public Project? Project { get; set; }
+
+
     }
 }
