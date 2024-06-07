@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Clean_Architecture.Application.DTOs.projectDTOs
+namespace Clean_Architecture.Application.DTOs.advertismentDTO
 {
-    public class AdvertismentDTO
+    public class UpdateAsdvertismentDTO
     {
-        public int Id { get; set; }
-        public byte[] AdDesign { get; set; }
         public decimal Price { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
