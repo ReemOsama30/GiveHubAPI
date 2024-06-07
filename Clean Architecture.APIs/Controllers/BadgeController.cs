@@ -1,11 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Clean_Architecture.Application.services;
-using Clean_Architecture.Application.responses;
-using Clean_Architecture.Application.DTOs.projectDTOs;
+﻿using charityPulse.core.Models;
 using Clean_Architecture.Application.DTOs.BadgeDTOs;
-using Clean_Architecture.Application.DTOs.corporateDTOs;
-using charityPulse.core.Models;
+using Clean_Architecture.Application.responses;
+using Clean_Architecture.Application.services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Clean_Architecture.APIs.Controllers
 {
@@ -31,7 +28,7 @@ namespace Clean_Architecture.APIs.Controllers
                 Status = 200
             };
 
-
+            //add
             return response;
         }
 
@@ -140,7 +137,7 @@ namespace Clean_Architecture.APIs.Controllers
         [HttpGet("donor/{id:int}")]
         public ActionResult<GeneralResponse> GetByDonnerID(int id)
         {
-            List<Badge> result =  BadgeService.GetBadgesByDonnerId(id);
+            List<Badge> result = BadgeService.GetBadgesByDonnerId(id);
 
             var response = new GeneralResponse
             {
