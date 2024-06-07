@@ -91,16 +91,16 @@ namespace Clean_Architecture.APIs.Controllers
         }
 
 
-        [HttpPut]
-        public ActionResult<GeneralResponse> update(updateProjectDTO updateProjectDTO)
+        [HttpPut("{id}")]
+        public ActionResult<GeneralResponse> update(int id,updateProjectDTO updateProjectDTO)
         {
-            projectService.updateProject(updateProjectDTO);
-            var project = projectService.GetProjectById(updateProjectDTO.Id);
+            projectService.updateProject(id,updateProjectDTO);
+            var project = projectService.GetProjectById(id);
             return new GeneralResponse
             {
                 IsPass = true,
                 Status = 200,
-                Message = project
+                Message = "updateProjectDTO successfully"
             };
 
         }

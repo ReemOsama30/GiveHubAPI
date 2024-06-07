@@ -9,7 +9,7 @@ namespace Clean_Architecture.Application.DTOs.projectDTOs
 {
     public class updateProjectDTO
     {
-        public int Id { get; set; }
+       
         public string Title { get; set; }
         public string Description { get; set; }
         public decimal FundingGoal { get; set; }

@@ -49,13 +49,32 @@ namespace Clean_Architecture.Application.services
             unitOfWork.save();
         }
 
-        public void updateProject(updateProjectDTO newproject)
+        public void updateProject(int id, updateProjectDTO newproject)
         {
-            Project project = mapper.Map<Project>(newproject);
+            var project = unitOfWork.projects.Get(p => p.Id == id);
 
-            project.Img = File.ReadAllBytes(newproject.Imgpath);
-            unitOfWork.projects.update(project);
-            unitOfWork.save();
+            if (project != null)
+            {
+                mapper.Map(newproject, project);
+
+                if (!string.IsNullOrEmpty(newproject.Imgpath))
+                {
+                    if (File.Exists(newproject.Imgpath))
+                    {
+                        project.Img = File.ReadAllBytes(newproject.Imgpath);
+                    }
+                    else
+                    {
+                        project.Img = project.Img;
+                    }
+
+
+
+
+                    unitOfWork.projects.update(project);
+                    unitOfWork.save();
+                }
+            }
         }
         public List<showprojectDTO> getProjectByCharityID(int charityID)
         {
