@@ -6,6 +6,7 @@ using Clean_Architecture.Application.services;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
+using Clean_Architecture.Application.responses;
 
 namespace Clean_Architecture.APIs.Controllers
 {
@@ -22,7 +23,7 @@ namespace Clean_Architecture.APIs.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(UserRegisterDTO UserRegisterDTO)
+        public async Task<ActionResult<GeneralResponse>> Register(UserRegisterDTO UserRegisterDTO)
         {
 
             if (ModelState.IsValid)
@@ -31,21 +32,33 @@ namespace Clean_Architecture.APIs.Controllers
 
                 if (result.Succeeded)
                 {
-                    return Created();
-                    // return Ok("Account Created");
+
+                    GeneralResponse response = new GeneralResponse
+                    {
+                        IsPass = true,
+                        Message = "Account Created Sucessfully",
+                        Status = 200
+                    };
+                    return response;
+
                 }
 
-                //foreach (var error in result.Errors)
-                //{
-                //    ModelState.AddModelError(string.Empty, error.Description);
-                //}
-            }
-            return BadRequest(ModelState);
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
 
+            }
+            return new GeneralResponse
+            {
+                IsPass = false,
+                Message = ModelState,
+                Status = 400
+            };
         }
-/*
+
         [HttpPost("log-in")]
-        public async IActionResult LogIn(UserLogInDTO userLogInDTO)
+        public async Task<ActionResult<GeneralResponse>> LogIn(UserLogInDTO userLogInDTO)
         {
 
             if (ModelState.IsValid)
@@ -59,16 +72,34 @@ namespace Clean_Architecture.APIs.Controllers
 
                     if (ValidUser)
                     {
+                        ValidTokenDTO validToken = await _accountService.GenerateJWTtoken(UserFromDB);
 
-                        _accountService.GenerateJWTtoken(UserFromDB);
+
+                        return new GeneralResponse
+                        {
+                            IsPass = true,
+                            Message = validToken,
+                            Status = 200
+                        };
 
                     }
-                   
+
                 }
 
-                return Unauthorized("Invalid Email or Password");
+                return new GeneralResponse
+                {
+                    IsPass = false,
+                    Message = "Invalid Name or Password",
+                    Status = 400
+                };
+
             }
-            return BadRequest(ModelState);
-        }*/
+            return new GeneralResponse
+            {
+                IsPass = false,
+                Message = ModelState,
+                Status = 400
+            };
+        }
     }
 }

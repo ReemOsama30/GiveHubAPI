@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Clean_Architecture.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240607193619_db")]
+    [Migration("20240607230937_db")]
     partial class db
     {
         /// <inheritdoc />
@@ -315,10 +315,10 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "72cf3156-6864-4e9c-9488-b8fac6396a81",
+                            Id = "f5bf5aad-633c-4a10-a508-42e1da485f29",
                             AccessFailedCount = 0,
                             AccountType = "Donor",
-                            ConcurrencyStamp = "7f591a89-8272-4b27-a627-73310bcafaf3",
+                            ConcurrencyStamp = "e741fc49-bff0-4b2b-81fd-34df52157fb3",
                             Email = "user1@example.com",
                             EmailConfirmed = false,
                             IsDeleted = false,
@@ -326,16 +326,16 @@ namespace Clean_Architecture.Infrastructure.Migrations
                             PasswordHash = "Doe",
                             PhoneNumber = "+1-555-1234",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e5dd76df-8282-470d-80c0-ef5c09d828fa",
+                            SecurityStamp = "9ea996b0-cac1-4b8c-835a-f71093747972",
                             TwoFactorEnabled = false,
                             UserName = "user1@example.com"
                         },
                         new
                         {
-                            Id = "4f36c01f-0e1a-4d4c-8a44-80c3b9b9af00",
+                            Id = "28093d8d-bb06-4dae-bff2-3e4eddf243a7",
                             AccessFailedCount = 0,
                             AccountType = "Donor",
-                            ConcurrencyStamp = "5416cfb1-e645-49f7-aea9-1018df12ee1d",
+                            ConcurrencyStamp = "c7e82b0e-73ee-42f7-8204-531bfbc0c86d",
                             Email = "user2@example.com",
                             EmailConfirmed = false,
                             IsDeleted = false,
@@ -343,16 +343,16 @@ namespace Clean_Architecture.Infrastructure.Migrations
                             PasswordHash = "Doe",
                             PhoneNumber = "+1-555-5678",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b6b2f00b-e7a7-4250-9e69-1f661d497ce1",
+                            SecurityStamp = "0a34820e-a16a-4b94-9de2-e9f610eff1c1",
                             TwoFactorEnabled = false,
                             UserName = "user2@example.com"
                         },
                         new
                         {
-                            Id = "3d871073-cc23-473d-bfd8-68129b9b9005",
+                            Id = "cfb04fda-7948-4460-b1bc-1d6f8f2b8ae9",
                             AccessFailedCount = 0,
                             AccountType = "Donor",
-                            ConcurrencyStamp = "d25bd572-d7d6-4985-890d-a4207f35e9ea",
+                            ConcurrencyStamp = "f7232fbd-4b5c-45db-a13e-78b3634a4f1e",
                             Email = "user3@example.com",
                             EmailConfirmed = false,
                             IsDeleted = false,
@@ -360,16 +360,16 @@ namespace Clean_Architecture.Infrastructure.Migrations
                             PasswordHash = "Smith",
                             PhoneNumber = "+1-555-9012",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "4c76ac2f-72f6-4e2b-bded-bdf56387f822",
+                            SecurityStamp = "527f0e4b-7c5f-4b2f-89ff-7c21dacce3a8",
                             TwoFactorEnabled = false,
                             UserName = "user3@example.com"
                         },
                         new
                         {
-                            Id = "c4a669ab-841e-4dce-ae0c-ee461f7c50d6",
+                            Id = "600e7112-1094-4286-a2e4-d13b784c0a55",
                             AccessFailedCount = 0,
                             AccountType = "Donor",
-                            ConcurrencyStamp = "a1ac0a32-9cd3-4740-a49d-c8ddb383ba59",
+                            ConcurrencyStamp = "6f0c37e6-83a0-46e4-a51a-dc87afe792fa",
                             Email = "user4@example.com",
                             EmailConfirmed = false,
                             IsDeleted = false,
@@ -377,16 +377,16 @@ namespace Clean_Architecture.Infrastructure.Migrations
                             PasswordHash = "Johnson",
                             PhoneNumber = "+1-555-3456",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c1562e22-b995-49f1-919b-d7d342e3d056",
+                            SecurityStamp = "e0ad3139-07df-4fff-a157-8babc8555b68",
                             TwoFactorEnabled = false,
                             UserName = "user4@example.com"
                         },
                         new
                         {
-                            Id = "d77cfd1c-3d7a-4177-9ed7-499cf2765e94",
+                            Id = "898411e6-cf74-4464-b474-eb9e4e6131cb",
                             AccessFailedCount = 0,
                             AccountType = "Donor",
-                            ConcurrencyStamp = "0d605a5e-3958-4b40-ab6f-f2b9fdef7665",
+                            ConcurrencyStamp = "b8dda723-7001-4b83-b7ac-92df48eef369",
                             Email = "user5@example.com",
                             EmailConfirmed = false,
                             IsDeleted = false,
@@ -394,7 +394,7 @@ namespace Clean_Architecture.Infrastructure.Migrations
                             PasswordHash = "William",
                             PhoneNumber = "+1-555-7890",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "532dab97-79e8-4546-a123-75e021702ae1",
+                            SecurityStamp = "e9b3945a-98fe-4a9e-866e-eff7de705bc2",
                             TwoFactorEnabled = false,
                             UserName = "user5@example.com"
                         });
