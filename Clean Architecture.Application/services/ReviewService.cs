@@ -49,9 +49,13 @@ namespace Clean_Architecture.Application.services
         }
 
 
-        public void UpdateReview(ReviewDTOWithDoner reviewDTO)
+        public void UpdateReview(int id,ReviewDTO reviewDTO)
         {
-            var review = mapper.Map<Review>(reviewDTO);
+
+            var review =unitOfWork.reviewRepository.Get(r=>r.Id==id);
+                mapper.Map(reviewDTO,review);
+                
+     
             review.DatePosted = DateTime.Now;
             unitOfWork.reviewRepository.update(review);
             unitOfWork.save();
