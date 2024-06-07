@@ -22,7 +22,7 @@ namespace Clean_Architecture.Application.services
             var badge = mapper.Map<Badge>(addBadgeDTO);
             badge.IsDeleted = false;
             unitOfWork.badgs.insert(badge);
-            unitOfWork.save();
+            unitOfWork.Save();
         }
 
         public async Task<List<ShowBadgeDTO>> GetBadgs()
@@ -41,14 +41,14 @@ namespace Clean_Architecture.Application.services
         {
             Badge badge = unitOfWork.badgs.Get(b => b.Id == id);
             unitOfWork.badgs.delete(badge);
-            unitOfWork.save();
+            unitOfWork.Save();
         }
         public void UpdateBadge(int id, UpdateBadgeDTO newBadge)
         {
             Badge existingBadge = unitOfWork.badgs.Get(b => b.Id == id);
             mapper.Map(newBadge, existingBadge);
             unitOfWork.badgs.update(existingBadge);
-            unitOfWork.save();
+            unitOfWork.Save();
 
 
         }

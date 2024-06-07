@@ -40,23 +40,6 @@ namespace Clean_Architecture.APIs.Controllers
             
           
 
-
-            ///////////////////////////
-           // if (ModelState.IsValid)
-           // {
-              //  ApplicationUser; 
-
-                //ApplicationUser appuser = new ApplicationUser()
-                //{
-                //    UserName = UserRegisterDTO.UserName,
-                //    Email = UserRegisterDTO.Email,
-                //    PasswordHash = UserRegisterDTO.Password,
-                //    AccountType = UserRegisterDTO.AccountType
-                //};
-          //  }
-
-         //   return BadRequest(ModelState);
-
         }
 
         //[HttpPost("log-in")]

@@ -45,12 +45,12 @@ namespace Clean_Architecture.Infrastructure.Repositories
         }
 
 
-        public int save()
+        public int Save()
         {
             return context.SaveChanges();
         }
 
-        public async Task<int> CompleteAsync()
+        public async Task<int> SaveAsync()
         {
             return await context.SaveChangesAsync();
         }

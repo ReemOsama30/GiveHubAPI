@@ -45,7 +45,7 @@ namespace Clean_Architecture.Application.services
             var review = mapper.Map<Review>(reviewDTO);
             review.DatePosted = DateTime.Now;
             unitOfWork.reviewRepository.insert(review);
-            unitOfWork.save();
+            unitOfWork.Save();
         }
 
 
@@ -54,14 +54,14 @@ namespace Clean_Architecture.Application.services
             var review = mapper.Map<Review>(reviewDTO);
             review.DatePosted = DateTime.Now;
             unitOfWork.reviewRepository.update(review);
-            unitOfWork.save();
+            unitOfWork.Save();
         }
 
         public void deleteReview(int id)
         {
             Review review = unitOfWork.reviewRepository.Get(c => c.Id == id);
             unitOfWork.reviewRepository.delete(review);
-            unitOfWork.save();
+            unitOfWork.Save();
         }
     }
 

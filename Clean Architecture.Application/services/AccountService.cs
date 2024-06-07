@@ -24,19 +24,11 @@ namespace Clean_Architecture.Application.services
             this.mapper = mapper;
         }
 
-        public void AddUser (UserRegisterDTO registerDTO)
-        {
-            
-            //var User = mapper.Map<>(DTO);
-            //User.IsDeleted = false;
-            //unitOfWork..insert(User);
-            //unitOfWork.save();
-        }
-
+      
         public async Task<IdentityResult> RegisterUserAsync(UserRegisterDTO userDTO)
         {
-            //ApplicationUser user = mapper.Map<ApplicationUser>(userDTO
-            //
+            //ApplicationUser user = mapper.Map<ApplicationUser>(userDTO)
+            
             ApplicationUser user = new ApplicationUser()
             {
                 UserName = userDTO.UserName,

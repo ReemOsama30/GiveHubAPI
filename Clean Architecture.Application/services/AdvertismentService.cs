@@ -38,14 +38,14 @@ namespace Clean_Architecture.Application.services
             var advertisment = mapper.Map<Advertisment>(advertismentDTO);
             advertisment.IsDeleted = false;
             unitOfWork.advertisments.insert(advertisment);
-            unitOfWork.save();
+            unitOfWork.Save();
         }
 
         public void DeleteAdvertisment(int id)
         {
             Advertisment advertisment = unitOfWork.advertisments.Get(p => p.Id == id);
             unitOfWork.advertisments.delete(advertisment);
-            unitOfWork.save();
+            unitOfWork.Save();
         }
 
         public void updateAdvertisment(AdvertismentDTO new_Advertisment)
@@ -53,7 +53,7 @@ namespace Clean_Architecture.Application.services
             Advertisment advertisment = mapper.Map<Advertisment>(new_Advertisment);
 
             unitOfWork.advertisments.update(advertisment);
-            unitOfWork.save();
+            unitOfWork.Save();
         }
 
 
