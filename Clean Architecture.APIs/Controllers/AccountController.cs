@@ -28,7 +28,8 @@ namespace Clean_Architecture.APIs.Controllers
 
                 if (result.Succeeded)
                 {
-                    return Ok();
+                    return Created();
+                   // return Ok("Account Created");
                 }
 
                 //foreach (var error in result.Errors)
