@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Clean_Architecture.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class db : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -322,16 +322,16 @@ namespace Clean_Architecture.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     DonationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     DonorId = table.Column<int>(type: "int", nullable: false),
                     CorporateId = table.Column<int>(type: "int", nullable: true),
+                    projectId = table.Column<int>(type: "int", nullable: true),
                     CharityId = table.Column<int>(type: "int", nullable: true),
-                    Discriminator = table.Column<string>(type: "nvarchar(21)", maxLength: 21, nullable: false),
-                    ProjectId = table.Column<int>(type: "int", nullable: true),
+                    DonationType = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
                     ItemDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Quantity = table.Column<int>(type: "int", nullable: true),
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     PaymentMethod = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -414,11 +414,11 @@ namespace Clean_Architecture.Infrastructure.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "AdminId", "CharityId", "ConcurrencyStamp", "CorporateId", "DonorId", "Email", "EmailConfirmed", "IsDeleted", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "439213c3-e1c8-4fc5-a601-9d441a657dbd", 0, null, null, "d2e47942-3a68-4a99-b752-789a8d7a7a81", null, null, "user5@example.com", false, false, false, null, null, null, "William", "+1-555-7890", false, "d92c5224-c71f-4c56-ad61-1d8b9a529f02", false, "user5@example.com" },
-                    { "7395d769-fbb4-476e-ad52-1fd8c197ea76", 0, null, null, "d3e18527-ac57-4643-a92f-00d3cbd83837", null, null, "user3@example.com", false, false, false, null, null, null, "Smith", "+1-555-9012", false, "87c9d6d6-c95f-4274-b164-7e7677c4c9d3", false, "user3@example.com" },
-                    { "8b3582ec-0f20-46a0-8d98-39b6d489b18b", 0, null, null, "dd91ed34-4a5d-4793-913f-40c6184f9335", null, null, "user4@example.com", false, false, false, null, null, null, "Johnson", "+1-555-3456", false, "f9af17da-c001-4572-a1d9-a311f74a001b", false, "user4@example.com" },
-                    { "b1190c3b-c773-401c-9df6-74a267330255", 0, null, null, "ce1a0496-1b29-4444-ace1-c31e4d656a5e", null, null, "user2@example.com", false, false, false, null, null, null, "Doe", "+1-555-5678", false, "b1c60598-2a02-49b5-8daf-e3c47ec76857", false, "user2@example.com" },
-                    { "e43201d5-204e-4b66-80e8-f6cd8999083f", 0, null, null, "7f9be0be-f6e9-44cb-882b-ccd69a76c1dc", null, null, "user1@example.com", false, false, false, null, null, null, "Doe", "+1-555-1234", false, "0a8d5d0f-fc2b-4bc2-b66e-ebf2d53ba53c", false, "user1@example.com" }
+                    { "2c673213-ef3f-4d7b-b484-cc88b6a5130b", 0, null, null, "f6d19909-7b8e-496a-b4ff-f6f4ff61bfdd", null, null, "user2@example.com", false, false, false, null, null, null, "Doe", "+1-555-5678", false, "ff1165c8-0ddb-440c-97da-7e6b1bb1619b", false, "user2@example.com" },
+                    { "2f81ede5-ef00-481a-8650-e4aee9482ebc", 0, null, null, "51cda152-56b3-4b26-87b9-cb6e39c6947c", null, null, "user3@example.com", false, false, false, null, null, null, "Smith", "+1-555-9012", false, "77222550-a3a3-4814-9b27-016da8a44042", false, "user3@example.com" },
+                    { "34b5c9f7-52da-41fc-a994-11921c5a0792", 0, null, null, "b1a43fe1-1e47-4050-b873-64bcf2b81930", null, null, "user4@example.com", false, false, false, null, null, null, "Johnson", "+1-555-3456", false, "294b7bfd-470d-4405-a3b3-e3848eef9ae9", false, "user4@example.com" },
+                    { "7390dafc-8c6f-40f2-a47e-3db683552686", 0, null, null, "bfdf0101-a765-4ca9-a2b1-589b8ad74ca5", null, null, "user5@example.com", false, false, false, null, null, null, "William", "+1-555-7890", false, "80a3ed6b-9bd6-4d7c-8366-4b8305a55f99", false, "user5@example.com" },
+                    { "ee1b449a-a0a3-4604-b253-78209eed1a1d", 0, null, null, "1cc206ee-ab0b-49fe-a5c3-84b54e61addd", null, null, "user1@example.com", false, false, false, null, null, null, "Doe", "+1-555-1234", false, "c13a0c10-d101-4aef-a5c5-4b8066dd7852", false, "user1@example.com" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -536,9 +536,9 @@ namespace Clean_Architecture.Infrastructure.Migrations
                 column: "DonorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_donations_ProjectId",
+                name: "IX_donations_projectId",
                 table: "donations",
-                column: "ProjectId");
+                column: "projectId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_donationsReport_ProjectId",
@@ -643,9 +643,9 @@ namespace Clean_Architecture.Infrastructure.Migrations
                 principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_donations_projects_ProjectId",
+                name: "FK_donations_projects_projectId",
                 table: "donations",
-                column: "ProjectId",
+                column: "projectId",
                 principalTable: "projects",
                 principalColumn: "Id");
 

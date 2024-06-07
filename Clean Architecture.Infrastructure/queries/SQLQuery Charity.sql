@@ -77,8 +77,28 @@ VALUES
 ('Description 2', 'Results 2', 9, 0),
 ('Description 3', 'Results 3', 10, 0);
 
---Donations
-INSERT INTO Donations ( Amount, DonationDate, IsDeleted, DonorId, CorporateId, CharityId, Discriminator, ProjectId, ItemDescription, Quantity, PaymentMethod)
-VALUES 
-( 100.00, '2024-06-01 08:00:00', 0, 1, 1, 2, N'Donation', 9, N'Item 1 Description', 9, N'Credit Card'),
-( 150.00, '2024-06-02 10:30:00', 0, 2, 3,3, N'Donation', 10, N'Item 2 Description', 10, N'PayPal');
+----Donations
+--INSERT INTO Donations ( Amount, DonationDate, IsDeleted, DonorId, CorporateId, CharityId, Discriminator, ProjectId, ItemDescription, Quantity, PaymentMethod)
+--VALUES 
+--( 100.00, '2024-06-01 08:00:00', 0, 1, 1, 2, N'Donation', 9, N'Item 1 Description', 9, N'Credit Card'),
+--( 150.00, '2024-06-02 10:30:00', 0, 2, 3,3, N'Donation', 10, N'Item 2 Description', 10, N'PayPal');
+
+
+
+
+-- Insert monetary donations
+INSERT INTO [charityPulse].[dbo].[donations]
+    ([DonationDate], [IsDeleted], [DonorId], [CorporateId], [projectId], [CharityId], [DonationType], [ItemDescription], [Quantity], [Amount], [PaymentMethod])
+VALUES
+    ('2024-06-07', 0, 1, 1, 1, 1, 'Monetary', NULL, NULL, 100.00, 'Credit Card'),
+    ('2024-06-05', 0, 2, 2, 2, 2, 'Monetary', NULL, NULL, 250.00, 'Bank Transfer'),
+    ('2024-06-03', 0, 3, 3, 1, 3, 'Monetary', NULL, NULL, 500.00, 'PayPal');
+
+
+	-- Insert in-kind donations 
+INSERT INTO [charityPulse].[dbo].[donations]
+    ([DonationDate], [IsDeleted], [DonorId], [CorporateId], [projectId], [CharityId], [DonationType], [ItemDescription], [Quantity], [Amount], [PaymentMethod])
+VALUES
+    ('2024-06-06', 0, 4, 1, 1, 4, 'InKind', 'Clothes', 50, NULL, NULL),
+    ('2024-06-04', 0, 5, 2, 2, 5, 'InKind', 'Books', 100, NULL, NULL),
+    ('2024-06-02', 0, 3, 3, 1, 3, 'InKind', 'Food Items', 200, NULL, NULL);
