@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using Clean_Architecture.Application.responses;
+using Clean_Architecture.Infrastructure.Repositories;
 
 namespace Clean_Architecture.APIs.Controllers
 {
@@ -101,5 +102,22 @@ namespace Clean_Architecture.APIs.Controllers
                 Status = 400
             };
         }
+
+
+        [HttpPost("reset-password")]
+        public async Task<ActionResult<GeneralResponse>> ResetPassword(ResetPasswordDto resetPasswordDto)
+        {
+            var result = await _accountService.ResetPasswordAsync(resetPasswordDto);
+            if (result.IsPass)
+            {
+                return Ok(result); // Password reset successfully
+            }
+            else
+            {
+                return BadRequest(result); // Failed to reset password
+            }
+        
+    }
+
     }
 }

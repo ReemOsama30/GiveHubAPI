@@ -47,6 +47,14 @@ namespace Clean_Architecture.Infrastructure.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -312,88 +320,41 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "f5bf5aad-633c-4a10-a508-42e1da485f29",
+                            Id = "1",
                             AccessFailedCount = 0,
                             AccountType = "Donor",
-                            ConcurrencyStamp = "e741fc49-bff0-4b2b-81fd-34df52157fb3",
+                            ConcurrencyStamp = "e2c7439a-6419-42f8-95e9-6240bc75424b",
                             Email = "user1@example.com",
                             EmailConfirmed = false,
                             IsDeleted = false,
                             LockoutEnabled = false,
-                            PasswordHash = "Doe",
+                            NormalizedEmail = "USER1@EXAMPLE.COM",
+                            NormalizedUserName = "USER1@EXAMPLE.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPytr5fctLYTt00mLs+dDYRcHueIqFhzrrkXwJnk0FMYf+RZcALx9Prtk7DHg4iwwA==",
                             PhoneNumber = "+1-555-1234",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9ea996b0-cac1-4b8c-835a-f71093747972",
+                            SecurityStamp = "8ea523b3-87c0-41da-8a18-ce4442adfccd",
                             TwoFactorEnabled = false,
                             UserName = "user1@example.com"
                         },
                         new
                         {
-                            Id = "28093d8d-bb06-4dae-bff2-3e4eddf243a7",
+                            Id = "2",
                             AccessFailedCount = 0,
                             AccountType = "Donor",
-                            ConcurrencyStamp = "c7e82b0e-73ee-42f7-8204-531bfbc0c86d",
+                            ConcurrencyStamp = "6b0bfa68-a116-4de7-921c-9b69ab9ea88c",
                             Email = "user2@example.com",
                             EmailConfirmed = false,
                             IsDeleted = false,
                             LockoutEnabled = false,
-                            PasswordHash = "Doe",
+                            NormalizedEmail = "USER2@EXAMPLE.COM",
+                            NormalizedUserName = "USER2@EXAMPLE.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAT5q1tUkd5Xdg0vltcpJoEoOfnGVBxyrDM9kPBpTcHPvnMZEFXer+OBlJFg37QI+g==",
                             PhoneNumber = "+1-555-5678",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0a34820e-a16a-4b94-9de2-e9f610eff1c1",
+                            SecurityStamp = "1096d6da-4fab-4250-8585-11ad891d27e1",
                             TwoFactorEnabled = false,
                             UserName = "user2@example.com"
-                        },
-                        new
-                        {
-                            Id = "cfb04fda-7948-4460-b1bc-1d6f8f2b8ae9",
-                            AccessFailedCount = 0,
-                            AccountType = "Donor",
-                            ConcurrencyStamp = "f7232fbd-4b5c-45db-a13e-78b3634a4f1e",
-                            Email = "user3@example.com",
-                            EmailConfirmed = false,
-                            IsDeleted = false,
-                            LockoutEnabled = false,
-                            PasswordHash = "Smith",
-                            PhoneNumber = "+1-555-9012",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "527f0e4b-7c5f-4b2f-89ff-7c21dacce3a8",
-                            TwoFactorEnabled = false,
-                            UserName = "user3@example.com"
-                        },
-                        new
-                        {
-                            Id = "600e7112-1094-4286-a2e4-d13b784c0a55",
-                            AccessFailedCount = 0,
-                            AccountType = "Donor",
-                            ConcurrencyStamp = "6f0c37e6-83a0-46e4-a51a-dc87afe792fa",
-                            Email = "user4@example.com",
-                            EmailConfirmed = false,
-                            IsDeleted = false,
-                            LockoutEnabled = false,
-                            PasswordHash = "Johnson",
-                            PhoneNumber = "+1-555-3456",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "e0ad3139-07df-4fff-a157-8babc8555b68",
-                            TwoFactorEnabled = false,
-                            UserName = "user4@example.com"
-                        },
-                        new
-                        {
-                            Id = "898411e6-cf74-4464-b474-eb9e4e6131cb",
-                            AccessFailedCount = 0,
-                            AccountType = "Donor",
-                            ConcurrencyStamp = "b8dda723-7001-4b83-b7ac-92df48eef369",
-                            Email = "user5@example.com",
-                            EmailConfirmed = false,
-                            IsDeleted = false,
-                            LockoutEnabled = false,
-                            PasswordHash = "William",
-                            PhoneNumber = "+1-555-7890",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "e9b3945a-98fe-4a9e-866e-eff7de705bc2",
-                            TwoFactorEnabled = false,
-                            UserName = "user5@example.com"
                         });
                 });
 
