@@ -21,7 +21,10 @@ namespace Clean_Architecture.Infrastructure.Repositories
         {
             _userManager = userManager;
         }
-
+        public async Task<ApplicationUser> FindByEmailAsync(string email)  
+        {
+            return await _userManager.FindByEmailAsync(email);
+        }
         public async Task<IdentityResult> CreateUserAsync(ApplicationUser user, string password)
         {
             return await _userManager.CreateAsync(user, password);
@@ -46,6 +49,16 @@ namespace Clean_Architecture.Infrastructure.Repositories
 
             return roles;
 
+        }
+
+        public async Task<string> GeneratePasswordResetTokenAsync(ApplicationUser user)
+        {
+            return await _userManager.GeneratePasswordResetTokenAsync(user);
+        }
+
+        public async Task<IdentityResult> ResetPasswordAsync(ApplicationUser user, string token, string newPassword)
+        {
+            return await _userManager.ResetPasswordAsync(user, token, newPassword);
         }
     }
 }
