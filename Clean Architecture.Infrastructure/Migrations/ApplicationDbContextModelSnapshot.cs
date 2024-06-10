@@ -326,10 +326,6 @@ namespace Clean_Architecture.Infrastructure.Migrations
                             AccountType = "Donor",
                             ConcurrencyStamp = "d5366998-b177-4499-907b-f7e5752b9c73",
 
-                            Id = "1",
-                            AccessFailedCount = 0,
-                            AccountType = "Donor",
-                            ConcurrencyStamp = "e2c7439a-6419-42f8-95e9-6240bc75424b",
 
                             Email = "user1@example.com",
                             EmailConfirmed = false,
@@ -343,7 +339,6 @@ namespace Clean_Architecture.Infrastructure.Migrations
 
                             SecurityStamp = "1bbdcadc-4b33-47b3-ae4e-635126f9b04c",
 
-                            SecurityStamp = "8ea523b3-87c0-41da-8a18-ce4442adfccd",
 
                             TwoFactorEnabled = false,
                             UserName = "user1@example.com"
@@ -356,10 +351,7 @@ namespace Clean_Architecture.Infrastructure.Migrations
                             AccountType = "Donor",
                             ConcurrencyStamp = "8bacfee3-61fd-44b8-b560-31388e5d8c8a",
 
-                            Id = "2",
-                            AccessFailedCount = 0,
-                            AccountType = "Donor",
-                            ConcurrencyStamp = "6b0bfa68-a116-4de7-921c-9b69ab9ea88c",
+
 
                             Email = "user2@example.com",
                             EmailConfirmed = false,
@@ -426,9 +418,6 @@ namespace Clean_Architecture.Infrastructure.Migrations
                             TwoFactorEnabled = false,
                             UserName = "user5@example.com"
 
-                            SecurityStamp = "1096d6da-4fab-4250-8585-11ad891d27e1",
-                            TwoFactorEnabled = false,
-                            UserName = "user2@example.com"
 
                         });
                 });
