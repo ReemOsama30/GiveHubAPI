@@ -24,6 +24,8 @@ namespace Clean_Architecture.Infrastructure.Repositories
 
         public IMoneyDonationRepository moneyDonationRepository { get; }
 
+        public IInkindDonationRepository inKindDonationRepository { get; }
+
         public IRepository<Badge> badgs { get; }
 
 
@@ -49,6 +51,8 @@ namespace Clean_Architecture.Infrastructure.Repositories
             UserRepository = new UserRepository(userManager);
 
             moneyDonationRepository = new MoneyDonationRepository(context);
+
+            inKindDonationRepository = new InkindDonationRepository(context);
         }
 
 

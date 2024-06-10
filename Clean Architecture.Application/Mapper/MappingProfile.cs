@@ -13,6 +13,7 @@ using Clean_Architecture.Application.DTOs.ReviewsDTOs;
 using Clean_Architecture.Application.DTOs.DonationReportDTOs;
 using Clean_Architecture.Application.DTOs.BadgeDTOs;
 using Clean_Architecture.Application.DTOs.AccountDTOs;
+using Clean_Architecture.Application.DTOs.InKindDonationDTOs;
 
 
 
@@ -83,6 +84,14 @@ namespace Clean_Architecture.Application.Mapper
             CreateMap<updateMoneyDonationDTO, MoneyDonation>();
             CreateMap<MoneyDonation, updateMoneyDonationDTO>();
 
+            CreateMap<showInKindDonationDTO, InKindDonation>();
+            CreateMap<InKindDonation,showInKindDonationDTO>();
+
+            CreateMap<addInKindDonationDTO, InKindDonation>();
+            CreateMap<InKindDonation, addInKindDonationDTO>();
+
+            CreateMap<updateInKindDonationDTO,InKindDonation>();
+            CreateMap<InKindDonation,updateInKindDonationDTO>();
 
             CreateMap<addDonorDTO, Donor>();
             CreateMap<Donor, addDonorDTO>();

@@ -142,6 +142,9 @@ namespace Clean_Architecture.APIs
             builder.Services.AddScoped<IMoneyDonationRepository, MoneyDonationRepository>();
             builder.Services.AddScoped<MoneyDonationService>();
 
+            builder.Services.AddScoped<IInkindDonationRepository, InkindDonationRepository>();
+            builder.Services.AddScoped<InKindDonationService>();
+
 
             builder.Services.AddCors(options =>
             {
