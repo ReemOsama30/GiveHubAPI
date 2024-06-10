@@ -15,6 +15,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Data;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
+using Clean_Architecture.Application.responses;
+using Microsoft.AspNetCore.Mvc;
 
 
 namespace Clean_Architecture.Application.services
@@ -24,12 +26,14 @@ namespace Clean_Architecture.Application.services
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
         private readonly IConfiguration config;
+        private readonly SignInManager<ApplicationUser> signInManager;
 
-        public AccountService(IUnitOfWork unitOfWork, IMapper mapper, IConfiguration config)
+        public AccountService(IUnitOfWork unitOfWork, IMapper mapper, IConfiguration config, SignInManager<ApplicationUser> signInManager)
         {
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
             this.config = config;
+            this.signInManager = signInManager;
         }
 
 
@@ -44,6 +48,7 @@ namespace Clean_Architecture.Application.services
                 PasswordHash = userDTO.Password,
                 AccountType = userDTO.AccountType,
             };
+
 
 
 
@@ -113,6 +118,44 @@ namespace Clean_Architecture.Application.services
 
             return validToken;
         }
+
+
+
+
+        public async Task<ApplicationUser> FindByEmailAsync(string email)
+        {
+            ApplicationUser user = await unitOfWork.UserRepository.FindByEmailAsync(email);
+            return user;
+        }
+
+        public async Task<GeneralResponse> ResetPasswordAsync(ResetPasswordDto resetPasswordDto)
+        {
+            var user = await FindByEmailAsync(resetPasswordDto.Email);
+            if (user == null)
+            {
+                return new GeneralResponse { IsPass = false, Message = "User not found." };
+            }
+
+            var signInResult = await unitOfWork.UserRepository.CheckPasswordAsync(user, resetPasswordDto.oldPassword);
+            if (!signInResult)
+            {
+                return new GeneralResponse { IsPass = false, Message = "Invalid password." };
+            }
+
+            var token = await unitOfWork.UserRepository.GeneratePasswordResetTokenAsync(user);
+            var result = await unitOfWork.UserRepository.ResetPasswordAsync(user, token, resetPasswordDto.NewPassword);
+
+            if (result.Succeeded)
+            {
+                return new GeneralResponse { IsPass = true, Message = "Password reset successfully." };
+            }
+            else
+            {
+                return new GeneralResponse { IsPass = false, Message = "Failed to reset password." };
+            }
+        }
+
+
 
     }
 }

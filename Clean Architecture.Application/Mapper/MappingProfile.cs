@@ -10,6 +10,7 @@ using Clean_Architecture.Application.DTOs.MoneyDonationDTOs;
 using Clean_Architecture.Application.DTOs.projectDTOs;
 using Clean_Architecture.Application.DTOs.ReviewsDTOs;
 
+
 using Clean_Architecture.Application.DTOs.DonationReportDTOs;
 using Clean_Architecture.Application.DTOs.BadgeDTOs;
 using Clean_Architecture.Application.DTOs.AccountDTOs;
@@ -100,10 +101,13 @@ namespace Clean_Architecture.Application.Mapper
             CreateMap<Donor, showDonorDTO>();
 
             CreateMap<showDonorWithBadgeDTO, Donor>();
-            CreateMap<Donor, showDonorWithBadgeDTO>();
+            //  CreateMap<Donor, showDonorWithBadgeDTO>();
 
             CreateMap<updateDonorDTO, Donor>();
             CreateMap<Donor, updateDonorDTO>();
+
+            CreateMap<Donor, showDonorWithBadgeDTO>()
+           .ForMember(dest => dest.BadgeName, opt => opt.MapFrom(src => src.Badges.Select(b => b.Name).ToList()));
 
 
 
