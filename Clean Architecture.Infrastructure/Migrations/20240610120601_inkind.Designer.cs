@@ -4,6 +4,7 @@ using Clean_Architecture.Infrastructure.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Clean_Architecture.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240610120601_inkind")]
+    partial class inkind
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,14 +50,6 @@ namespace Clean_Architecture.Infrastructure.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "1",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -320,57 +315,34 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-
                             Id = "7ed7b474-c12b-40cb-bb90-1d13d399c32d",
                             AccessFailedCount = 0,
                             AccountType = "Donor",
                             ConcurrencyStamp = "d5366998-b177-4499-907b-f7e5752b9c73",
-
-                            Id = "1",
-                            AccessFailedCount = 0,
-                            AccountType = "Donor",
-                            ConcurrencyStamp = "e2c7439a-6419-42f8-95e9-6240bc75424b",
-
                             Email = "user1@example.com",
                             EmailConfirmed = false,
                             IsDeleted = false,
                             LockoutEnabled = false,
-                            NormalizedEmail = "USER1@EXAMPLE.COM",
-                            NormalizedUserName = "USER1@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEPytr5fctLYTt00mLs+dDYRcHueIqFhzrrkXwJnk0FMYf+RZcALx9Prtk7DHg4iwwA==",
+                            PasswordHash = "Doe",
                             PhoneNumber = "+1-555-1234",
                             PhoneNumberConfirmed = false,
-
                             SecurityStamp = "1bbdcadc-4b33-47b3-ae4e-635126f9b04c",
-
-                            SecurityStamp = "8ea523b3-87c0-41da-8a18-ce4442adfccd",
-
                             TwoFactorEnabled = false,
                             UserName = "user1@example.com"
                         },
                         new
                         {
-
                             Id = "0d6ab7d2-93f8-4f1f-9f76-3f11b0a942e6",
                             AccessFailedCount = 0,
                             AccountType = "Donor",
                             ConcurrencyStamp = "8bacfee3-61fd-44b8-b560-31388e5d8c8a",
-
-                            Id = "2",
-                            AccessFailedCount = 0,
-                            AccountType = "Donor",
-                            ConcurrencyStamp = "6b0bfa68-a116-4de7-921c-9b69ab9ea88c",
-
                             Email = "user2@example.com",
                             EmailConfirmed = false,
                             IsDeleted = false,
                             LockoutEnabled = false,
-                            NormalizedEmail = "USER2@EXAMPLE.COM",
-                            NormalizedUserName = "USER2@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAT5q1tUkd5Xdg0vltcpJoEoOfnGVBxyrDM9kPBpTcHPvnMZEFXer+OBlJFg37QI+g==",
+                            PasswordHash = "Doe",
                             PhoneNumber = "+1-555-5678",
                             PhoneNumberConfirmed = false,
-
                             SecurityStamp = "b8909d1e-7494-4c74-98ab-077e9d1cae4a",
                             TwoFactorEnabled = false,
                             UserName = "user2@example.com"
@@ -425,11 +397,6 @@ namespace Clean_Architecture.Infrastructure.Migrations
                             SecurityStamp = "520bb0d1-f85d-47d2-8eca-e6b37159e44a",
                             TwoFactorEnabled = false,
                             UserName = "user5@example.com"
-
-                            SecurityStamp = "1096d6da-4fab-4250-8585-11ad891d27e1",
-                            TwoFactorEnabled = false,
-                            UserName = "user2@example.com"
-
                         });
                 });
 

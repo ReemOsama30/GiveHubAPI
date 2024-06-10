@@ -24,6 +24,7 @@ namespace Clean_Architecture.core.Interfaces
         public Task<int> SaveAsync();
 
         public IMoneyDonationRepository moneyDonationRepository { get; }
+        public IInkindDonationRepository inKindDonationRepository { get; }
 
 
         public void Dispose();
