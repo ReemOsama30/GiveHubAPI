@@ -169,8 +169,8 @@ namespace Clean_Architecture.APIs
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
-
+        //    app.UseHttpsRedirection();
+            app.UseCors("MyPolicy");
             app.UseAuthorization();
             app.MapControllers();
 
