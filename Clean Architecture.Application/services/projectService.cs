@@ -94,9 +94,24 @@ namespace Clean_Architecture.Application.services
                 return null;
             }
         }
-   
-   
-    
-    
+
+
+
+        public async Task<List<showprojectDTO>> GetProjectsByPage(int page)
+        {
+            int pageSize = 3;
+
+
+            var projects = await unitOfWork.projects.GetAllAsync();
+            int totalCount = projects.Count();
+            int totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
+
+            var pagedProjects = projects.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            return mapper.Map<List<showprojectDTO>>(pagedProjects);
+        }
+
+
+
     }
 }

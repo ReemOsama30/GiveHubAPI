@@ -48,12 +48,12 @@ namespace Clean_Architecture.APIs
                     new SymmetricSecurityKey(
                         Encoding.UTF8.GetBytes(builder.Configuration["JWT:SecritKey"]))
                 };
-                
+
             });
 
             /*-----------------------------Swagger Part-----------------------------*/
             #region Swagger REgion
-            
+
             builder.Services.AddSwaggerGen(swagger =>
             {
                 //This is to generate the Default UI of Swagger Documentation    
@@ -170,7 +170,7 @@ namespace Clean_Architecture.APIs
             }
 
             app.UseHttpsRedirection();
-
+            app.UseCors("MyPolicy");
             app.UseAuthorization();
             app.MapControllers();
 
