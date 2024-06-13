@@ -39,6 +39,11 @@ namespace Clean_Architecture.Application.services
         public showprojectDTO GetProjectById(int id)
         {
             var project = unitOfWork.projects.Get(i => i.Id == id);
+
+          
+
+
+
             return mapper.Map<showprojectDTO>(project);
         }
 
