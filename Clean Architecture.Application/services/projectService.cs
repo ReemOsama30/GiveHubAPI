@@ -3,6 +3,7 @@ using charityPulse.core.Models;
 
 using Clean_Architecture.Application.DTOs.projectDTOs;
 using Clean_Architecture.core.Interfaces;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Clean_Architecture.Application.services
 {
@@ -10,21 +11,37 @@ namespace Clean_Architecture.Application.services
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
-        public projectService(IUnitOfWork unitOfWork, IMapper mapper)
+        public projectService(IUnitOfWork unitOfWork, IMapper mapper, IWebHostEnvironment webHostEnvironment)
         {
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
+            this.webHostEnvironment = webHostEnvironment;
         }
 
 
         public void AddProject(addProjectDTO projectDTO)
         {
+
+            string UploadPath = Path.Combine(webHostEnvironment.WebRootPath, "projectImg");
+            string imageName = Guid.NewGuid().ToString() + "-" + projectDTO.ImgPath.FileName;
+            string filePath = Path.Combine(UploadPath, imageName);
+
+            using (FileStream fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                projectDTO.ImgPath.CopyTo(fileStream);
+            }
+
+
+            
+
             var project = mapper.Map<Project>(projectDTO);
+            project.ImgUrl = imageName;
 
             project.IsDeleted = false;
 
-            project.Img = File.ReadAllBytes(projectDTO.ImgPath);
+           // project.Img = File.ReadAllBytes(projectDTO.ImgPath);
             unitOfWork.projects.insert(project);
             unitOfWork.Save();
         }
@@ -54,7 +71,7 @@ namespace Clean_Architecture.Application.services
             var project = unitOfWork.projects.Get(p => p.Id == id);
 
 
-            project.Img = File.ReadAllBytes(newproject.Imgpath);
+            //project.Img = File.ReadAllBytes(newproject.Imgpath);
             unitOfWork.projects.update(project);
             unitOfWork.Save();
 
@@ -62,23 +79,23 @@ namespace Clean_Architecture.Application.services
             {
                 mapper.Map(newproject, project);
 
-                if (!string.IsNullOrEmpty(newproject.Imgpath))
-                {
-                    if (File.Exists(newproject.Imgpath))
-                    {
-                        project.Img = File.ReadAllBytes(newproject.Imgpath);
-                    }
-                    else
-                    {
-                        project.Img = project.Img;
-                    }
+                //if (!string.IsNullOrEmpty(newproject.Imgpath))
+                //{
+                //    if (File.Exists(newproject.Imgpath))
+                //    {
+                //        project.Img = File.ReadAllBytes(newproject.Imgpath);
+                //    }
+                //    else
+                //    {
+                //        project.Img = project.Img;
+                //    }
 
 
 
 
                     unitOfWork.projects.update(project);
                     unitOfWork.Save();
-                }
+               // }
             }
 
         }

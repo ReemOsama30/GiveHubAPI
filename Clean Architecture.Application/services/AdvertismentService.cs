@@ -38,17 +38,17 @@ namespace Clean_Architecture.Application.services
             var advertisment = mapper.Map<Advertisment>(advertismentDTO);
             advertisment.IsDeleted = false;
 
-            if (!string.IsNullOrEmpty(advertismentDTO.AdDesign))
-            {
-                if (File.Exists(advertismentDTO.AdDesign))
-                {
-                    advertisment.AdDesign = File.ReadAllBytes(advertismentDTO.AdDesign);
-                }
-                else
-                {
-                    advertisment.AdDesign = advertisment.AdDesign;
-                }
-            }
+            //if (!string.IsNullOrEmpty(advertismentDTO.AdDesign))
+            //{
+            //    if (File.Exists(advertismentDTO.AdDesign))
+            //    {
+            //        advertisment.AdDesign = File.ReadAllBytes(advertismentDTO.AdDesign);
+            //    }
+            //    else
+            //    {
+            //        advertisment.AdDesign = advertisment.AdDesign;
+            //    }
+            //}
 
 
 

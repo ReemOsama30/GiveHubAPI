@@ -11,6 +11,6 @@ namespace Clean_Architecture.Application.DTOs.corporateDTOs
         public int Id { get; set; }
         public string CSRProgramDescription { get; set; }
         public string WebsiteUrl { get; set; }
-        public byte[] ProfileImg { get; set; }
+        public string ProfileImgURL { get; set; }
     }
 }
