@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,7 @@ namespace Clean_Architecture.Application.DTOs.corporateDTOs
         public int Id { get; set; }
         public string CSRProgramDescription { get; set; }
         public string WebsiteUrl { get; set; }
-        public string ProfileImgURL { get; set; }
+        public IFormFile ProfileImgURL { get; set; }
         public string ApplicationUserId { get; set; }
     }
 }

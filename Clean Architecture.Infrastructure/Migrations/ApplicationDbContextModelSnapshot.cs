@@ -193,9 +193,9 @@ namespace Clean_Architecture.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<byte[]>("AdDesign")
+                    b.Property<string>("AdDesignURL")
                         .IsRequired()
-                        .HasColumnType("varbinary(max)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("CharityId")
                         .HasColumnType("int");
@@ -320,105 +320,41 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-
-                            Id = "7ed7b474-c12b-40cb-bb90-1d13d399c32d",
+                            Id = "1",
                             AccessFailedCount = 0,
                             AccountType = "Donor",
-                            ConcurrencyStamp = "d5366998-b177-4499-907b-f7e5752b9c73",
-
-
+                            ConcurrencyStamp = "6955a150-b05e-44d2-af11-c5336965af70",
                             Email = "user1@example.com",
                             EmailConfirmed = false,
                             IsDeleted = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER1@EXAMPLE.COM",
                             NormalizedUserName = "USER1@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEPytr5fctLYTt00mLs+dDYRcHueIqFhzrrkXwJnk0FMYf+RZcALx9Prtk7DHg4iwwA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENTjhyyIhr0HEFtYUCwKPgq6Z0DQmrUnkVa3P78jW68QbwnFzAvlC/Oj8lDZCSGonQ==",
                             PhoneNumber = "+1-555-1234",
                             PhoneNumberConfirmed = false,
-
-                            SecurityStamp = "1bbdcadc-4b33-47b3-ae4e-635126f9b04c",
-
-
+                            SecurityStamp = "6d29dc8d-511f-435d-81af-93b85e05f309",
                             TwoFactorEnabled = false,
                             UserName = "user1@example.com"
                         },
                         new
                         {
-
-                            Id = "0d6ab7d2-93f8-4f1f-9f76-3f11b0a942e6",
+                            Id = "2",
                             AccessFailedCount = 0,
                             AccountType = "Donor",
-                            ConcurrencyStamp = "8bacfee3-61fd-44b8-b560-31388e5d8c8a",
-
-
-
+                            ConcurrencyStamp = "9c4a1439-f519-4ed8-a373-b24ef04a5820",
                             Email = "user2@example.com",
                             EmailConfirmed = false,
                             IsDeleted = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER2@EXAMPLE.COM",
                             NormalizedUserName = "USER2@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAT5q1tUkd5Xdg0vltcpJoEoOfnGVBxyrDM9kPBpTcHPvnMZEFXer+OBlJFg37QI+g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEISdG7gHPvlrxoLrjshXkqKatH53BBcCDaZ43PltHNd7Co5DX+A5iyceHeY5X09YBg==",
                             PhoneNumber = "+1-555-5678",
                             PhoneNumberConfirmed = false,
-
-                            SecurityStamp = "b8909d1e-7494-4c74-98ab-077e9d1cae4a",
+                            SecurityStamp = "3db64df9-29bc-4c10-a50d-d0107dcb7d50",
                             TwoFactorEnabled = false,
                             UserName = "user2@example.com"
-                        },
-                        new
-                        {
-                            Id = "5fd6f1ce-3758-4381-ade0-4ef74fae5b17",
-                            AccessFailedCount = 0,
-                            AccountType = "Donor",
-                            ConcurrencyStamp = "891a15da-6bd1-4e23-bee4-34486c727f02",
-                            Email = "user3@example.com",
-                            EmailConfirmed = false,
-                            IsDeleted = false,
-                            LockoutEnabled = false,
-                            PasswordHash = "Smith",
-                            PhoneNumber = "+1-555-9012",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "91b976fc-084d-49de-964a-f05e62ae04b7",
-                            TwoFactorEnabled = false,
-                            UserName = "user3@example.com"
-                        },
-                        new
-                        {
-                            Id = "d67ca6c6-8fd7-4f17-add0-acd32e8855a2",
-                            AccessFailedCount = 0,
-                            AccountType = "Donor",
-                            ConcurrencyStamp = "bf346582-3fc6-45d6-b2b4-47caf8618dac",
-                            Email = "user4@example.com",
-                            EmailConfirmed = false,
-                            IsDeleted = false,
-                            LockoutEnabled = false,
-                            PasswordHash = "Johnson",
-                            PhoneNumber = "+1-555-3456",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "efd0081c-2d2a-42ac-9460-18c99ab7ba3a",
-                            TwoFactorEnabled = false,
-                            UserName = "user4@example.com"
-                        },
-                        new
-                        {
-                            Id = "6fd7eb52-b907-4227-9753-99373ae91eac",
-                            AccessFailedCount = 0,
-                            AccountType = "Donor",
-                            ConcurrencyStamp = "fd51d122-5f3b-40f0-83be-28bdc3839d23",
-                            Email = "user5@example.com",
-                            EmailConfirmed = false,
-                            IsDeleted = false,
-                            LockoutEnabled = false,
-                            PasswordHash = "William",
-                            PhoneNumber = "+1-555-7890",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "520bb0d1-f85d-47d2-8eca-e6b37159e44a",
-                            TwoFactorEnabled = false,
-                            UserName = "user5@example.com"
-
-
                         });
                 });
 
@@ -446,9 +382,9 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.Property<int?>("DonorId")
                         .HasColumnType("int");
 
-                    b.Property<byte[]>("Icon")
+                    b.Property<string>("Icon")
                         .IsRequired()
-                        .HasColumnType("varbinary(max)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -487,9 +423,9 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<byte[]>("ProfileImg")
+                    b.Property<string>("ProfileImg")
                         .IsRequired()
-                        .HasColumnType("varbinary(max)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("WebsiteUrl")
                         .IsRequired()
@@ -521,9 +457,9 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<byte[]>("ProfileImg")
+                    b.Property<string>("ProfileImg")
                         .IsRequired()
-                        .HasColumnType("varbinary(max)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("WebsiteUrl")
                         .IsRequired()
@@ -635,9 +571,9 @@ namespace Clean_Architecture.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte[]>("ProfileImg")
+                    b.Property<string>("ProfileImg")
                         .IsRequired()
-                        .HasColumnType("varbinary(max)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -670,9 +606,9 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.Property<decimal>("FundingGoal")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<byte[]>("Img")
+                    b.Property<string>("ImgUrl")
                         .IsRequired()
-                        .HasColumnType("varbinary(max)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");

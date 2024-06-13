@@ -4,6 +4,6 @@
     {
         public string Description { get; set; }
         public string WebsiteUrl { get; set; }
-        public byte[] ProfileImg { get; set; }
+        public string ProfileImg { get; set; }
     }
 }

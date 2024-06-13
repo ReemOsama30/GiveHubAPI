@@ -13,7 +13,7 @@ namespace charityPulse.core.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public byte[] ProfileImg { get; set; }
+        public string ProfileImg { get; set; }
         public DateTime DateJoined { get; set; }= DateTime.Now;
         public bool IsDeleted { get; set; }
 

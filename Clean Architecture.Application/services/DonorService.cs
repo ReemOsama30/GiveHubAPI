@@ -36,7 +36,7 @@ namespace Clean_Architecture.Application.services
         {
             var donor = mapper.Map<Donor>(addDonorDTO);
 
-            donor.ProfileImg = File.ReadAllBytes(addDonorDTO.Img);
+          //  donor.ProfileImg = File.ReadAllBytes(addDonorDTO.Img);
             donor.ApplicationUserId = "439213c3-e1c8-4fc5-a601-9d441a657dbd";
             unitOfWork.donorRepository.insert(donor);
             unitOfWork.Save();
@@ -46,7 +46,7 @@ namespace Clean_Architecture.Application.services
         {
             Donor donor = mapper.Map<Donor>(updateDonorDTO);
 
-            donor.ProfileImg = File.ReadAllBytes(updateDonorDTO.img);
+           // donor.ProfileImg = File.ReadAllBytes(updateDonorDTO.img);
             donor.ApplicationUserId = "439213c3-e1c8-4fc5-a601-9d441a657dbd";
             unitOfWork.donorRepository.update(donor);
             unitOfWork.Save();

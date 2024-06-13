@@ -1,4 +1,5 @@
 ﻿using charityPulse.core.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -13,7 +14,7 @@ namespace Clean_Architecture.Application.DTOs.BadgeDTOs
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime DateRecived { get; set; }
-        public string Icon { get; set; }
+        public IFormFile Icon { get; set; }
         public int? DonorId { get; set; }
         public int? CharityId { get; set; }
         public int? CorporateId { get; set; }

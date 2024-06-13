@@ -18,7 +18,7 @@ namespace Clean_Architecture.Application.services
         public void addCharity(addCharityDTO CharityDTO)
         {
             var charity = mapper.Map<Charity>(CharityDTO);
-            charity.ProfileImg = File.ReadAllBytes(CharityDTO.ImgUrl);
+       //     charity.ProfileImg = File.ReadAllBytes(CharityDTO.ImgUrl);
             //need to be changed after register is done
             charity.ApplicationUserId = "e43201d5-204e-4b66-80e8-f6cd8999083f";
             unitOfWork.charities.insert(charity);
@@ -49,7 +49,7 @@ namespace Clean_Architecture.Application.services
             string accountId = existingCharity.ApplicationUserId;
             existingCharity.Description = newCharity.Description;
             existingCharity.WebsiteUrl = newCharity.WebsiteUrl;
-            existingCharity.ProfileImg = File.ReadAllBytes(newCharity.ImgUrl);
+          //  existingCharity.ProfileImg = File.ReadAllBytes(newCharity.ImgUrl);
             existingCharity.ApplicationUserId = accountId;
             unitOfWork.charities.update(existingCharity);
             unitOfWork.Save();

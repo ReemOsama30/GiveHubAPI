@@ -13,7 +13,7 @@ namespace charityPulse.core.Models
     {
        
         public int Id { get; set; }
-        public byte[] AdDesign { get; set; }
+        public string AdDesignURL { get; set; }
 
         public decimal Price { get; set; }
         public DateTime StartDate { get; set; }
