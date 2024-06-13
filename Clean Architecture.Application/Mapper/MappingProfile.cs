@@ -70,10 +70,10 @@ namespace Clean_Architecture.Application.Mapper
 
             CreateMap<AddBadgeDTO, Badge>();
             CreateMap<Badge, ShowBadgeDTO>();
-            CreateMap<AddBadgeDTO, Badge>()
-            .ForMember(dest => dest.Icon, opt => opt.MapFrom(src => ConvertIconToBytes(src.Icon)));
-            CreateMap<UpdateBadgeDTO, Badge>()
-             .ForMember(dest => dest.Icon, opt => opt.MapFrom(src => ConvertIconToBytes(src.Icon)));
+            CreateMap<AddBadgeDTO, Badge>();
+            //.ForMember(dest => dest.Icon, opt => opt.MapFrom(src => ConvertIconToBytes(src.Icon)));
+            //CreateMap<UpdateBadgeDTO, Badge>()
+            // .ForMember(dest => dest.Icon, opt => opt.MapFrom(src => ConvertIconToBytes(src.Icon)));
 
 
             CreateMap<showMoneyDonationDTO, MoneyDonation>();

@@ -51,7 +51,7 @@ namespace Clean_Architecture.Application.services
         {
             var corporate = mapper.Map<Corporate>(addCorporateDTO);
             corporate.IsDeleted = false;
-            corporate.ProfileImg= File.ReadAllBytes(addCorporateDTO.ProfileImgURL);
+          //  corporate.ProfileImg= File.ReadAllBytes(addCorporateDTO.ProfileImgURL);
             unitOfWork.corporations.insert(corporate);
             unitOfWork.Save();
 
@@ -67,7 +67,7 @@ namespace Clean_Architecture.Application.services
             string accountId = existingCorporate.ApplicationUserId;
             existingCorporate=mapper.Map<Corporate>(NewCorporate);
             existingCorporate.ApplicationUserId = accountId;
-            existingCorporate.ProfileImg = File.ReadAllBytes(NewCorporate.ProfileImgURL);
+           // existingCorporate.ProfileImg = File.ReadAllBytes(NewCorporate.ProfileImgURL);
             unitOfWork.corporations.update(existingCorporate);
             unitOfWork.Save();
         }

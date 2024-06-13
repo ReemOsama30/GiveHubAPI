@@ -1,4 +1,5 @@
 ﻿using Clean_Architecture.core.Enums;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace Clean_Architecture.Application.DTOs.projectDTOs
         public string Description { get; set; }
         public decimal FundingGoal { get; set; }
         public decimal AmountRaised { get; set; }
-        public string Imgpath { get; set; }
+        public IFormFile Imgpath { get; set; }
         public int CharityId { get; set; }
         public ProjectState State { get; set; } = ProjectState.Initiated;
     }
