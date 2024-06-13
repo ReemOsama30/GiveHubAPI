@@ -25,4 +25,8 @@
     <ProjectReference Include="..\Clean Architecture.Infrastructure\charityPulse.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\projectImg\" />
+  </ItemGroup>
+
 </Project>
