@@ -37,7 +37,7 @@ namespace Clean_Architecture.Application.services
             
 
             var project = mapper.Map<Project>(projectDTO);
-            project.ImgUrl = imageName;
+            project.ImgUrl = filePath;
 
             project.IsDeleted = false;
 
