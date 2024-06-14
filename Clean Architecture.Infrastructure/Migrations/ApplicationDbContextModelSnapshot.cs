@@ -51,7 +51,7 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1",
+                            Id = "dd8f4101-56d2-44ac-9e7c-02730292e789",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -320,39 +320,39 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1",
+                            Id = "e08ef6ea-fb55-4222-93b3-7afd2e5c0bb6",
                             AccessFailedCount = 0,
                             AccountType = "Donor",
-                            ConcurrencyStamp = "6955a150-b05e-44d2-af11-c5336965af70",
+                            ConcurrencyStamp = "1f5a2e8c-f5b4-400a-a0d5-a7c95f364bac",
                             Email = "user1@example.com",
                             EmailConfirmed = false,
                             IsDeleted = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER1@EXAMPLE.COM",
                             NormalizedUserName = "USER1@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAENTjhyyIhr0HEFtYUCwKPgq6Z0DQmrUnkVa3P78jW68QbwnFzAvlC/Oj8lDZCSGonQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGtYOeOprMtZFiPWuKnfXkdHqQUm7ygeR3Js6k/WLR/j16lq3jIz50syrrQSgLuUwg==",
                             PhoneNumber = "+1-555-1234",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6d29dc8d-511f-435d-81af-93b85e05f309",
+                            SecurityStamp = "056a6fd1-4a07-4d8e-86a8-e5345636d840",
                             TwoFactorEnabled = false,
                             UserName = "user1@example.com"
                         },
                         new
                         {
-                            Id = "2",
+                            Id = "905a06a1-10ea-4e00-94ec-a26379feaf7d",
                             AccessFailedCount = 0,
                             AccountType = "Donor",
-                            ConcurrencyStamp = "9c4a1439-f519-4ed8-a373-b24ef04a5820",
+                            ConcurrencyStamp = "9d1dde08-1682-41e2-b8d5-c73f95115914",
                             Email = "user2@example.com",
                             EmailConfirmed = false,
                             IsDeleted = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER2@EXAMPLE.COM",
                             NormalizedUserName = "USER2@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEISdG7gHPvlrxoLrjshXkqKatH53BBcCDaZ43PltHNd7Co5DX+A5iyceHeY5X09YBg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHFOV7gDEjyhO8i4l/Mu1tk2axVeDQst8Uj972QmfvYJLE31mIuGV4MImOpwuI9zAA==",
                             PhoneNumber = "+1-555-5678",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3db64df9-29bc-4c10-a50d-d0107dcb7d50",
+                            SecurityStamp = "e29c7f23-ad6a-4e67-9bcd-62dcf9ded1bc",
                             TwoFactorEnabled = false,
                             UserName = "user2@example.com"
                         });
@@ -422,6 +422,10 @@ namespace Clean_Architecture.Infrastructure.Migrations
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProfileImg")
                         .IsRequired()

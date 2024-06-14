@@ -49,6 +49,7 @@ namespace Clean_Architecture.Application.services
             string accountId = existingCharity.ApplicationUserId;
             existingCharity.Description = newCharity.Description;
             existingCharity.WebsiteUrl = newCharity.WebsiteUrl;
+            existingCharity.Name = newCharity.Name;
           //  existingCharity.ProfileImg = File.ReadAllBytes(newCharity.ImgUrl);
             existingCharity.ApplicationUserId = accountId;
             unitOfWork.charities.update(existingCharity);
