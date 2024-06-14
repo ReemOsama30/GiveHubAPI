@@ -37,7 +37,7 @@ public DbSet<Badge> Badges { get; set; }
              {
             new ApplicationUser
             {
-                Id = "1",
+                
                 UserName = "user1@example.com",
                 Email = "user1@example.com",
                 NormalizedUserName = "USER1@EXAMPLE.COM",
@@ -50,7 +50,7 @@ public DbSet<Badge> Badges { get; set; }
             },
             new ApplicationUser
             {
-                Id = "2",
+              
                 UserName = "user2@example.com",
                 Email = "user2@example.com",
                 NormalizedUserName = "USER2@EXAMPLE.COM",
@@ -65,7 +65,7 @@ public DbSet<Badge> Badges { get; set; }
             modelBuilder.Entity<IdentityRole>().HasData(
                new IdentityRole
                {
-                   Id = "1",
+                  
                    Name = "Admin",
                    NormalizedName = "ADMIN"
                }
