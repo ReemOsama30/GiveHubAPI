@@ -1,29 +1,26 @@
 ﻿using charityPulse.core.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Clean_Architecture.Infrastructure.DbContext
 {
-    public class ApplicationDbContext:IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        DbSet<Admin> Admins { get; set; }
-        DbSet<Advertisment> Advertisments { get; set; }
-        DbSet<ApplicationUser> ApplicationUsers { get; set; }
-        DbSet<Badge> Badges { get; set; }
-        DbSet<Charity> charities { get; set; }
-        DbSet<Corporate> corporations { get; set; }
-        DbSet<DonationReport> donationsReport { get; set; }
-        DbSet<Donation> donations { get; set; }
-        DbSet<Donor> donors { get; set; }
-        DbSet<InKindDonation> inKindDonations { get; set; }
-        DbSet<MoneyDonation> moneyDonations { get; set; }
-        DbSet<Project> projects { get; set; }
-        DbSet<Review> reviews { get; set; }
+      public  DbSet<Admin> Admins { get; set; }
+      public  DbSet<Advertisment> Advertisments { get; set; }
+      public  DbSet<ApplicationUser> ApplicationUsers { get; set; }
+public DbSet<Badge> Badges { get; set; }
+   public     DbSet<Charity> charities { get; set; }
+   public     DbSet<Corporate> corporations { get; set; }
+     public   DbSet<DonationReport> donationsReport { get; set; }
+        public DbSet<Donation> donations { get; set; }
+        public DbSet<Donor> donors { get; set; }
+        public DbSet<InKindDonation> inKindDonations { get; set; }
+        public DbSet<MoneyDonation> moneyDonations { get; set; }
+        public DbSet<Project> projects { get; set; }
+        public DbSet<Review> reviews { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -35,57 +32,54 @@ namespace Clean_Architecture.Infrastructure.DbContext
 
             base.OnModelCreating(modelBuilder);
 
-         modelBuilder.Entity<ApplicationUser>().HasData(
-         new List<ApplicationUser>
-         {
-                new ApplicationUser
-                {
-                    UserName = "user1@example.com",
-                    Email = "user1@example.com",
-                    PasswordHash = "Doe",
-                    PhoneNumber = "+1-555-1234",
-                    
-                    // Add other properties you want to set
-                },
-                new ApplicationUser
-                {
-                    UserName = "user2@example.com",
-                    Email = "user2@example.com",
-                    PasswordHash = "Doe",
-                    PhoneNumber = "+1-555-5678",
-                    
-                    // Add other properties you want to set
-                },
-                new ApplicationUser
-                {
-                    UserName = "user3@example.com",
-                    Email = "user3@example.com",
-                    PasswordHash = "Smith",
-                    PhoneNumber = "+1-555-9012",
-                   
-                },
-                new ApplicationUser
-                {
-                    UserName = "user4@example.com",
-                    Email = "user4@example.com",
-                   
-                    PasswordHash = "Johnson",
-                    PhoneNumber = "+1-555-3456",
-                      
-                    // Add other properties you want to set
-                },
-                new ApplicationUser
-                {
-                    UserName = "user5@example.com",
-                    Email = "user5@example.com",
-                    PasswordHash = "William",
-                    
-                    PhoneNumber = "+1-555-7890",
-                     
-                    // Add other properties you want to set
-                }
-         });
+            modelBuilder.Entity<ApplicationUser>().HasData(
+             new List<ApplicationUser>
+             {
+            new ApplicationUser
+            {
+                Id = "1",
+                UserName = "user1@example.com",
+                Email = "user1@example.com",
+                NormalizedUserName = "USER1@EXAMPLE.COM",
+                NormalizedEmail = "USER1@EXAMPLE.COM",
+                PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null, "Password123"),
+                PhoneNumber = "+1-555-1234",
+                AccountType = "Donor",
+                IsDeleted = false,
+                // Add other properties and relationships you want to set
+            },
+            new ApplicationUser
+            {
+                Id = "2",
+                UserName = "user2@example.com",
+                Email = "user2@example.com",
+                NormalizedUserName = "USER2@EXAMPLE.COM",
+                NormalizedEmail = "USER2@EXAMPLE.COM",
+                PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null, "Password123"),
+                PhoneNumber = "+1-555-5678",
+                AccountType = "Donor",
+                IsDeleted = false,
+                // Add other properties and relationships you want to set
+            }, });
+
+            modelBuilder.Entity<IdentityRole>().HasData(
+               new IdentityRole
+               {
+                   Id = "1",
+                   Name = "Admin",
+                   NormalizedName = "ADMIN"
+               }
+               // Add more roles as needed
+           );
+
+            // Configure inheritance using TPH (Table per Hierarchy) strategy
+            modelBuilder.Entity<Donation>()
+                .HasDiscriminator<string>("DonationType")
+                .HasValue<MoneyDonation>("Monetary")
+                .HasValue<InKindDonation>("InKind");
+        
         }
+
 
 
     }

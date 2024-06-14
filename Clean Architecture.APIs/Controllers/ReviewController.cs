@@ -97,23 +97,40 @@ namespace Clean_Architecture.APIs.Controllers
 
         }
 
-        [HttpPut]
-        public ActionResult<GeneralResponse> UpdateReview(ReviewDTOWithDoner reviewDTO)
+        [HttpPut("{id}")]
+        public ActionResult<GeneralResponse> UpdateReview(int id, ReviewDTO reviewDTO)
         {
-            reviewService.UpdateReview(reviewDTO);
-            var review = reviewService.GetReviewById(reviewDTO.Id);
-            return new GeneralResponse
-            {
-                IsPass = true,
-                Status = 200,
-                Message = review
-            };
+            var review = reviewService.GetReviewById(id);
 
+            if (review == null)
+            {
+
+                return new GeneralResponse
+                {
+                    IsPass = false,
+                    Status = 400,
+                    Message = "invalid review"
+                };
+            }
+            else
+            {
+                reviewService.UpdateReview(id, reviewDTO);
+
+                return new GeneralResponse
+                {
+                    IsPass = true,
+                    Status = 200,
+                    Message = "updatedd successfully"
+                };
+
+            }
         }
 
         [HttpDelete]
-        public ActionResult<GeneralResponse> RemoveReview(int id)
+
+        public ActionResult<GeneralResponse> DeleteReview(int id)
         {
+
             var review = reviewService.GetReviewById(id);
             if (review == null)
             {
@@ -121,17 +138,17 @@ namespace Clean_Architecture.APIs.Controllers
                 {
                     IsPass = false,
                     Status = 404,
-                    Message = "review not found"
+                    Message = "Review not found"
                 };
             }
             else
             {
-                reviewService.DeleteReview(id);
+                reviewService.deleteReview(id);
                 return new GeneralResponse
                 {
                     IsPass = true,
                     Status = 200,
-                    Message = "delete successfully"
+                    Message = review.Content + " delete successfully"
                 };
             }
         }

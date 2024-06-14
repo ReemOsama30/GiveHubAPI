@@ -17,7 +17,7 @@ namespace Clean_Architecture.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.5")
+                .HasAnnotation("ProductVersion", "8.0.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -47,6 +47,14 @@ namespace Clean_Architecture.Infrastructure.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -185,9 +193,9 @@ namespace Clean_Architecture.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<byte[]>("AdDesign")
+                    b.Property<string>("AdDesignURL")
                         .IsRequired()
-                        .HasColumnType("varbinary(max)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("CharityId")
                         .HasColumnType("int");
@@ -226,6 +234,9 @@ namespace Clean_Architecture.Infrastructure.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
+
+                    b.Property<string>("AccountType")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("AdminId")
                         .HasColumnType("int");
@@ -309,83 +320,41 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e43201d5-204e-4b66-80e8-f6cd8999083f",
+                            Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7f9be0be-f6e9-44cb-882b-ccd69a76c1dc",
+                            AccountType = "Donor",
+                            ConcurrencyStamp = "6955a150-b05e-44d2-af11-c5336965af70",
                             Email = "user1@example.com",
                             EmailConfirmed = false,
                             IsDeleted = false,
                             LockoutEnabled = false,
-                            PasswordHash = "Doe",
+                            NormalizedEmail = "USER1@EXAMPLE.COM",
+                            NormalizedUserName = "USER1@EXAMPLE.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAENTjhyyIhr0HEFtYUCwKPgq6Z0DQmrUnkVa3P78jW68QbwnFzAvlC/Oj8lDZCSGonQ==",
                             PhoneNumber = "+1-555-1234",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0a8d5d0f-fc2b-4bc2-b66e-ebf2d53ba53c",
+                            SecurityStamp = "6d29dc8d-511f-435d-81af-93b85e05f309",
                             TwoFactorEnabled = false,
                             UserName = "user1@example.com"
                         },
                         new
                         {
-                            Id = "b1190c3b-c773-401c-9df6-74a267330255",
+                            Id = "2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ce1a0496-1b29-4444-ace1-c31e4d656a5e",
+                            AccountType = "Donor",
+                            ConcurrencyStamp = "9c4a1439-f519-4ed8-a373-b24ef04a5820",
                             Email = "user2@example.com",
                             EmailConfirmed = false,
                             IsDeleted = false,
                             LockoutEnabled = false,
-                            PasswordHash = "Doe",
+                            NormalizedEmail = "USER2@EXAMPLE.COM",
+                            NormalizedUserName = "USER2@EXAMPLE.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEISdG7gHPvlrxoLrjshXkqKatH53BBcCDaZ43PltHNd7Co5DX+A5iyceHeY5X09YBg==",
                             PhoneNumber = "+1-555-5678",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b1c60598-2a02-49b5-8daf-e3c47ec76857",
+                            SecurityStamp = "3db64df9-29bc-4c10-a50d-d0107dcb7d50",
                             TwoFactorEnabled = false,
                             UserName = "user2@example.com"
-                        },
-                        new
-                        {
-                            Id = "7395d769-fbb4-476e-ad52-1fd8c197ea76",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "d3e18527-ac57-4643-a92f-00d3cbd83837",
-                            Email = "user3@example.com",
-                            EmailConfirmed = false,
-                            IsDeleted = false,
-                            LockoutEnabled = false,
-                            PasswordHash = "Smith",
-                            PhoneNumber = "+1-555-9012",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "87c9d6d6-c95f-4274-b164-7e7677c4c9d3",
-                            TwoFactorEnabled = false,
-                            UserName = "user3@example.com"
-                        },
-                        new
-                        {
-                            Id = "8b3582ec-0f20-46a0-8d98-39b6d489b18b",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "dd91ed34-4a5d-4793-913f-40c6184f9335",
-                            Email = "user4@example.com",
-                            EmailConfirmed = false,
-                            IsDeleted = false,
-                            LockoutEnabled = false,
-                            PasswordHash = "Johnson",
-                            PhoneNumber = "+1-555-3456",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "f9af17da-c001-4572-a1d9-a311f74a001b",
-                            TwoFactorEnabled = false,
-                            UserName = "user4@example.com"
-                        },
-                        new
-                        {
-                            Id = "439213c3-e1c8-4fc5-a601-9d441a657dbd",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "d2e47942-3a68-4a99-b752-789a8d7a7a81",
-                            Email = "user5@example.com",
-                            EmailConfirmed = false,
-                            IsDeleted = false,
-                            LockoutEnabled = false,
-                            PasswordHash = "William",
-                            PhoneNumber = "+1-555-7890",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "d92c5224-c71f-4c56-ad61-1d8b9a529f02",
-                            TwoFactorEnabled = false,
-                            UserName = "user5@example.com"
                         });
                 });
 
@@ -413,9 +382,9 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.Property<int?>("DonorId")
                         .HasColumnType("int");
 
-                    b.Property<byte[]>("Icon")
+                    b.Property<string>("Icon")
                         .IsRequired()
-                        .HasColumnType("varbinary(max)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -454,9 +423,9 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<byte[]>("ProfileImg")
+                    b.Property<string>("ProfileImg")
                         .IsRequired()
-                        .HasColumnType("varbinary(max)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("WebsiteUrl")
                         .IsRequired()
@@ -488,9 +457,9 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<byte[]>("ProfileImg")
+                    b.Property<string>("ProfileImg")
                         .IsRequired()
-                        .HasColumnType("varbinary(max)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("WebsiteUrl")
                         .IsRequired()
@@ -511,22 +480,19 @@ namespace Clean_Architecture.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<int?>("CharityId")
                         .HasColumnType("int");
 
                     b.Property<int?>("CorporateId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasMaxLength(21)
-                        .HasColumnType("nvarchar(21)");
-
                     b.Property<DateTime>("DonationDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("DonationType")
+                        .IsRequired()
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
 
                     b.Property<int>("DonorId")
                         .HasColumnType("int");
@@ -534,7 +500,7 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("ProjectId")
+                    b.Property<int?>("projectId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -545,11 +511,11 @@ namespace Clean_Architecture.Infrastructure.Migrations
 
                     b.HasIndex("DonorId");
 
-                    b.HasIndex("ProjectId");
+                    b.HasIndex("projectId");
 
                     b.ToTable("donations");
 
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Donation");
+                    b.HasDiscriminator<string>("DonationType").HasValue("Donation");
 
                     b.UseTphMappingStrategy();
                 });
@@ -605,9 +571,9 @@ namespace Clean_Architecture.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte[]>("ProfileImg")
+                    b.Property<string>("ProfileImg")
                         .IsRequired()
-                        .HasColumnType("varbinary(max)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -640,9 +606,9 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.Property<decimal>("FundingGoal")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<byte[]>("Img")
+                    b.Property<string>("ImgUrl")
                         .IsRequired()
-                        .HasColumnType("varbinary(max)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -715,18 +681,21 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.HasDiscriminator().HasValue("InKindDonation");
+                    b.HasDiscriminator().HasValue("InKind");
                 });
 
             modelBuilder.Entity("charityPulse.core.Models.MoneyDonation", b =>
                 {
                     b.HasBaseType("charityPulse.core.Models.Donation");
 
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("PaymentMethod")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasDiscriminator().HasValue("MoneyDonation");
+                    b.HasDiscriminator().HasValue("Monetary");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -878,7 +847,7 @@ namespace Clean_Architecture.Infrastructure.Migrations
 
             modelBuilder.Entity("charityPulse.core.Models.Donation", b =>
                 {
-                    b.HasOne("charityPulse.core.Models.Charity", null)
+                    b.HasOne("charityPulse.core.Models.Charity", "Charity")
                         .WithMany("Donations")
                         .HasForeignKey("CharityId");
 
@@ -892,13 +861,17 @@ namespace Clean_Architecture.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("charityPulse.core.Models.Project", null)
+                    b.HasOne("charityPulse.core.Models.Project", "Project")
                         .WithMany("Donations")
-                        .HasForeignKey("ProjectId");
+                        .HasForeignKey("projectId");
+
+                    b.Navigation("Charity");
 
                     b.Navigation("Corporate");
 
                     b.Navigation("Donor");
+
+                    b.Navigation("Project");
                 });
 
             modelBuilder.Entity("charityPulse.core.Models.DonationReport", b =>

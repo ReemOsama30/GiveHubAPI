@@ -17,7 +17,7 @@ namespace charityPulse.core.Models
         public string Description { get; set; }
         public decimal FundingGoal { get; set; }
         public decimal AmountRaised { get; set; }
-        public byte[] Img { get; set; }
+        public string ImgUrl { get; set; }
         public ProjectState State { get; set; } = ProjectState.Initiated;
 
         public bool IsDeleted { get; set; } = false;
@@ -30,7 +30,7 @@ namespace charityPulse.core.Models
         public int CharityId { get; set; }
         public Charity Charity { get; set; }
 
-        public ICollection<Donation> Donations { get; set; }
+        public ICollection<Donation> ?Donations { get; set; }
 
 
         //

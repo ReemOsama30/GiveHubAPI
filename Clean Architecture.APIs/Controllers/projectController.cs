@@ -1,8 +1,6 @@
-﻿using charityPulse.core.Models;
-using Clean_Architecture.Application.DTOs.projectDTOs;
+﻿using Clean_Architecture.Application.DTOs.projectDTOs;
 using Clean_Architecture.Application.responses;
 using Clean_Architecture.Application.services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Clean_Architecture.APIs.Controllers
@@ -91,16 +89,16 @@ namespace Clean_Architecture.APIs.Controllers
         }
 
 
-        [HttpPut]
-        public ActionResult<GeneralResponse> update(updateProjectDTO updateProjectDTO)
+        [HttpPut("{id}")]
+        public ActionResult<GeneralResponse> update(int id, updateProjectDTO updateProjectDTO)
         {
-            projectService.updateProject(updateProjectDTO);
-            var project = projectService.GetProjectById(updateProjectDTO.Id);
+            projectService.updateProject(id, updateProjectDTO);
+            var project = projectService.GetProjectById(id);
             return new GeneralResponse
             {
                 IsPass = true,
                 Status = 200,
-                Message = project
+                Message = "updateProjectDTO successfully"
             };
 
         }
@@ -110,8 +108,8 @@ namespace Clean_Architecture.APIs.Controllers
         public ActionResult<GeneralResponse> deleteProject(int id)
         {
 
-            var project=projectService.GetProjectById(id);
-            if(project == null)
+            var project = projectService.GetProjectById(id);
+            if (project == null)
             {
                 return new GeneralResponse
                 {
@@ -125,9 +123,9 @@ namespace Clean_Architecture.APIs.Controllers
                 projectService.DeleteProject(id);
                 return new GeneralResponse
                 {
-                    IsPass= true,
+                    IsPass = true,
                     Status = 200,
-                    Message = project.Title+"delete successfully"
+                    Message = project.Title + "delete successfully"
                 };
             }
         }
@@ -135,26 +133,45 @@ namespace Clean_Architecture.APIs.Controllers
 
 
         [HttpPost]
-        public ActionResult<GeneralResponse>InsertProject(addProjectDTO addProjectDTO)
+        public ActionResult<GeneralResponse> InsertProject(addProjectDTO addProjectDTO)
         {
 
-            if (ModelState.IsValid) {
+            if (ModelState.IsValid)
+            {
                 projectService.AddProject(addProjectDTO);
 
                 return new GeneralResponse
-            {
-              IsPass=true,
-              Status = 200,
-              Message=addProjectDTO
-            };
+                {
+                    IsPass = true,
+                    Status = 200,
+                    Message = addProjectDTO
+                };
             }
             return new GeneralResponse
             {
                 IsPass = false,
-                Status=400,
-                Message="unable to add new project"
+                Status = 400,
+                Message = "unable to add new project"
             };
 
         }
+
+
+
+        [HttpGet("page")]
+        public async Task<ActionResult<GeneralResponse>> GetAll(int page)
+        {
+            var result = await projectService.GetProjectsByPage(page);
+
+            var response = new GeneralResponse
+            {
+                IsPass = true,
+
+                Message = result,
+                Status = 200
+            };
+            return response;
+        }
+
     }
 }

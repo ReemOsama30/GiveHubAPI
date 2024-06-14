@@ -20,20 +20,20 @@ namespace Clean_Architecture.Application.services
 
         public ReviewDTOWithDoner GetReviewById(int id)
         {
-            var review = unitOfWork.ReviewRepository.GetOneWithDonorInfo(id);
+            var review = unitOfWork.reviewRepository.GetOneWithDonorInfo(id);
             return mapper.Map<ReviewDTOWithDoner>(review);
         }
 
 
         public List<ReviewDTOWithDoner> GetAllReviewsWithDonorInfo()
         {
-            var reviews = unitOfWork.ReviewRepository.GetAllReviewsWithDonorInfo();
+            var reviews = unitOfWork.reviewRepository.GetAllReviewsWithDonorInfo();
             return mapper.Map<List<ReviewDTOWithDoner>>(reviews);
         }
 
         public List<ReviewDTOWithDoner> GetAllReviewsOnCharity(int charityId)
         {
-            var reviews = unitOfWork.ReviewRepository.GetByCharityId(charityId);
+            var reviews = unitOfWork.reviewRepository.GetByCharityId(charityId);
             return mapper.Map<List<ReviewDTOWithDoner>>(reviews);
 
         }
@@ -44,23 +44,28 @@ namespace Clean_Architecture.Application.services
 
             var review = mapper.Map<Review>(reviewDTO);
             review.DatePosted = DateTime.Now;
-            unitOfWork.ReviewRepository.insert(review);
-            unitOfWork.save();
+            unitOfWork.reviewRepository.insert(review);
+            unitOfWork.Save();
         }
 
 
-        public void UpdateReview(ReviewDTOWithDoner reviewDTO)
+        public void UpdateReview(int id,ReviewDTO reviewDTO)
         {
-            var review = mapper.Map<Review>(reviewDTO);
+
+            var review =unitOfWork.reviewRepository.Get(r=>r.Id==id);
+                mapper.Map(reviewDTO,review);
+                
+     
             review.DatePosted = DateTime.Now;
-            unitOfWork.ReviewRepository.update(review);
-            unitOfWork.save();
+            unitOfWork.reviewRepository.update(review);
+            unitOfWork.Save();
         }
 
-        public void DeleteReview(int id)
+        public void deleteReview(int id)
         {
-            Review review = unitOfWork.ReviewRepository.Get(r => r.Id == id);
-            unitOfWork.ReviewRepository.delete(review);
+            Review review = unitOfWork.reviewRepository.Get(c => c.Id == id);
+            unitOfWork.reviewRepository.delete(review);
+            unitOfWork.Save();
         }
     }
 

@@ -33,7 +33,7 @@ namespace Clean_Architecture.Application.services
             var report = mapper.Map<DonationReport>(addDonationReportDTO);
             report.IsDeleted = false;
             unitOfWork.DonationReportRepository.insert(report);
-            unitOfWork.save();
+            unitOfWork.Save();
         }
 
         public void UpdateDonationReport(updateDonationReportDTO updateDonationReportDTO)
@@ -41,7 +41,9 @@ namespace Clean_Architecture.Application.services
 
             DonationReport donationReport = mapper.Map<DonationReport>(updateDonationReportDTO);
             unitOfWork.DonationReportRepository.update(donationReport);
-            unitOfWork.save();
+            unitOfWork.Save();
+                
+           
         }
 
         public void DeleteDonationReport(int id)

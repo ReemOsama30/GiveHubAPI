@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Clean_Architecture.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class db : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -68,7 +68,7 @@ namespace Clean_Architecture.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    AdDesign = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    AdDesignURL = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -134,11 +134,12 @@ namespace Clean_Architecture.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    AccountType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     AdminId = table.Column<int>(type: "int", nullable: true),
                     DonorId = table.Column<int>(type: "int", nullable: true),
                     CharityId = table.Column<int>(type: "int", nullable: true),
                     CorporateId = table.Column<int>(type: "int", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -192,7 +193,7 @@ namespace Clean_Architecture.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     WebsiteUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProfileImg = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    ProfileImg = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -215,7 +216,7 @@ namespace Clean_Architecture.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CSRProgramDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     WebsiteUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProfileImg = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    ProfileImg = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -237,7 +238,7 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProfileImg = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    ProfileImg = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateJoined = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
@@ -262,7 +263,7 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateRecived = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Icon = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    Icon = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     DonorId = table.Column<int>(type: "int", nullable: true),
                     CharityId = table.Column<int>(type: "int", nullable: true),
@@ -322,16 +323,16 @@ namespace Clean_Architecture.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     DonationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     DonorId = table.Column<int>(type: "int", nullable: false),
                     CorporateId = table.Column<int>(type: "int", nullable: true),
+                    projectId = table.Column<int>(type: "int", nullable: true),
                     CharityId = table.Column<int>(type: "int", nullable: true),
-                    Discriminator = table.Column<string>(type: "nvarchar(21)", maxLength: 21, nullable: false),
-                    ProjectId = table.Column<int>(type: "int", nullable: true),
+                    DonationType = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
                     ItemDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Quantity = table.Column<int>(type: "int", nullable: true),
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     PaymentMethod = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -381,7 +382,7 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FundingGoal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     AmountRaised = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Img = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    ImgUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     State = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     ReportId = table.Column<int>(type: "int", nullable: true),
@@ -410,15 +411,17 @@ namespace Clean_Architecture.Infrastructure.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "1", null, "Admin", "ADMIN" });
+
+            migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "AdminId", "CharityId", "ConcurrencyStamp", "CorporateId", "DonorId", "Email", "EmailConfirmed", "IsDeleted", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                columns: new[] { "Id", "AccessFailedCount", "AccountType", "AdminId", "CharityId", "ConcurrencyStamp", "CorporateId", "DonorId", "Email", "EmailConfirmed", "IsDeleted", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "439213c3-e1c8-4fc5-a601-9d441a657dbd", 0, null, null, "d2e47942-3a68-4a99-b752-789a8d7a7a81", null, null, "user5@example.com", false, false, false, null, null, null, "William", "+1-555-7890", false, "d92c5224-c71f-4c56-ad61-1d8b9a529f02", false, "user5@example.com" },
-                    { "7395d769-fbb4-476e-ad52-1fd8c197ea76", 0, null, null, "d3e18527-ac57-4643-a92f-00d3cbd83837", null, null, "user3@example.com", false, false, false, null, null, null, "Smith", "+1-555-9012", false, "87c9d6d6-c95f-4274-b164-7e7677c4c9d3", false, "user3@example.com" },
-                    { "8b3582ec-0f20-46a0-8d98-39b6d489b18b", 0, null, null, "dd91ed34-4a5d-4793-913f-40c6184f9335", null, null, "user4@example.com", false, false, false, null, null, null, "Johnson", "+1-555-3456", false, "f9af17da-c001-4572-a1d9-a311f74a001b", false, "user4@example.com" },
-                    { "b1190c3b-c773-401c-9df6-74a267330255", 0, null, null, "ce1a0496-1b29-4444-ace1-c31e4d656a5e", null, null, "user2@example.com", false, false, false, null, null, null, "Doe", "+1-555-5678", false, "b1c60598-2a02-49b5-8daf-e3c47ec76857", false, "user2@example.com" },
-                    { "e43201d5-204e-4b66-80e8-f6cd8999083f", 0, null, null, "7f9be0be-f6e9-44cb-882b-ccd69a76c1dc", null, null, "user1@example.com", false, false, false, null, null, null, "Doe", "+1-555-1234", false, "0a8d5d0f-fc2b-4bc2-b66e-ebf2d53ba53c", false, "user1@example.com" }
+                    { "1", 0, "Donor", null, null, "6955a150-b05e-44d2-af11-c5336965af70", null, null, "user1@example.com", false, false, false, null, "USER1@EXAMPLE.COM", "USER1@EXAMPLE.COM", "AQAAAAIAAYagAAAAENTjhyyIhr0HEFtYUCwKPgq6Z0DQmrUnkVa3P78jW68QbwnFzAvlC/Oj8lDZCSGonQ==", "+1-555-1234", false, "6d29dc8d-511f-435d-81af-93b85e05f309", false, "user1@example.com" },
+                    { "2", 0, "Donor", null, null, "9c4a1439-f519-4ed8-a373-b24ef04a5820", null, null, "user2@example.com", false, false, false, null, "USER2@EXAMPLE.COM", "USER2@EXAMPLE.COM", "AQAAAAIAAYagAAAAEISdG7gHPvlrxoLrjshXkqKatH53BBcCDaZ43PltHNd7Co5DX+A5iyceHeY5X09YBg==", "+1-555-5678", false, "3db64df9-29bc-4c10-a50d-d0107dcb7d50", false, "user2@example.com" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -536,9 +539,9 @@ namespace Clean_Architecture.Infrastructure.Migrations
                 column: "DonorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_donations_ProjectId",
+                name: "IX_donations_projectId",
                 table: "donations",
-                column: "ProjectId");
+                column: "projectId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_donationsReport_ProjectId",
@@ -643,9 +646,9 @@ namespace Clean_Architecture.Infrastructure.Migrations
                 principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_donations_projects_ProjectId",
+                name: "FK_donations_projects_projectId",
                 table: "donations",
-                column: "ProjectId",
+                column: "projectId",
                 principalTable: "projects",
                 principalColumn: "Id");
 
