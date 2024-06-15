@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\charityImg\" />
+    <Folder Include="wwwroot\charityImg\" />
     <Folder Include="wwwroot\projectImg\" />
   </ItemGroup>
 

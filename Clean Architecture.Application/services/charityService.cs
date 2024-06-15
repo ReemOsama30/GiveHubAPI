@@ -21,7 +21,7 @@ namespace Clean_Architecture.Application.services
         }
         public void addCharity(addCharityDTO CharityDTO)
         {
-            string UploadPath = Path.Combine(webHostEnvironment.WebRootPath, "projectImg");
+            string UploadPath = Path.Combine(webHostEnvironment.WebRootPath, "charityImg");
             string imageName = Guid.NewGuid().ToString() + "-" + CharityDTO.ImgUrl.FileName;
             string filePath = Path.Combine(UploadPath, imageName);
 
