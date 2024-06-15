@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Clean_Architecture.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class db : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -191,6 +191,7 @@ namespace Clean_Architecture.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     WebsiteUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProfileImg = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -413,15 +414,15 @@ namespace Clean_Architecture.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "1", null, "Admin", "ADMIN" });
+                values: new object[] { "dd8f4101-56d2-44ac-9e7c-02730292e789", null, "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "AccountType", "AdminId", "CharityId", "ConcurrencyStamp", "CorporateId", "DonorId", "Email", "EmailConfirmed", "IsDeleted", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "1", 0, "Donor", null, null, "6955a150-b05e-44d2-af11-c5336965af70", null, null, "user1@example.com", false, false, false, null, "USER1@EXAMPLE.COM", "USER1@EXAMPLE.COM", "AQAAAAIAAYagAAAAENTjhyyIhr0HEFtYUCwKPgq6Z0DQmrUnkVa3P78jW68QbwnFzAvlC/Oj8lDZCSGonQ==", "+1-555-1234", false, "6d29dc8d-511f-435d-81af-93b85e05f309", false, "user1@example.com" },
-                    { "2", 0, "Donor", null, null, "9c4a1439-f519-4ed8-a373-b24ef04a5820", null, null, "user2@example.com", false, false, false, null, "USER2@EXAMPLE.COM", "USER2@EXAMPLE.COM", "AQAAAAIAAYagAAAAEISdG7gHPvlrxoLrjshXkqKatH53BBcCDaZ43PltHNd7Co5DX+A5iyceHeY5X09YBg==", "+1-555-5678", false, "3db64df9-29bc-4c10-a50d-d0107dcb7d50", false, "user2@example.com" }
+                    { "905a06a1-10ea-4e00-94ec-a26379feaf7d", 0, "Donor", null, null, "9d1dde08-1682-41e2-b8d5-c73f95115914", null, null, "user2@example.com", false, false, false, null, "USER2@EXAMPLE.COM", "USER2@EXAMPLE.COM", "AQAAAAIAAYagAAAAEHFOV7gDEjyhO8i4l/Mu1tk2axVeDQst8Uj972QmfvYJLE31mIuGV4MImOpwuI9zAA==", "+1-555-5678", false, "e29c7f23-ad6a-4e67-9bcd-62dcf9ded1bc", false, "user2@example.com" },
+                    { "e08ef6ea-fb55-4222-93b3-7afd2e5c0bb6", 0, "Donor", null, null, "1f5a2e8c-f5b4-400a-a0d5-a7c95f364bac", null, null, "user1@example.com", false, false, false, null, "USER1@EXAMPLE.COM", "USER1@EXAMPLE.COM", "AQAAAAIAAYagAAAAEGtYOeOprMtZFiPWuKnfXkdHqQUm7ygeR3Js6k/WLR/j16lq3jIz50syrrQSgLuUwg==", "+1-555-1234", false, "056a6fd1-4a07-4d8e-86a8-e5345636d840", false, "user1@example.com" }
                 });
 
             migrationBuilder.CreateIndex(
