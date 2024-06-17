@@ -1,6 +1,7 @@
 ﻿using Clean_Architecture.Application.DTOs.charityDTOs;
 using Clean_Architecture.Application.responses;
 using Clean_Architecture.Application.services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -43,6 +44,7 @@ namespace Clean_Architecture.APIs.Controllers
             };
         }
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<GeneralResponse>> GetAllCharites()
         {
             List<showCharityDTO> charityDTOs = await charityService.getCharities();
