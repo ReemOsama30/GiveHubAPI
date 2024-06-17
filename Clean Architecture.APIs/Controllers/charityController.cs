@@ -2,6 +2,8 @@
 using Clean_Architecture.Application.responses;
 using Clean_Architecture.Application.services;
 using Microsoft.AspNetCore.Mvc;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace Clean_Architecture.APIs.Controllers
 {
@@ -20,7 +22,12 @@ namespace Clean_Architecture.APIs.Controllers
         {
             if (ModelState.IsValid)
             {
-                charityService.addCharity(charityDTO);
+                var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+                var handler = new JwtSecurityTokenHandler();
+                var jwtToken = handler.ReadJwtToken(token);
+                var claims = jwtToken.Claims.ToList();
+                var userIdClaim = claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sub || c.Type == ClaimTypes.NameIdentifier);
+                charityService.addCharity(charityDTO, userIdClaim.Value);
                 return new GeneralResponse
                 {
                     IsPass = true,
