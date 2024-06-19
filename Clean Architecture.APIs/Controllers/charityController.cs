@@ -133,6 +133,22 @@ namespace Clean_Architecture.APIs.Controllers
 
         }
 
+        [HttpGet("getCharityID/{id:guid}")]
+        public ActionResult<GeneralResponse> getCharityIdByUserId(string userId) { 
+        
+        
+        int charityId=charityService.GetCharityIdByUserID(userId);
+            return new GeneralResponse
+            {
+                IsPass=true,
+                Status = 200,
+                Message=charityId
+            };
+
+        
+        
+        }
+
 
     }
 }
