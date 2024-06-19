@@ -44,7 +44,7 @@ namespace Clean_Architecture.APIs.Controllers
             };
         }
         [HttpGet]
-        [Authorize]
+       // [Authorize]
         public async Task<ActionResult<GeneralResponse>> GetAllCharites()
         {
             List<showCharityDTO> charityDTOs = await charityService.getCharities();
@@ -134,10 +134,10 @@ namespace Clean_Architecture.APIs.Controllers
         }
 
         [HttpGet("getCharityID/{id:guid}")]
-        public ActionResult<GeneralResponse> getCharityIdByUserId(string id) { 
+        public ActionResult<GeneralResponse> getCharityIdByUserId(string userId) { 
         
         
-        int charityId=charityService.GetCharityIdByUserID(id);
+        int charityId=charityService.GetCharityIdByUserID(userId);
             return new GeneralResponse
             {
                 IsPass=true,

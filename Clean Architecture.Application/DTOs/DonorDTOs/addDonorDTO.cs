@@ -7,5 +7,7 @@ namespace Clean_Architecture.Application.DTOs.DonorDTOs
         public string Name { get; set; }
         public IFormFile Img { get; set; }
         public DateTime DateJoined { get; set; } = DateTime.Now;
+        public string ApplicationUserId { get; set; }
+
     }
 }

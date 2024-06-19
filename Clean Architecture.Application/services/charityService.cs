@@ -54,6 +54,15 @@ namespace Clean_Architecture.Application.services
             showCharityDTO charityDTO = mapper.Map<showCharityDTO>(charity);
             return charityDTO;
         }
+
+
+      public  int GetCharityIdByUserID(string UserId)
+        {
+            Charity charity=unitOfWork.charities.Get(c=>c.ApplicationUserId == UserId);
+
+            return charity.Id;
+        }
+
         public showCharityDTO getCharitiesByAccountId(string id)
         {
             Charity charity = unitOfWork.charities.Get(c => c.ApplicationUserId == id);
