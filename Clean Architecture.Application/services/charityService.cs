@@ -36,6 +36,12 @@ namespace Clean_Architecture.Application.services
             unitOfWork.Save();
 
         }
+        public int GetCharityIdByUserID(string UserId)
+        {
+            Charity charity = unitOfWork.charities.Get(c => c.ApplicationUserId == UserId);
+
+            return charity.Id;
+        }
         public async Task<List<showCharityDTO>> getCharities()
         {
             var charities = await unitOfWork.charities.GetAllAsync();
