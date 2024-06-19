@@ -56,12 +56,7 @@ namespace Clean_Architecture.Application.services
         }
 
 
-      public  int GetCharityIdByUserID(string UserId)
-        {
-            Charity charity=unitOfWork.charities.Get(c=>c.ApplicationUserId == UserId);
-
-            return charity.Id;
-        }
+    
 
         public showCharityDTO getCharitiesByAccountId(string id)
         {
