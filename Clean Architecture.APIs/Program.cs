@@ -37,7 +37,7 @@ namespace Clean_Architecture.APIs
             }).AddJwtBearer(options =>
             {
                 options.SaveToken = true;
-                options.RequireHttpsMetadata = true;
+                options.RequireHttpsMetadata = false;
                 options.TokenValidationParameters = new TokenValidationParameters()
                 {
                     ValidateIssuer = true,
@@ -169,12 +169,12 @@ namespace Clean_Architecture.APIs
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
-        //    app.UseHttpsRedirection();
-
-            app.UseCors("MyPolicy");
-            app.UseAuthorization();
+          //  app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseCors("MyPolicy");
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             app.MapControllers();
 
             app.Run();

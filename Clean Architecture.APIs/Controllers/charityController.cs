@@ -1,6 +1,7 @@
 ﻿using Clean_Architecture.Application.DTOs.charityDTOs;
 using Clean_Architecture.Application.responses;
 using Clean_Architecture.Application.services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Clean_Architecture.APIs.Controllers
@@ -35,6 +36,7 @@ namespace Clean_Architecture.APIs.Controllers
                 Message = "Can't Add New Charity"
             };
         }
+      
         [HttpGet]
         public async Task<ActionResult<GeneralResponse>> GetAllCharites()
         {
@@ -123,7 +125,7 @@ namespace Clean_Architecture.APIs.Controllers
 
 
         }
-
+       
 
     }
 }
