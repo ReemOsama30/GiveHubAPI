@@ -2,6 +2,9 @@
 using charityPulse.core.Models;
 using Clean_Architecture.Application.DTOs.DonorDTOs;
 using Clean_Architecture.core.Interfaces;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 
 namespace Clean_Architecture.Application.services
 {
@@ -9,11 +12,13 @@ namespace Clean_Architecture.Application.services
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
-        public DonorService(IUnitOfWork unitOfWork, IMapper mapper)
+        public DonorService(IUnitOfWork unitOfWork, IMapper mapper,IWebHostEnvironment webHostEnvironment)
         {
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
+            this.webHostEnvironment = webHostEnvironment;
         }
 
         public async Task<List<showDonorDTO>> GetDonors()
@@ -34,10 +39,19 @@ namespace Clean_Architecture.Application.services
 
         public void AddDonor(addDonorDTO addDonorDTO)
         {
+
             var donor = mapper.Map<Donor>(addDonorDTO);
 
-          //  donor.ProfileImg = File.ReadAllBytes(addDonorDTO.Img);
-            donor.ApplicationUserId = "439213c3-e1c8-4fc5-a601-9d441a657dbd";
+            string UploadPath = Path.Combine(webHostEnvironment.WebRootPath, "donorImg");
+            string imageName = Guid.NewGuid().ToString() + "-" + addDonorDTO.Img.FileName;
+            string filePath = Path.Combine(UploadPath, imageName);
+
+            using (FileStream fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                addDonorDTO.Img.CopyTo(fileStream);
+            }
+
+            donor.ProfileImg = $"/donorImg/{imageName}";
             unitOfWork.donorRepository.insert(donor);
             unitOfWork.Save();
         }

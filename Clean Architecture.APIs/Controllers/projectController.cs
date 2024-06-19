@@ -1,6 +1,7 @@
 ﻿using Clean_Architecture.Application.DTOs.projectDTOs;
 using Clean_Architecture.Application.responses;
 using Clean_Architecture.Application.services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Clean_Architecture.APIs.Controllers
@@ -131,7 +132,7 @@ namespace Clean_Architecture.APIs.Controllers
         }
 
 
-
+        [Authorize]
         [HttpPost]
         public ActionResult<GeneralResponse> InsertProject(addProjectDTO addProjectDTO)
         {

@@ -44,7 +44,7 @@ namespace Clean_Architecture.APIs.Controllers
             };
         }
         [HttpGet]
-        [Authorize]
+       // [Authorize]
         public async Task<ActionResult<GeneralResponse>> GetAllCharites()
         {
             List<showCharityDTO> charityDTOs = await charityService.getCharities();
