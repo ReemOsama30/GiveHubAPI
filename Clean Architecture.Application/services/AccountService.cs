@@ -39,7 +39,7 @@ namespace Clean_Architecture.Application.services
 
         public async Task<IdentityResult> RegisterUserAsync(UserRegisterDTO userDTO)
         {
-            //ApplicationUser user = mapper.Map<ApplicationUser>(userDTO)
+            //modify it to use autoMapper instead
 
             ApplicationUser user = new ApplicationUser()
             {
@@ -75,10 +75,13 @@ namespace Clean_Architecture.Application.services
 
         private async Task<List<Claim>> CreateClaims(ApplicationUser UserFromDB)
         {
-            List<Claim> UserLoginClaims = new List<Claim>();
-            UserLoginClaims.Add(new Claim(ClaimTypes.Name, UserFromDB.UserName));
-            UserLoginClaims.Add(new Claim(ClaimTypes.NameIdentifier, UserFromDB.Id));
-            UserLoginClaims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
+            List<Claim> UserLoginClaims =
+            [
+                new Claim(ClaimTypes.Name, UserFromDB.UserName),
+                new Claim(ClaimTypes.NameIdentifier, UserFromDB.Id),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim("AccountType", UserFromDB.AccountType)
+            ];
 
             IList<string>? roles = await unitOfWork.UserRepository.GetRolesAsync(UserFromDB);
             foreach (string role in roles)
