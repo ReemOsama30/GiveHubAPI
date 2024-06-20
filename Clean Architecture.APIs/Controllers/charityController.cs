@@ -1,7 +1,10 @@
 ﻿using Clean_Architecture.Application.DTOs.charityDTOs;
 using Clean_Architecture.Application.responses;
 using Clean_Architecture.Application.services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace Clean_Architecture.APIs.Controllers
 {
@@ -20,7 +23,12 @@ namespace Clean_Architecture.APIs.Controllers
         {
             if (ModelState.IsValid)
             {
-                charityService.addCharity(charityDTO);
+                var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+                var handler = new JwtSecurityTokenHandler();
+                var jwtToken = handler.ReadJwtToken(token);
+                var claims = jwtToken.Claims.ToList();
+                var userIdClaim = claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sub || c.Type == ClaimTypes.NameIdentifier);
+                charityService.addCharity(charityDTO, userIdClaim.Value);
                 return new GeneralResponse
                 {
                     IsPass = true,
@@ -35,7 +43,9 @@ namespace Clean_Architecture.APIs.Controllers
                 Message = "Can't Add New Charity"
             };
         }
+      
         [HttpGet]
+       // [Authorize]
         public async Task<ActionResult<GeneralResponse>> GetAllCharites()
         {
             List<showCharityDTO> charityDTOs = await charityService.getCharities();
@@ -123,6 +133,19 @@ namespace Clean_Architecture.APIs.Controllers
 
 
         }
+
+
+        [HttpGet("getCharityID/{id:guid}")]
+        public ActionResult<int> getCharityIdByUserId(string id) { 
+        
+        
+        int charityId=charityService.GetCharityIdByUserID(id);
+         return charityId;
+
+        
+        
+        }
+
 
 
     }
