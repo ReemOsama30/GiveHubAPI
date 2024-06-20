@@ -73,6 +73,4 @@ namespace Clean_Architecture.Infrastructure.Repositories
         }
     }
 
-
-
 }
