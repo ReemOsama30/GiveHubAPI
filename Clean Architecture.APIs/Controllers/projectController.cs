@@ -132,7 +132,7 @@ namespace Clean_Architecture.APIs.Controllers
         }
 
 
-        [Authorize]
+        //[Authorize]
         [HttpPost]
         public ActionResult<GeneralResponse> InsertProject(addProjectDTO addProjectDTO)
         {
