@@ -43,6 +43,7 @@ namespace Clean_Architecture.APIs.Controllers
                 Message = "Can't Add New Charity"
             };
         }
+      
         [HttpGet]
        // [Authorize]
         public async Task<ActionResult<GeneralResponse>> GetAllCharites()
@@ -133,6 +134,7 @@ namespace Clean_Architecture.APIs.Controllers
 
         }
 
+
         [HttpGet("getCharityID/{id:guid}")]
         public ActionResult<int> getCharityIdByUserId(string id) { 
         
@@ -143,6 +145,7 @@ namespace Clean_Architecture.APIs.Controllers
         
         
         }
+
 
 
     }
