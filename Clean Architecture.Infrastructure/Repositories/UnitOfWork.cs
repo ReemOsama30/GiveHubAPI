@@ -48,7 +48,7 @@ namespace Clean_Architecture.Infrastructure.Repositories
             DonationReportRepository = new DonationReportRepository(context);
             donorRepository = new DonorRepository(context);
 
-            UserRepository = new UserRepository(userManager);
+            UserRepository = new UserRepository(userManager,context);
 
             moneyDonationRepository = new MoneyDonationRepository(context);
 

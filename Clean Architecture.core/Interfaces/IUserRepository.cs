@@ -1,4 +1,5 @@
 ﻿using charityPulse.core.Models;
+using Clean_Architecture.Application.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Clean_Architecture.core.Interfaces
 {
-    public interface IUserRepository
+    public interface IUserRepository:IRepository<ApplicationUser>
     {
       Task<ApplicationUser> FindByEmailAsync(string email);
         Task<IdentityResult> CreateUserAsync(ApplicationUser user, string password);

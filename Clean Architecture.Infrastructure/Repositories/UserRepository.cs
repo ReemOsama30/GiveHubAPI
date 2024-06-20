@@ -13,13 +13,18 @@ using System.Threading.Tasks;
 
 namespace Clean_Architecture.Infrastructure.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : Repository<ApplicationUser>, IUserRepository
     {
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public UserRepository(UserManager<ApplicationUser> userManager)
+       
+        private readonly ApplicationDbContext _context;
+
+        public UserRepository(UserManager<ApplicationUser> userManager, ApplicationDbContext context)
+            : base(context)
         {
             _userManager = userManager;
+            _context = context;
         }
         public async Task<ApplicationUser> FindByEmailAsync(string email)  
         {
@@ -60,5 +65,8 @@ namespace Clean_Architecture.Infrastructure.Repositories
         {
             return await _userManager.ResetPasswordAsync(user, token, newPassword);
         }
+
+
+
     }
 }

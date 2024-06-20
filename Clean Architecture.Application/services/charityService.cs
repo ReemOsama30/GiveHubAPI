@@ -18,7 +18,7 @@ namespace Clean_Architecture.Application.services
             this.mapper = mapper;
             this.webHostEnvironment = webHostEnvironment;
         }
-        public void addCharity(addCharityDTO CharityDTO, string userId)
+        public void addCharity(addCharityDTO CharityDTO)
         {
             var charity = mapper.Map<Charity>(CharityDTO);
             string UploadPath = Path.Combine(webHostEnvironment.WebRootPath, "charityImg");
@@ -31,7 +31,6 @@ namespace Clean_Architecture.Application.services
             }
 
             charity.ProfileImg = $"/charityImg/{imageName}";
-            charity.ApplicationUserId = userId;
             unitOfWork.charities.insert(charity);
             unitOfWork.Save();
 
@@ -41,6 +40,13 @@ namespace Clean_Architecture.Application.services
             Charity charity = unitOfWork.charities.Get(c => c.ApplicationUserId == UserId);
 
             return charity.Id;
+        }
+
+
+        public string getAccountIdBYcharityName(string charityName)
+        {
+            ApplicationUser user = unitOfWork.UserRepository.Get(c => c.UserName == charityName);
+            return user?.Id;
         }
         public async Task<List<showCharityDTO>> getCharities()
         {
