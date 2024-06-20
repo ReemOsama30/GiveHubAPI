@@ -27,6 +27,7 @@ namespace Clean_Architecture.APIs
             builder.Services.AddControllers();
             // Add services to the container.
 
+
             builder.Services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -93,6 +94,7 @@ namespace Clean_Architecture.APIs
 
 
 
+
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
@@ -104,9 +106,10 @@ namespace Clean_Architecture.APIs
             });
 
             // Configure Identity services
+
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders();
 
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IRepository<Project>, Repository<Project>>();
@@ -158,7 +161,65 @@ namespace Clean_Architecture.APIs
                     });
             });
 
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
 
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.SaveToken = true;
+                options.RequireHttpsMetadata = false;
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidIssuer = builder.Configuration["JWT:ValidIss"],
+                    ValidateAudience = true,
+                    ValidAudience = builder.Configuration["JWT:ValidAud"],
+                    IssuerSigningKey =
+                    new SymmetricSecurityKey(
+                        Encoding.UTF8.GetBytes(builder.Configuration["JWT:SecritKey"]))
+                };
+            });
+            /*-----------------------------Swagger Part-----------------------------*/
+
+            builder.Services.AddSwaggerGen(swagger =>
+            {
+                //This is to generate the Default UI of Swagger Documentation    
+                swagger.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "Charity Pulse",
+                    Description = " ITI Projrcy"
+                });
+                // To Enable authorization using Swagger (JWT)    
+                swagger.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "Enter 'Bearer' [space] and then your valid token in the text input below.\r\n\r\nExample: \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\"",
+                });
+                swagger.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                    new OpenApiSecurityScheme
+                    {
+                    Reference = new OpenApiReference
+                    {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                    }
+                    },
+                    new string[] {}
+                    }
+                    });
+            });
+            //---------------------------------------------------------------
 
             var app = builder.Build();
 
@@ -169,8 +230,13 @@ namespace Clean_Architecture.APIs
                 app.UseSwaggerUI();
             }
 
+
           //  app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseHttpsRedirection();
+            //    app.UseHttpsRedirection();
+
             app.UseCors("MyPolicy");
             app.UseAuthentication();
             app.UseAuthorization();
