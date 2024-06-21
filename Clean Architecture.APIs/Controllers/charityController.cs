@@ -24,11 +24,7 @@ namespace Clean_Architecture.APIs.Controllers
         {
             if (ModelState.IsValid)
             {
-                var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
-                var handler = new JwtSecurityTokenHandler();
-                var jwtToken = handler.ReadJwtToken(token);
-                var claims = jwtToken.Claims.ToList();
-                var userIdClaim = claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sub || c.Type == ClaimTypes.NameIdentifier);
+               
                 charityService.addCharity(charityDTO);
                 return new GeneralResponse
                 {
@@ -149,17 +145,25 @@ namespace Clean_Architecture.APIs.Controllers
         }
 
         [HttpGet("getAccountID/{name:alpha}")]
-        public ActionResult<string> getAccountID(string name)
+        public ActionResult<GeneralResponse> GetAccountID(string name)
         {
-
-
-            string AccountID = charityService.getAccountIdBYcharityName(name);
-        
-            return AccountID;
-
-
+            string accountID = charityService.getAccountIdBYcharityName(name);
+            if (accountID == null)
+            {
+                return new GeneralResponse
+                {
+                    IsPass = false,
+                    Status = 400,
+                    Message = "Not Found"
+                };
+            }
+            return new GeneralResponse
+            {
+                IsPass = true,
+                Status = 200,
+                Message = accountID
+            };
         }
-
 
 
     }
