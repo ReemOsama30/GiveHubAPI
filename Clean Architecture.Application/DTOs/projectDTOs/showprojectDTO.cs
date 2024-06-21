@@ -15,7 +15,8 @@ namespace Clean_Architecture.Application.DTOs.projectDTOs
         public string Description { get; set; }
         public decimal FundingGoal { get; set; }
         public decimal AmountRaised { get; set; }
-
+        public string Location { get; set; }
+        public string Category { get; set; }
 
         public string ImgUrl { get; set; }
         public ProjectState State { get; set; } = ProjectState.Initiated;

@@ -385,6 +385,8 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     AmountRaised = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ImgUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     State = table.Column<int>(type: "int", nullable: false),
+                    Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Category = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     ReportId = table.Column<int>(type: "int", nullable: true),
                     CharityId = table.Column<int>(type: "int", nullable: false),
@@ -414,15 +416,15 @@ namespace Clean_Architecture.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "dd8f4101-56d2-44ac-9e7c-02730292e789", null, "Admin", "ADMIN" });
+                values: new object[] { "616bf54d-2a65-445d-9519-752837a6608a", null, "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "AccountType", "AdminId", "CharityId", "ConcurrencyStamp", "CorporateId", "DonorId", "Email", "EmailConfirmed", "IsDeleted", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "905a06a1-10ea-4e00-94ec-a26379feaf7d", 0, "Donor", null, null, "9d1dde08-1682-41e2-b8d5-c73f95115914", null, null, "user2@example.com", false, false, false, null, "USER2@EXAMPLE.COM", "USER2@EXAMPLE.COM", "AQAAAAIAAYagAAAAEHFOV7gDEjyhO8i4l/Mu1tk2axVeDQst8Uj972QmfvYJLE31mIuGV4MImOpwuI9zAA==", "+1-555-5678", false, "e29c7f23-ad6a-4e67-9bcd-62dcf9ded1bc", false, "user2@example.com" },
-                    { "e08ef6ea-fb55-4222-93b3-7afd2e5c0bb6", 0, "Donor", null, null, "1f5a2e8c-f5b4-400a-a0d5-a7c95f364bac", null, null, "user1@example.com", false, false, false, null, "USER1@EXAMPLE.COM", "USER1@EXAMPLE.COM", "AQAAAAIAAYagAAAAEGtYOeOprMtZFiPWuKnfXkdHqQUm7ygeR3Js6k/WLR/j16lq3jIz50syrrQSgLuUwg==", "+1-555-1234", false, "056a6fd1-4a07-4d8e-86a8-e5345636d840", false, "user1@example.com" }
+                    { "07203730-2a17-465e-b168-b956e67e5a2b", 0, "Donor", null, null, "4e5ce5cb-0580-431b-9688-b1b026d13331", null, null, "user2@example.com", false, false, false, null, "USER2@EXAMPLE.COM", "USER2@EXAMPLE.COM", "AQAAAAIAAYagAAAAEFfecDfyN97F+LxsZJJcTtCaxyKc5Y0Y/NI3xRGPW8ewrswmEMptyKVbFg/nuVVxHA==", "+1-555-5678", false, "b690c94b-438d-43e9-ad46-7319fedf31a8", false, "user2@example.com" },
+                    { "9c036c82-41e8-4ed9-a406-38f2eb3b00e2", 0, "Donor", null, null, "74ff7afd-4350-4801-82df-e4d0f9e969d1", null, null, "user1@example.com", false, false, false, null, "USER1@EXAMPLE.COM", "USER1@EXAMPLE.COM", "AQAAAAIAAYagAAAAEJzdbdIrjRnMbRrg87X39rEFIqKRuHNHlc8YYE1wiWztKHvxxLazAg8ZVKZSrLE8ow==", "+1-555-1234", false, "e00ff67b-42bf-497a-a7b3-1f69c3614091", false, "user1@example.com" }
                 });
 
             migrationBuilder.CreateIndex(

@@ -42,6 +42,7 @@ namespace Clean_Architecture.Application.services
 
             project.IsDeleted = false;
 
+
            // project.Img = File.ReadAllBytes(projectDTO.ImgPath);
             unitOfWork.projects.insert(project);
             unitOfWork.Save();

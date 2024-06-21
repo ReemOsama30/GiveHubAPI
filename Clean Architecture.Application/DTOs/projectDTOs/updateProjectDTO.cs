@@ -18,5 +18,7 @@ namespace Clean_Architecture.Application.DTOs.projectDTOs
         public IFormFile Imgpath { get; set; }
         public int CharityId { get; set; }
         public ProjectState State { get; set; } = ProjectState.Initiated;
+        public string Location { get; set; }
+        public string Category { get; set; }
     }
 }
