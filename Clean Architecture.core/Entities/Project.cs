@@ -19,7 +19,8 @@ namespace charityPulse.core.Models
         public decimal AmountRaised { get; set; }
         public string ImgUrl { get; set; }
         public ProjectState State { get; set; } = ProjectState.Initiated;
-
+        public string Location { get; set; }
+        public string Category { get; set; }
         public bool IsDeleted { get; set; } = false;
 
         [ForeignKey("Report")]

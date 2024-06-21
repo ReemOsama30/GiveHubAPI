@@ -51,7 +51,7 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "dd8f4101-56d2-44ac-9e7c-02730292e789",
+                            Id = "616bf54d-2a65-445d-9519-752837a6608a",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -320,39 +320,39 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e08ef6ea-fb55-4222-93b3-7afd2e5c0bb6",
+                            Id = "9c036c82-41e8-4ed9-a406-38f2eb3b00e2",
                             AccessFailedCount = 0,
                             AccountType = "Donor",
-                            ConcurrencyStamp = "1f5a2e8c-f5b4-400a-a0d5-a7c95f364bac",
+                            ConcurrencyStamp = "74ff7afd-4350-4801-82df-e4d0f9e969d1",
                             Email = "user1@example.com",
                             EmailConfirmed = false,
                             IsDeleted = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER1@EXAMPLE.COM",
                             NormalizedUserName = "USER1@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGtYOeOprMtZFiPWuKnfXkdHqQUm7ygeR3Js6k/WLR/j16lq3jIz50syrrQSgLuUwg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJzdbdIrjRnMbRrg87X39rEFIqKRuHNHlc8YYE1wiWztKHvxxLazAg8ZVKZSrLE8ow==",
                             PhoneNumber = "+1-555-1234",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "056a6fd1-4a07-4d8e-86a8-e5345636d840",
+                            SecurityStamp = "e00ff67b-42bf-497a-a7b3-1f69c3614091",
                             TwoFactorEnabled = false,
                             UserName = "user1@example.com"
                         },
                         new
                         {
-                            Id = "905a06a1-10ea-4e00-94ec-a26379feaf7d",
+                            Id = "07203730-2a17-465e-b168-b956e67e5a2b",
                             AccessFailedCount = 0,
                             AccountType = "Donor",
-                            ConcurrencyStamp = "9d1dde08-1682-41e2-b8d5-c73f95115914",
+                            ConcurrencyStamp = "4e5ce5cb-0580-431b-9688-b1b026d13331",
                             Email = "user2@example.com",
                             EmailConfirmed = false,
                             IsDeleted = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER2@EXAMPLE.COM",
                             NormalizedUserName = "USER2@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEHFOV7gDEjyhO8i4l/Mu1tk2axVeDQst8Uj972QmfvYJLE31mIuGV4MImOpwuI9zAA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFfecDfyN97F+LxsZJJcTtCaxyKc5Y0Y/NI3xRGPW8ewrswmEMptyKVbFg/nuVVxHA==",
                             PhoneNumber = "+1-555-5678",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e29c7f23-ad6a-4e67-9bcd-62dcf9ded1bc",
+                            SecurityStamp = "b690c94b-438d-43e9-ad46-7319fedf31a8",
                             TwoFactorEnabled = false,
                             UserName = "user2@example.com"
                         });
@@ -597,6 +597,10 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.Property<decimal>("AmountRaised")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("CharityId")
                         .HasColumnType("int");
 
@@ -616,6 +620,10 @@ namespace Clean_Architecture.Infrastructure.Migrations
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ReportId")
                         .HasColumnType("int");
