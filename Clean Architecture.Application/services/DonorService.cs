@@ -73,5 +73,12 @@ namespace Clean_Architecture.Application.services
             unitOfWork.Save();
         }
 
+
+
+        public string getAccountIdBYdonorName(string donorname)
+        {
+            ApplicationUser user = unitOfWork.UserRepository.Get(c => c.UserName == donorname);
+            return user?.Id;
+        }
     }
 }

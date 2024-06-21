@@ -17,6 +17,39 @@ namespace Clean_Architecture.APIs.Controllers
             this.donorService = donorService;
         }
 
+
+
+        [HttpGet("getAccountID/{name:alpha}")]
+        public ActionResult<GeneralResponse> GetAccountID(string name)
+        {
+            string accountID = donorService.getAccountIdBYdonorName(name);
+            if (accountID == null)
+            {
+                return new GeneralResponse
+                {
+                    IsPass = false,
+                    Status = 400,
+                    Message = "Not Found"
+                };
+            }
+            return new GeneralResponse
+            {
+                IsPass = true,
+                Status = 200,
+                Message = accountID
+            };
+        }
+
+
+
+
+
+
+
+
+
+
+
         [HttpGet]
         public async Task<ActionResult<GeneralResponse>> GetAllDonors()
         {
