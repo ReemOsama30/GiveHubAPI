@@ -2,7 +2,6 @@
 using Clean_Architecture.Application.responses;
 using Clean_Architecture.Application.services;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace Clean_Architecture.APIs.Controllers
 {
@@ -39,8 +38,6 @@ namespace Clean_Architecture.APIs.Controllers
                 Message = accountID
             };
         }
-
-
 
 
 
@@ -113,7 +110,7 @@ namespace Clean_Architecture.APIs.Controllers
             {
                 donorService.AddDonor(addDonorDTO);
 
-                
+
 
                 return new GeneralResponse
                 {
@@ -170,6 +167,20 @@ namespace Clean_Architecture.APIs.Controllers
                 };
             }
         }
+
+
+        [HttpGet("getDonorId/{id:guid}")]
+        public ActionResult<int> getDonorIdByUserId(string id)
+        {
+
+
+            int donorId = donorService.GetDonerIdByUserID(id);
+            return donorId;
+
+
+
+        }
+
 
     }
 }

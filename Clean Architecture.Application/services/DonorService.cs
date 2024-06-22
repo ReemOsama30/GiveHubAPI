@@ -3,8 +3,6 @@ using charityPulse.core.Models;
 using Clean_Architecture.Application.DTOs.DonorDTOs;
 using Clean_Architecture.core.Interfaces;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using System.Security.Claims;
 
 namespace Clean_Architecture.Application.services
 {
@@ -14,7 +12,7 @@ namespace Clean_Architecture.Application.services
         private readonly IMapper mapper;
         private readonly IWebHostEnvironment webHostEnvironment;
 
-        public DonorService(IUnitOfWork unitOfWork, IMapper mapper,IWebHostEnvironment webHostEnvironment)
+        public DonorService(IUnitOfWork unitOfWork, IMapper mapper, IWebHostEnvironment webHostEnvironment)
         {
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
@@ -60,7 +58,7 @@ namespace Clean_Architecture.Application.services
         {
             Donor donor = mapper.Map<Donor>(updateDonorDTO);
 
-           // donor.ProfileImg = File.ReadAllBytes(updateDonorDTO.img);
+            // donor.ProfileImg = File.ReadAllBytes(updateDonorDTO.img);
             donor.ApplicationUserId = "439213c3-e1c8-4fc5-a601-9d441a657dbd";
             unitOfWork.donorRepository.update(donor);
             unitOfWork.Save();
@@ -79,6 +77,15 @@ namespace Clean_Architecture.Application.services
         {
             ApplicationUser user = unitOfWork.UserRepository.Get(c => c.UserName == donorname);
             return user?.Id;
+        }
+
+
+
+        public int GetDonerIdByUserID(string UserId)
+        {
+            Donor donor = unitOfWork.donorRepository.Get(c => c.ApplicationUserId == UserId);
+
+            return donor.Id;
         }
     }
 }
