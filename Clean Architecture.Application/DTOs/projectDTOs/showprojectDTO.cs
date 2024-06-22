@@ -1,9 +1,4 @@
 ﻿using Clean_Architecture.core.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Clean_Architecture.Application.DTOs.projectDTOs
 {
@@ -20,6 +15,8 @@ namespace Clean_Architecture.Application.DTOs.projectDTOs
 
         public string ImgUrl { get; set; }
         public ProjectState State { get; set; } = ProjectState.Initiated;
+
+        public int CharityId { get; set; }
 
     }
 }
