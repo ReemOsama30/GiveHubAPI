@@ -2,7 +2,7 @@
 {
     public class addMoneyDonationDTO
     {
-        public int id { set; get; }
+        //public int id { set; get; }
         public DateTime DonationDate { get; set; }
         public int DonorId { get; set; }
         // public int? CorporateId { get; set; }
