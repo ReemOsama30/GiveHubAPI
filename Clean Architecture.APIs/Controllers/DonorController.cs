@@ -60,6 +60,26 @@ namespace Clean_Architecture.APIs.Controllers
             };
 
         }
+        [HttpGet("GetDonorDetails/{userId:guid}")]
+        public ActionResult<GeneralResponse> GetDonorDetails(string userId)
+        {
+            donorDetailsDTO donorDetails = donorService.getDonorDetails(userId);
+            if (donorDetails != null)
+            {
+                return new GeneralResponse
+                {
+                    IsPass = true,
+                    Status = 200,
+                    Message = donorDetails
+                };
+            }
+            return new GeneralResponse
+            {
+                IsPass = false,
+                Status = 400,
+                Message = "Can't Find"
+            };
+        }
 
         [HttpGet("{id}")]
         public ActionResult<GeneralResponse> GetDonorById(int id)
