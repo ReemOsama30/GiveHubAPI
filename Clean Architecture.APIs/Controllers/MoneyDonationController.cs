@@ -128,7 +128,7 @@ namespace Clean_Architecture.APIs.Controllers
 
 
         [HttpPost]
-        public ActionResult<GeneralResponse> AddMoneyDonation(addMoneyDonationDTO addMoneyDonationDTO)
+        public ActionResult<GeneralResponse> AddMoneyDonation([FromForm] addMoneyDonationDTO addMoneyDonationDTO)
         {
             if (ModelState.IsValid)
             {
