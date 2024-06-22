@@ -87,5 +87,14 @@ namespace Clean_Architecture.Application.services
 
             return donor.Id;
         }
+        public donorDetailsDTO getDonorDetails(string userId)
+        {
+            var userDetails = unitOfWork.UserRepository.Get(u => u.Id == userId);
+            donorDetailsDTO donorDetails = new donorDetailsDTO();
+            donorDetails.userName = userDetails.UserName;
+            donorDetails.email = userDetails.Email;
+            return donorDetails;
+
+        }
     }
 }

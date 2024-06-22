@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Clean_Architecture.Application.DTOs.InKindDonationDTOs
+﻿namespace Clean_Architecture.Application.DTOs.InKindDonationDTOs
 {
     public class addInKindDonationDTO
     {
         public DateTime DonationDate { get; set; } = DateTime.Now;
         public int DonorId { get; set; }
-        public int? CorporateId { get; set; }
+        //public int? CorporateId { get; set; }
         public int? projectId { get; set; }
         public int? CharityId { get; set; }
         public string ItemDescription { get; set; }
