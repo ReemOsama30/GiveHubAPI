@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using charityPulse.core.Models;
 using Clean_Architecture.Application.DTOs.MoneyDonationDTOs;
+using Clean_Architecture.core.Enums;
 using Clean_Architecture.core.Interfaces;
 
 namespace Clean_Architecture.Application.services
@@ -59,7 +60,18 @@ namespace Clean_Architecture.Application.services
         public void AddMoneyDonation(addMoneyDonationDTO addMoneyDonationDTO)
         {
             var moneyDonation = mapper.Map<MoneyDonation>(addMoneyDonationDTO);
+
             unitOfWork.moneyDonationRepository.insert(moneyDonation);
+         Project project=  unitOfWork.projects.Get(p=>p.Id==moneyDonation.projectId);
+            project.AmountRaised += addMoneyDonationDTO.Amount;
+            if (project.AmountRaised >=project.FundingGoal)
+            {
+                project.State = ProjectState.Compeleted;
+            }
+            else
+            {
+                project.State = ProjectState.InProgress;
+            }
             unitOfWork.Save();
         }
 
