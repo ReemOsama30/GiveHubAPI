@@ -29,7 +29,7 @@
     <Folder Include="wwwroot\charityImg\" />
     <Folder Include="wwwroot\charityImg\" />
     <Folder Include="wwwroot\donorImg\" />
-    <Folder Include="wwwroot\projectImg\" />
+    <Folder Include="wwwroot\projectImg\NewFolder\" />
   </ItemGroup>
 
 </Project>
