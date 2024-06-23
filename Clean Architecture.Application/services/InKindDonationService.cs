@@ -2,6 +2,7 @@
 using charityPulse.core.Models;
 using Clean_Architecture.Application.DTOs.InKindDonationDTOs;
 using Clean_Architecture.Application.DTOs.MoneyDonationDTOs;
+using Clean_Architecture.core.Enums;
 using Clean_Architecture.core.Interfaces;
 
 
@@ -59,6 +60,18 @@ namespace Clean_Architecture.Application.services
         {
             var inKindDonation = mapper.Map<InKindDonation>(addInKindDonationDTO);
             unitOfWork.inKindDonationRepository.insert(inKindDonation);
+
+
+            Project project = unitOfWork.projects.Get(p => p.Id == addInKindDonationDTO.projectId);
+            project.AmountRaised += addInKindDonationDTO.Quantity;
+            if (project.AmountRaised >= project.FundingGoal)
+            {
+                project.State = ProjectState.Compeleted;
+            }
+            else
+            {
+                project.State = ProjectState.InProgress;
+            }
             unitOfWork.Save();
         }
         public void UpdateInKindDonation(int id, updateInKindDonationDTO updateInKindDonationDTO)
