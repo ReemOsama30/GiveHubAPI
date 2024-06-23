@@ -152,7 +152,33 @@ namespace Clean_Architecture.Application.services
 
 
 
+        public async Task<List<showprojectDTO>> GetProjectsByFundingGoalRange()
+        {
+            var Projects = await unitOfWork.projectRepository.GetProjectsWithCategoryNameAsync();
+            var FilteredProjects = Projects
+                                    .Where(p => p.FundingGoal >= 1000 && p.FundingGoal <= 5000)
+                                    .ToList();
+            return mapper.Map<List<showprojectDTO>>(FilteredProjects);
+        }
 
+
+        public async Task<List<showprojectDTO>> GetProjectsByMAXFundingGoal()
+        {
+            var Projects = await unitOfWork.projectRepository.GetProjectsWithCategoryNameAsync();
+            var FilteredProjects = Projects
+                                   .Where(p => p.FundingGoal >= 5000)
+                                   .ToList();
+            return mapper.Map<List<showprojectDTO>>(FilteredProjects);
+        }
+
+        public async Task<List<showprojectDTO>> GetProjectsByMINIFundingGoal()
+        {
+            var Projects = await unitOfWork.projectRepository.GetProjectsWithCategoryNameAsync();
+            var FilteredProjects = Projects
+                                   .Where(p => p.FundingGoal <= 1000)
+                                   .ToList();
+            return mapper.Map<List<showprojectDTO>>(FilteredProjects);
+        }
 
     }
 }
