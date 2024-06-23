@@ -224,6 +224,42 @@ namespace Clean_Architecture.APIs.Controllers
             };
         }
 
+        [HttpGet("funding-goal-range")]
+        public async Task<ActionResult<GeneralResponse>> GetProjectsByFundingGoalRange()
+        {
+            var Projects = await projectService.GetProjectsByFundingGoalRange();
+            return new GeneralResponse
+            {
+                IsPass = true,
+                Status = 200,
+                Message = Projects
+            };
+        }
+
+        [HttpGet("MAX-funding-goal")]
+        public async Task<ActionResult<GeneralResponse>> GetProjectsByMAXFundingGoal()
+        {
+            var Projects = await projectService.GetProjectsByMAXFundingGoal();
+            return new GeneralResponse
+            {
+                IsPass = true,
+                Status = 200,
+                Message = Projects
+            };
+        }
+
+        [HttpGet("MINI-funding-goal")]
+        public async Task<ActionResult<GeneralResponse>> GetProjectsByMINIFundingGoal()
+        {
+            var Projects = await projectService.GetProjectsByMINIFundingGoal();
+            return new GeneralResponse
+            {
+                IsPass = true,
+                Status = 200,
+                Message = Projects
+            };
+        }
+
 
 
     }
