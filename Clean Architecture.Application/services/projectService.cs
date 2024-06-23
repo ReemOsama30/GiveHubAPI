@@ -33,9 +33,6 @@ namespace Clean_Architecture.Application.services
                 projectDTO.ImgPath.CopyTo(fileStream);
             }
 
-
-
-
             var project = mapper.Map<Project>(projectDTO);
             // project.ImgUrl = filePath;
             project.ImgUrl = $"/projectImg/{imageName}"; // Store relative path
