@@ -1,7 +1,6 @@
 ﻿using Clean_Architecture.Application.DTOs.projectDTOs;
 using Clean_Architecture.Application.responses;
 using Clean_Architecture.Application.services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Clean_Architecture.APIs.Controllers
@@ -173,6 +172,59 @@ namespace Clean_Architecture.APIs.Controllers
             };
             return response;
         }
+
+
+        [HttpGet("category-id")]
+        public ActionResult<GeneralResponse> GetCategoryIdByName(string categoryName)
+        {
+            var categoryId = projectService.GetCategoryIdByName(categoryName);
+
+            if (categoryId != 0)
+            {
+                return new GeneralResponse
+                {
+                    IsPass = true,
+                    Status = 200,
+                    Message = categoryId
+                };
+            }
+            else
+            {
+                return new GeneralResponse
+                {
+                    IsPass = false,
+                    Status = 404,
+                    Message = $"this category  '{categoryName}' not found"
+                };
+            }
+        }
+
+        [HttpGet("category/{categoryName}")]
+        public ActionResult<GeneralResponse> GetProjectsByCategoryName(string categoryName)
+        {
+            var categoryId = projectService.GetCategoryIdByName(categoryName);
+
+            if (categoryId == 0)
+            {
+                return new GeneralResponse
+                {
+                    IsPass = false,
+                    Status = 404,
+                    Message = $"this category  '{categoryName}' not found"
+                };
+            }
+
+            var projects = projectService.GetProjectsByCategoryId(categoryId);
+
+            return new GeneralResponse
+            {
+                IsPass = true,
+                Status = 200,
+                Message = projects
+            };
+        }
+
+
 
     }
 }

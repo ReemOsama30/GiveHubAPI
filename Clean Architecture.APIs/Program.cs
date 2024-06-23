@@ -80,6 +80,10 @@ namespace Clean_Architecture.APIs
             builder.Services.AddScoped<IInkindDonationRepository, InkindDonationRepository>();
             builder.Services.AddScoped<InKindDonationService>();
 
+            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+            builder.Services.AddScoped<CategoryService>();
+
+            builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 
             builder.Services.AddCors(options =>
             {
@@ -115,7 +119,7 @@ namespace Clean_Architecture.APIs
                         Encoding.UTF8.GetBytes(builder.Configuration["JWT:SecritKey"]))
                 };
             });
-           // -----------------------------Swagger Part---------------------------- -/
+            // -----------------------------Swagger Part---------------------------- -/
 
             builder.Services.AddSwaggerGen(swagger =>
             {

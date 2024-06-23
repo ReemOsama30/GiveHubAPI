@@ -22,6 +22,58 @@ namespace Clean_Architecture.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Clean_Architecture.core.Entities.Category", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("categories");
+
+                    b.HasData(
+                        new
+                        {
+                            id = 1,
+                            IsDeleted = false,
+                            Name = "Health"
+                        },
+                        new
+                        {
+                            id = 2,
+                            IsDeleted = false,
+                            Name = "Education"
+                        },
+                        new
+                        {
+                            id = 3,
+                            IsDeleted = false,
+                            Name = "Animal Welfare"
+                        },
+                        new
+                        {
+                            id = 4,
+                            IsDeleted = false,
+                            Name = "Hunger and Thirst"
+                        },
+                        new
+                        {
+                            id = 5,
+                            IsDeleted = false,
+                            Name = "Environment"
+                        });
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -51,7 +103,7 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "616bf54d-2a65-445d-9519-752837a6608a",
+                            Id = "bb369dfd-58a9-420a-9358-4d2ce12ec8f0",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -320,39 +372,39 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "9c036c82-41e8-4ed9-a406-38f2eb3b00e2",
+                            Id = "3b5165bb-2d8d-4489-b9ce-b5f3de12221d",
                             AccessFailedCount = 0,
                             AccountType = "Donor",
-                            ConcurrencyStamp = "74ff7afd-4350-4801-82df-e4d0f9e969d1",
+                            ConcurrencyStamp = "f8c75cb1-a7cd-492a-bc34-5812257af471",
                             Email = "user1@example.com",
                             EmailConfirmed = false,
                             IsDeleted = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER1@EXAMPLE.COM",
                             NormalizedUserName = "USER1@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJzdbdIrjRnMbRrg87X39rEFIqKRuHNHlc8YYE1wiWztKHvxxLazAg8ZVKZSrLE8ow==",
+                            PasswordHash = "AQAAAAIAAYagAAAAECEJfRPmSXpr0BLW9xAsWxTQ1BshbqIiaRfxOjGMB4M2cUbuWI1ezE2O+azs9un8tw==",
                             PhoneNumber = "+1-555-1234",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e00ff67b-42bf-497a-a7b3-1f69c3614091",
+                            SecurityStamp = "7fceedcf-dd83-40dc-9038-0217385a1589",
                             TwoFactorEnabled = false,
                             UserName = "user1@example.com"
                         },
                         new
                         {
-                            Id = "07203730-2a17-465e-b168-b956e67e5a2b",
+                            Id = "6f6f7498-367a-4233-96a3-a5b854567067",
                             AccessFailedCount = 0,
                             AccountType = "Donor",
-                            ConcurrencyStamp = "4e5ce5cb-0580-431b-9688-b1b026d13331",
+                            ConcurrencyStamp = "1c1e7b93-873c-4d6c-b534-1571b9668285",
                             Email = "user2@example.com",
                             EmailConfirmed = false,
                             IsDeleted = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER2@EXAMPLE.COM",
                             NormalizedUserName = "USER2@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFfecDfyN97F+LxsZJJcTtCaxyKc5Y0Y/NI3xRGPW8ewrswmEMptyKVbFg/nuVVxHA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHndlWslKvUQl1qJSuA7C+C56lDryHWlqAmefPC8VNVAymK31E4oSWJNuqYUKW0rGg==",
                             PhoneNumber = "+1-555-5678",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b690c94b-438d-43e9-ad46-7319fedf31a8",
+                            SecurityStamp = "a58e1b0a-1e13-4fab-ae53-bc2b70dcc9a0",
                             TwoFactorEnabled = false,
                             UserName = "user2@example.com"
                         });
@@ -597,9 +649,8 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.Property<decimal>("AmountRaised")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
 
                     b.Property<int>("CharityId")
                         .HasColumnType("int");
@@ -636,6 +687,8 @@ namespace Clean_Architecture.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.HasIndex("CharityId");
 
@@ -910,6 +963,12 @@ namespace Clean_Architecture.Infrastructure.Migrations
 
             modelBuilder.Entity("charityPulse.core.Models.Project", b =>
                 {
+                    b.HasOne("Clean_Architecture.core.Entities.Category", "category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("charityPulse.core.Models.Charity", "Charity")
                         .WithMany("Projects")
                         .HasForeignKey("CharityId")
@@ -927,6 +986,8 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.Navigation("Charity");
 
                     b.Navigation("Report");
+
+                    b.Navigation("category");
                 });
 
             modelBuilder.Entity("charityPulse.core.Models.Review", b =>
