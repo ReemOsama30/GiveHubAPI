@@ -1,16 +1,12 @@
 ﻿
 using Clean_Architecture.Application.Interfaces;
+using Clean_Architecture.core.Entities;
 using Clean_Architecture.core.Enums;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace charityPulse.core.Models
 {
-    public class Project:IsoftDeletable
+    public class Project : IsoftDeletable
     {
         public int Id { get; set; }
         public string Title { get; set; }
@@ -20,7 +16,7 @@ namespace charityPulse.core.Models
         public string ImgUrl { get; set; }
         public ProjectState State { get; set; } = ProjectState.Initiated;
         public string Location { get; set; }
-        public string Category { get; set; }
+
         public bool IsDeleted { get; set; } = false;
 
         [ForeignKey("Report")]
@@ -31,7 +27,11 @@ namespace charityPulse.core.Models
         public int CharityId { get; set; }
         public Charity Charity { get; set; }
 
-        public ICollection<Donation> ?Donations { get; set; }
+        [ForeignKey("category")]
+        public int CategoryId { get; set; }
+        public Category category { get; set; }
+
+        public ICollection<Donation>? Donations { get; set; }
 
 
         //

@@ -2,19 +2,16 @@ using AutoMapper;
 using charityPulse.core.Models;
 using Clean_Architecture.Application.DTOs.advertismentDTO;
 using Clean_Architecture.Application.DTOs.BadgeDTOs;
+using Clean_Architecture.Application.DTOs.CategoryDTOs;
 using Clean_Architecture.Application.DTOs.charityDTOs;
 using Clean_Architecture.Application.DTOs.corporateDTOs;
 using Clean_Architecture.Application.DTOs.DonationReportDTOs;
 using Clean_Architecture.Application.DTOs.DonorDTOs;
+using Clean_Architecture.Application.DTOs.InKindDonationDTOs;
 using Clean_Architecture.Application.DTOs.MoneyDonationDTOs;
 using Clean_Architecture.Application.DTOs.projectDTOs;
 using Clean_Architecture.Application.DTOs.ReviewsDTOs;
-
-
-using Clean_Architecture.Application.DTOs.DonationReportDTOs;
-using Clean_Architecture.Application.DTOs.BadgeDTOs;
-using Clean_Architecture.Application.DTOs.AccountDTOs;
-using Clean_Architecture.Application.DTOs.InKindDonationDTOs;
+using Clean_Architecture.core.Entities;
 
 
 
@@ -86,13 +83,13 @@ namespace Clean_Architecture.Application.Mapper
             CreateMap<MoneyDonation, updateMoneyDonationDTO>();
 
             CreateMap<showInKindDonationDTO, InKindDonation>();
-            CreateMap<InKindDonation,showInKindDonationDTO>();
+            CreateMap<InKindDonation, showInKindDonationDTO>();
 
             CreateMap<addInKindDonationDTO, InKindDonation>();
             CreateMap<InKindDonation, addInKindDonationDTO>();
 
-            CreateMap<updateInKindDonationDTO,InKindDonation>();
-            CreateMap<InKindDonation,updateInKindDonationDTO>();
+            CreateMap<updateInKindDonationDTO, InKindDonation>();
+            CreateMap<InKindDonation, updateInKindDonationDTO>();
 
             CreateMap<addDonorDTO, Donor>();
             CreateMap<Donor, addDonorDTO>();
@@ -109,7 +106,8 @@ namespace Clean_Architecture.Application.Mapper
             CreateMap<Donor, showDonorWithBadgeDTO>()
            .ForMember(dest => dest.BadgeName, opt => opt.MapFrom(src => src.Badges.Select(b => b.Name).ToList()));
 
-
+            CreateMap<showCategoriesDTO, Category>();
+            CreateMap<Category, showCategoriesDTO>();
 
         }
         private byte[] ConvertIconToBytes(string iconPath)

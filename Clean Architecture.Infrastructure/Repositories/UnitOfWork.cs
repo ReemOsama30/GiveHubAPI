@@ -20,6 +20,8 @@ namespace Clean_Architecture.Infrastructure.Repositories
         public IRepository<Advertisment> advertisments { get; }
 
 
+
+
         public IReviewRepository reviewRepository { get; }
 
         public IMoneyDonationRepository moneyDonationRepository { get; }
@@ -30,8 +32,12 @@ namespace Clean_Architecture.Infrastructure.Repositories
 
 
         public IUserRepository UserRepository { get; }
-     
+
         public IDonorRepository donorRepository { get; }
+
+        public ICategoryRepository categoryRepository { get; }
+
+        public IProjectRepository projectRepository { get; }
 
         public UnitOfWork(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
@@ -48,11 +54,14 @@ namespace Clean_Architecture.Infrastructure.Repositories
             DonationReportRepository = new DonationReportRepository(context);
             donorRepository = new DonorRepository(context);
 
-            UserRepository = new UserRepository(userManager,context);
+            UserRepository = new UserRepository(userManager, context);
 
             moneyDonationRepository = new MoneyDonationRepository(context);
 
             inKindDonationRepository = new InkindDonationRepository(context);
+            categoryRepository = new CategoryRepository(context);
+            projectRepository = new ProjectRepository(context);
+
         }
 
 

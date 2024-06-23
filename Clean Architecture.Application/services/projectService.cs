@@ -34,7 +34,7 @@ namespace Clean_Architecture.Application.services
             }
 
 
-            
+
 
             var project = mapper.Map<Project>(projectDTO);
             // project.ImgUrl = filePath;
@@ -43,24 +43,21 @@ namespace Clean_Architecture.Application.services
             project.IsDeleted = false;
 
 
-           // project.Img = File.ReadAllBytes(projectDTO.ImgPath);
+            // project.Img = File.ReadAllBytes(projectDTO.ImgPath);
             unitOfWork.projects.insert(project);
             unitOfWork.Save();
         }
 
         public async Task<List<showprojectDTO>> GetProjects()
         {
-            var projects = await unitOfWork.projects.GetAllAsync();
+            var projects = await unitOfWork.projectRepository.GetProjectsWithCategoryNameAsync();
             return mapper.Map<List<showprojectDTO>>(projects);
         }
 
 
         public showprojectDTO GetProjectById(int id)
         {
-            var project = unitOfWork.projects.Get(i => i.Id == id);
-
-          
-
+            var project = unitOfWork.projectRepository.GetOneProjectWithCategoryName(id);
 
 
             return mapper.Map<showprojectDTO>(project);
@@ -100,15 +97,15 @@ namespace Clean_Architecture.Application.services
 
 
 
-                    unitOfWork.projects.update(project);
-                    unitOfWork.Save();
-               // }
+                unitOfWork.projects.update(project);
+                unitOfWork.Save();
+                // }
             }
 
         }
         public List<showprojectDTO> getProjectByCharityID(int charityID)
         {
-            var projects = unitOfWork.projects.GetAll().Where(p => p.CharityId == charityID);
+            var projects = unitOfWork.projectRepository.GetProjectsWithCategoryName().Where(p => p.CharityId == charityID);
             if (projects.Count() > 0)
             {
                 return mapper.Map<List<showprojectDTO>>(projects).ToList();
@@ -126,7 +123,7 @@ namespace Clean_Architecture.Application.services
             int pageSize = 3;
 
 
-            var projects = await unitOfWork.projects.GetAllAsync();
+            var projects = await unitOfWork.projectRepository.GetProjectsWithCategoryNameAsync();
             int totalCount = projects.Count();
             int totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
 
@@ -134,6 +131,26 @@ namespace Clean_Architecture.Application.services
 
             return mapper.Map<List<showprojectDTO>>(pagedProjects);
         }
+
+        public int GetCategoryIdByName(string categoryName)
+        {
+            var category = unitOfWork.categoryRepository.Get(c => c.Name.ToLower() == categoryName.ToLower());
+
+            return category.id;
+        }
+
+
+
+        public List<showprojectDTO> GetProjectsByCategoryId(int categoryId)
+        {
+            var projects = unitOfWork.projectRepository.GetProjectsWithCategoryName()
+                                .Where(p => p.CategoryId == categoryId)
+                                .ToList();
+
+            return mapper.Map<List<showprojectDTO>>(projects);
+        }
+
+
 
 
 
