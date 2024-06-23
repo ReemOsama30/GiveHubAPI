@@ -30,5 +30,30 @@ namespace Clean_Architecture.APIs.Controllers
 
             return response;
         }
+
+
+        [HttpGet("categoryId/{name}")]
+        public ActionResult<GeneralResponse> GetCategoryIdByName(string name) { 
+        
+       int id =categoryService.getCategoryIDbyName(name);
+
+            if (id == 0) {
+
+                return new GeneralResponse
+                {
+                    IsPass=false,
+                    Status=404,
+                    Message="invalid id"
+                };
+            }
+            return new GeneralResponse
+            {
+                IsPass = true,
+                Message = id,
+                Status = 200
+
+            };
+        
+        }
     }
 }

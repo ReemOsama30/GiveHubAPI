@@ -20,5 +20,15 @@ namespace Clean_Architecture.Application.services
             var categories = await unitOfWork.categoryRepository.GetAllCategoriesAsync();
             return mapper.Map<List<showCategoriesDTO>>(categories);
         }
+
+        public int getCategoryIDbyName(string name)
+        {
+            {
+                var category = unitOfWork.categoryRepository.Get(c => c.Name == name);
+                return category.id;
+
+
+            }
+        }
     }
 }
