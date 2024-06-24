@@ -33,6 +33,10 @@ namespace Clean_Architecture.Application.services
             charity.ProfileImg = $"/charityImg/{imageName}";
             unitOfWork.charities.insert(charity);
             unitOfWork.Save();
+            int charityId = charity.Id;
+            var user = unitOfWork.UserRepository.Get(u => u.Id == charity.ApplicationUserId);
+            user.CharityId = charityId;
+            unitOfWork.Save();
 
         }
         public int GetCharityIdByUserID(string UserId)
@@ -62,7 +66,7 @@ namespace Clean_Architecture.Application.services
         }
 
 
-    
+
 
         public showCharityDTO getCharitiesByAccountId(string id)
         {
