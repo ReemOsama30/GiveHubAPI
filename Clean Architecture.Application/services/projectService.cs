@@ -177,5 +177,46 @@ namespace Clean_Architecture.Application.services
             return mapper.Map<List<showprojectDTO>>(FilteredProjects);
         }
 
+
+        //apply 2 filter together
+        public async Task<List<showprojectDTO>> GetProjectsByCategoryNameAndBudgetRange(string categoryName)
+        {
+            var category = unitOfWork.categoryRepository.Get(c => c.Name.ToLower() == categoryName.ToLower());
+
+
+            var projects = await unitOfWork.projectRepository.GetProjectsWithCategoryNameAsync();
+            var filteredProjects = projects
+                                    .Where(p => p.CategoryId == category.id &&
+                                                p.FundingGoal >= 1000 && p.FundingGoal <= 5000)
+                                    .ToList();
+            return mapper.Map<List<showprojectDTO>>(filteredProjects);
+        }
+
+        public async Task<List<showprojectDTO>> GetProjectsByCategoryNameAndMAXFundingGoal(string categoryName)
+        {
+            var category = unitOfWork.categoryRepository.Get(c => c.Name.ToLower() == categoryName.ToLower());
+
+
+            var projects = await unitOfWork.projectRepository.GetProjectsWithCategoryNameAsync();
+            var filteredProjects = projects
+                                    .Where(p => p.CategoryId == category.id &&
+                                                p.FundingGoal >= 5000)
+                                    .ToList();
+            return mapper.Map<List<showprojectDTO>>(filteredProjects);
+        }
+
+        public async Task<List<showprojectDTO>> GetProjectsByCategoryNameAndMINIFundingGoal(string categoryName)
+        {
+            var category = unitOfWork.categoryRepository.Get(c => c.Name.ToLower() == categoryName.ToLower());
+
+
+            var projects = await unitOfWork.projectRepository.GetProjectsWithCategoryNameAsync();
+            var filteredProjects = projects
+                                    .Where(p => p.CategoryId == category.id &&
+                                                p.FundingGoal <= 1000)
+                                    .ToList();
+            return mapper.Map<List<showprojectDTO>>(filteredProjects);
+        }
+
     }
 }
