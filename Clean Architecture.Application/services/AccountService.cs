@@ -18,6 +18,7 @@ using Microsoft.Extensions.Configuration;
 using Clean_Architecture.Application.responses;
 using Microsoft.AspNetCore.Http;
 using static System.Net.WebRequestMethods;
+using System.Net;
 
 
 namespace Clean_Architecture.Application.services
@@ -86,7 +87,7 @@ namespace Clean_Architecture.Application.services
             return user;
         }
 
-        public async Task<IdentityResult>ConfirmEmailAsync(ApplicationUser user,string token)
+        public async Task<IdentityResult> ConfirmEmailAsync(ApplicationUser user, string token)
         {
             var result = await unitOfWork.UserRepository.ConfirmEmailAsync(user, token);
             return result;
@@ -97,7 +98,7 @@ namespace Clean_Architecture.Application.services
             return result;
 
         }
-            public async Task<GeneralResponse> ResetPasswordAsync(ResetPasswordDto resetPasswordDto)
+        public async Task<GeneralResponse> ResetPasswordAsync(ResetPasswordDto resetPasswordDto)
         {
             var user = await FindByEmailAsync(resetPasswordDto.Email);
             if (user == null)
@@ -125,26 +126,17 @@ namespace Clean_Architecture.Application.services
         }
 
         private async Task SendConfirmationEmail(string? email, ApplicationUser? user)
-        {//CfDJ8F4+GOW0SGhHsooJJxXaG+IKsQtXrluFIRMw99ludaz4frUb7d2xHu9qaDQZ+83rXJvy17A9U3qN64CD5c+u5Fj6R3NySEWKmSBDOOiKg0n6D+8MNwUSQxh1+U2VLMff5gRHM9ihjEErxEmZihE3zM5DBhsTuIJ1od3yo1qo2VYl4jBakWqGgQRO7VrTizHMRgXWb9BgtqWcqFnSNa5N+BlE08hU0o3aD96Bh16+duve4uKhatWWwRInsqOTKXBVAQ==
+        {
             string token = await unitOfWork.UserRepository.GenerateEmailConfirmationTokenAsync(user);
+            token = WebUtility.UrlEncode(token);
 
-            
-            var Request = httpContextAccessor.HttpContext.Request;
-            //token = token.Replace(" ", "%2B");
-            //token = token.Replace("/", "%2F");
-            //token = token.Replace("=", "%3D");
+            HttpRequest Request = httpContextAccessor.HttpContext.Request;
 
-            //token = token.Replace("+", "%2B");
-            //CfDJ8F4%2BGOW0SGhHsooJJxXaG%2BIKsQtXrluFIRMw99ludaz4frUb7d2xHu9qaDQZ%2B83rXJvy17A9U3qN64CD5c%2Bu5Fj6R3NySEWKmSBDOOiKg0n6D%2B8MNwUSQxh1%2BU2VLMff5gRHM9ihjEErxEmZihE3zM5DBhsTuIJ1od3yo1qo2VYl4jBakWqGgQRO7VrTizHMRgXWb9BgtqWcqFnSNa5N%2BBlE08hU0o3aD96Bh16%2Bduve4uKhatWWwRInsqOTKXBVAQ%3D%3D
-
-            //https://localhost:44377/api/Account/confirm-email?userId=21fb8c8a-9461-4c1f-b2af-33123863fcde&token=CfDJ8F4%2BGOW0SGhHsooJJxXaG%2BIKsQtXrluFIRMw99ludaz4frUb7d2xHu9qaDQZ%2B83rXJvy17A9U3qN64CD5c%2Bu5Fj6R3NySEWKmSBDOOiKg0n6D%2B8MNwUSQxh1%2BU2VLMff5gRHM9ihjEErxEmZihE3zM5DBhsTuIJ1od3yo1qo2VYl4jBakWqGgQRO7VrTizHMRgXWb9BgtqWcqFnSNa5N%2BBlE08hU0o3aD96Bh16%2Bduve4uKhatWWwRInsqOTKXBVAQ%3D%3D
-            var confirmationLink = $"{Request.Scheme}://{Request.Host}/api/Account/confirm-email?userId={user.Id}&token={token}";
-
+            string confirmationLink = $"{Request.Scheme}://{Request.Host}/api/Account/confirm-email?userId={user.Id}&token={token}";
             string mailBody = $"<!DOCTYPE html>\r\n<html>\r\n<head>\r\n  <title>GiveHub Email Confirmation</title>\r\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n   <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>\r\n  <style>\r\n body{{\r\n background: #eeeeee;\r\n      margin: 0;\r\n      padding: 0;\r\n    }}\r\n    .container {{\r\n      max-width: 640px;\r\n      margin: 0 auto;\r\n      background: #ffffff;\r\n      box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);\r\n      border-radius: 4px;\r\n      overflow: hidden;\r\n    }}\r\n  </style>\r\n</head>\r\n<body>\r\n  <div class=\"container\">\r\n    <div style=\"background-color: #77d986 ; padding: 57px; text-align: center;\">\r\n      <div style=\"cursor: auto; color: white; font-family: Poppins, sans-serif; font-size: 36px; font-weight: 600;\">\r\n        Welcome to GiveHub!\r\n      </div>\r\n    </div>\r\n    \r\n    <div style=\"padding: 40px 70px;\">\r\n      <div style=\"color: #242424 !important; font-family: Poppins, sans-serif; font-size: 16px; line-height: 24px;\">\r\n        <h2 style=\"font-weight: 500; font-size: 20px; color: #1c1c1c;\">Hey {user.UserName},</h2>\r\n        <p>\r\n          Welcome aboard GiveHub! 💚 Thanks for signing up! We're thrilled to have you join our community.\r\n        </p>\r\n        <p>\r\n          To get started, we just need to confirm your email address to ensure everything runs smoothly.\r\n        </p>\r\n        <p>\r\n          Click the button below to verify your email and make this world a better place through the joy of giving .\r\n        </p>\r\n      </div>\r\n      <div style=\"text-align: center; padding: 20px;\">\r\n        <a href=\"{confirmationLink}\" style=\"display: inline-block; background-color: #77d986 ; color: white; text-decoration: none; padding: 15px 30px; border-radius: 3px;\">Verify Email</a>\r\n      </div>\r\n      <div style=\"color: #242424 !important ; font-family: Poppins, sans-serif; font-size: 16px; line-height: 24px;\">\r\n        <p>If you have any questions or need assistance, feel free to reach out to our support team.</p>\r\n        <p><br>GiveHub Team</p>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</body>\r\n</html>\r\n";
 
 
-              await emailService.SendEmailAsync(user.Email, "GiveHub Email Confiramtion", mailBody, true);
-
+            await emailService.SendEmailAsync(user.Email, "GiveHub Email Confiramtion", mailBody, true);
 
         }
 
@@ -204,7 +196,7 @@ namespace Clean_Architecture.Application.services
 
 
 
-       
+
 
 
 

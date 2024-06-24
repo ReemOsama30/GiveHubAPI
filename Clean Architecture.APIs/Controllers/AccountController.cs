@@ -8,6 +8,7 @@ using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using Clean_Architecture.Application.responses;
 using Clean_Architecture.Infrastructure.Repositories;
+using System.Net;
 
 namespace Clean_Architecture.APIs.Controllers
 {
@@ -68,7 +69,9 @@ namespace Clean_Architecture.APIs.Controllers
                 return BadRequest("Invalid email confirmation request.");
             }
 
+
             var user = await _accountService.FindByIdAsync(userId);
+
             if (user == null)
             {
                 return NotFound("User not found.");
