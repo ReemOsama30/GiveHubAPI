@@ -1,14 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using charityPulse.core.Models;
 using Clean_Architecture.Application.DTOs.AccountDTOs;
-using charityPulse.core.Models;
+using Clean_Architecture.Application.responses;
 using Clean_Architecture.Application.services;
 using Microsoft.AspNetCore.Identity;
-using System.Security.Claims;
-using System.IdentityModel.Tokens.Jwt;
-using Clean_Architecture.Application.responses;
-using Clean_Architecture.Infrastructure.Repositories;
-using System.Net;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Clean_Architecture.APIs.Controllers
 {
@@ -76,8 +71,8 @@ namespace Clean_Architecture.APIs.Controllers
             {
                 return NotFound("User not found.");
             }
-           
-            
+
+
 
             var result = await _accountService.ConfirmEmailAsync(user, token);
 
@@ -88,85 +83,9 @@ namespace Clean_Architecture.APIs.Controllers
 
             return BadRequest("Error confirming email.");
         }
-    
 
-    /*
-       [HttpGet("confirm-email")]
-        public async Task<ActionResult<GeneralResponse>> ConfirmEmail(string userId, string token)
-        {
-            int maxRetryAttempts = 3;
-            int retryAttempt = 0;
 
-            while (retryAttempt < maxRetryAttempts)
-            {
-                try
-                {
-                    if (userId == null || token == null)
-                    {
-                        return new GeneralResponse()
-                        {
-                            IsPass = false,
-                            Message = ModelState,
-                            Status = 400
-                        };
-                    }
-
-                    var user = await _accountService.FindByIdAsync(userId);
-
-                    if (user == null)
-                    {
-                        return new GeneralResponse()
-                        {
-                            IsPass = false,
-                            Message = $"Unable to load user with ID '{userId}'.",
-                            Status = 400
-                        };
-                    }
-
-                    //  Validates that an email confirmation token matches the specified user.
-                    var result = await _accountService.ConfirmEmailAsync(user, token);
-
-                    if (result.Succeeded)
-                    {
-                        return new GeneralResponse()
-                        {
-                            IsPass = true,
-                            Message = "Email confirmed successfully",
-                            Status = 200
-                         
-                        };
-                    }
-                    else
-                    {
-                        return new GeneralResponse()
-                        {
-                            IsPass = false,
-                            Message = ModelState,
-                            Status = 400
-                          
-                        };
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // Handle concurrency exception
-                    // Log the exception for debugging purposes
-                    // Optionally, wait for a short duration before retrying
-                    await Task.Delay(TimeSpan.FromSeconds(1)); // Wait for 1 second before retrying
-                    retryAttempt++;
-                }
-            }
-            return new GeneralResponse()
-            {
-                IsPass = false,
-                Message = "Error confirming email after multiple retries",
-                Status = 400
-                
-            };
-        }
-*/
-
-    [HttpPost("log-in")]
+        [HttpPost("log-in")]
         public async Task<ActionResult<GeneralResponse>> LogIn(UserLogInDTO userLogInDTO)
         {
 
@@ -177,6 +96,15 @@ namespace Clean_Architecture.APIs.Controllers
                 if (UserFromDB != null)
                 {
 
+                    if (!UserFromDB.EmailConfirmed)
+                    {
+                        return new GeneralResponse
+                        {
+                            IsPass = false,
+                            Message = "Email not confirmed",
+                            Status = 400
+                        };
+                    }
                     bool ValidUser = await _accountService.CheckPasswordAsync(UserFromDB, userLogInDTO.Password);
 
                     if (ValidUser)
@@ -224,8 +152,8 @@ namespace Clean_Architecture.APIs.Controllers
             {
                 return BadRequest(result); // Failed to reset password
             }
-        
-    }
+
+        }
 
     }
 }
