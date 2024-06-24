@@ -259,7 +259,76 @@ namespace Clean_Architecture.APIs.Controllers
                 Message = Projects
             };
         }
+        [HttpGet("filter-category-range")]
+        public async Task<ActionResult<GeneralResponse>> GetProjectsByCategoryNameAndBudgetRange(string categoryName)
+        {
+            var projects = await projectService.GetProjectsByCategoryNameAndBudgetRange(categoryName);
 
+            if (projects == null || projects.Count == 0)
+            {
+                return new GeneralResponse
+                {
+                    IsPass = false,
+                    Status = 404,
+                    Message = "No projects found "
+                };
+            }
+
+            return new GeneralResponse
+            {
+                IsPass = true,
+                Status = 200,
+                Message = projects
+            };
+        }
+
+
+        [HttpGet("filter-category-MINIFunding")]
+        public async Task<ActionResult<GeneralResponse>> GetProjectsByCategoryNameAndMINIFunding(string categoryName)
+        {
+            var projects = await projectService.GetProjectsByCategoryNameAndMINIFundingGoal(categoryName);
+
+            if (projects == null || projects.Count == 0)
+            {
+                return new GeneralResponse
+                {
+                    IsPass = false,
+                    Status = 404,
+                    Message = "No projects found "
+                };
+            }
+
+            return new GeneralResponse
+            {
+                IsPass = true,
+                Status = 200,
+                Message = projects
+            };
+        }
+
+
+        [HttpGet("filter-category-MaxFunding")]
+        public async Task<ActionResult<GeneralResponse>> GetProjectsByCategoryNameAndMaxFunding(string categoryName)
+        {
+            var projects = await projectService.GetProjectsByCategoryNameAndMAXFundingGoal(categoryName);
+
+            if (projects == null || projects.Count == 0)
+            {
+                return new GeneralResponse
+                {
+                    IsPass = false,
+                    Status = 404,
+                    Message = "No projects found "
+                };
+            }
+
+            return new GeneralResponse
+            {
+                IsPass = true,
+                Status = 200,
+                Message = projects
+            };
+        }
 
 
     }
