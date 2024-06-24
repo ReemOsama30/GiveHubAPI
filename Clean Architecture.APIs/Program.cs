@@ -26,7 +26,7 @@ namespace Clean_Architecture.APIs
 
             builder.Services.AddControllers();
             // Add services to the container.
-
+            builder.Services.AddHttpContextAccessor();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
@@ -84,6 +84,8 @@ namespace Clean_Architecture.APIs
             builder.Services.AddScoped<CategoryService>();
 
             builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+            builder.Services.AddTransient<IEmailService, EmailService>();
+
 
             builder.Services.AddCors(options =>
             {
