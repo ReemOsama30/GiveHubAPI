@@ -30,15 +30,19 @@ namespace Clean_Architecture.Infrastructure.Repositories
         {
             return await _userManager.FindByEmailAsync(email);
         }
+        public async Task<ApplicationUser> FindByNameAsync(string userName)
+        {
+            return await _userManager.FindByNameAsync(userName);
+        }
+        public async Task<ApplicationUser> FindByIdAsync(string userID)
+        {
+            return await _userManager.FindByIdAsync(userID);
+        }
         public async Task<IdentityResult> CreateUserAsync(ApplicationUser user, string password)
         {
             return await _userManager.CreateAsync(user, password);
         }
 
-        public async Task<ApplicationUser> FindByNameAsync(string userName)
-        {
-            return await _userManager.FindByNameAsync(userName);
-        }
 
         public async Task<bool> CheckPasswordAsync(ApplicationUser UserFromDB, string PasswordFromDTO)
         {
@@ -60,13 +64,19 @@ namespace Clean_Architecture.Infrastructure.Repositories
         {
             return await _userManager.GeneratePasswordResetTokenAsync(user);
         }
+        public async Task<string> GenerateEmailConfirmationTokenAsync(ApplicationUser user)
+        {
+            return await _userManager.GenerateEmailConfirmationTokenAsync(user);
+        }
 
         public async Task<IdentityResult> ResetPasswordAsync(ApplicationUser user, string token, string newPassword)
         {
             return await _userManager.ResetPasswordAsync(user, token, newPassword);
         }
 
-
-
+        public async Task<IdentityResult> ConfirmEmailAsync(ApplicationUser user, string token)
+        {
+            return await _userManager.ConfirmEmailAsync(user, token);
+        }
     }
 }
