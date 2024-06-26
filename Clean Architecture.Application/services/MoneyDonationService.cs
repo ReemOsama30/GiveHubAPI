@@ -32,7 +32,21 @@ namespace Clean_Architecture.Application.services
         public List<showMoneyDonationDTO> GetMoneyDonationByDonorId(int id)
         {
             List<MoneyDonation> moneyDonations = unitOfWork.moneyDonationRepository.GetAll().Where(m => m.DonorId == id).ToList();
-            return mapper.Map<List<showMoneyDonationDTO>>(moneyDonations);
+        
+          List<showMoneyDonationDTO>moneyDonationDTOs=  mapper.Map<List<showMoneyDonationDTO>>(moneyDonations);
+               foreach(var donation in moneyDonationDTOs)
+            {
+                var project = unitOfWork.projectRepository.Get(p => p.Id == donation.projectId);
+                donation.ProjectName = project.Title;
+                donation.projectImage = project.ImgUrl;
+
+                var charity = unitOfWork.charities.Get(c => c.Id == donation.CharityId);
+                donation.charityName = charity.Name;
+
+
+            }
+
+            return moneyDonationDTOs;
         }
 
         public List<showMoneyDonationDTO> GetMoneyDonationByProjectId(int id)
@@ -41,7 +55,7 @@ namespace Clean_Architecture.Application.services
             return mapper.Map<List<showMoneyDonationDTO>>(moneyDonations);
 
         }
-
+    
 
         public List<showMoneyDonationDTO> GetMoneyDonationByCharityId(int id)
         {
