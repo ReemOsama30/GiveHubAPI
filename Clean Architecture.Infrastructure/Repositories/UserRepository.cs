@@ -2,14 +2,6 @@
 using Clean_Architecture.core.Interfaces;
 using Clean_Architecture.Infrastructure.DbContext;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.VisualBasic;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Clean_Architecture.Infrastructure.Repositories
 {
@@ -17,7 +9,7 @@ namespace Clean_Architecture.Infrastructure.Repositories
     {
         private readonly UserManager<ApplicationUser> _userManager;
 
-       
+
         private readonly ApplicationDbContext _context;
 
         public UserRepository(UserManager<ApplicationUser> userManager, ApplicationDbContext context)
@@ -26,7 +18,7 @@ namespace Clean_Architecture.Infrastructure.Repositories
             _userManager = userManager;
             _context = context;
         }
-        public async Task<ApplicationUser> FindByEmailAsync(string email)  
+        public async Task<ApplicationUser> FindByEmailAsync(string email)
         {
             return await _userManager.FindByEmailAsync(email);
         }
@@ -78,5 +70,7 @@ namespace Clean_Architecture.Infrastructure.Repositories
         {
             return await _userManager.ConfirmEmailAsync(user, token);
         }
+
+
     }
 }

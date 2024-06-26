@@ -52,6 +52,11 @@ namespace Clean_Architecture.Application.services
             donor.ProfileImg = $"/donorImg/{imageName}";
             unitOfWork.donorRepository.insert(donor);
             unitOfWork.Save();
+            int donorId = donor.Id;
+
+            var user = unitOfWork.UserRepository.Get(u => u.Id == donor.ApplicationUserId);
+            user.DonorId = donorId;
+            unitOfWork.Save();
         }
 
         public void UpdateDonor(updateDonorDTO updateDonorDTO)

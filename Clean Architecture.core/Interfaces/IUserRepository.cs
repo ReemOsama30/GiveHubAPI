@@ -1,15 +1,10 @@
 ﻿using charityPulse.core.Models;
 using Clean_Architecture.Application.Interfaces;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Clean_Architecture.core.Interfaces
 {
-    public interface IUserRepository:IRepository<ApplicationUser>
+    public interface IUserRepository : IRepository<ApplicationUser>
     {
         Task<ApplicationUser> FindByEmailAsync(string email);
         Task<IdentityResult> CreateUserAsync(ApplicationUser user, string password);
@@ -20,7 +15,8 @@ namespace Clean_Architecture.core.Interfaces
         Task<IdentityResult> ResetPasswordAsync(ApplicationUser user, string token, string newPassword);
         Task<string> GenerateEmailConfirmationTokenAsync(ApplicationUser user);
         Task<ApplicationUser> FindByIdAsync(string userID);
-        Task<IdentityResult> ConfirmEmailAsync(ApplicationUser user,string token);
+        Task<IdentityResult> ConfirmEmailAsync(ApplicationUser user, string token);
+
 
     }
 }
