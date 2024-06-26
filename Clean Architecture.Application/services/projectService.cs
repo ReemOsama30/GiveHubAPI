@@ -34,13 +34,12 @@ namespace Clean_Architecture.Application.services
             }
 
             var project = mapper.Map<Project>(projectDTO);
-            // project.ImgUrl = filePath;
+           
             project.ImgUrl = $"/projectImg/{imageName}"; // Store relative path
 
             project.IsDeleted = false;
 
 
-            // project.Img = File.ReadAllBytes(projectDTO.ImgPath);
             unitOfWork.projects.insert(project);
             unitOfWork.Save();
         }
