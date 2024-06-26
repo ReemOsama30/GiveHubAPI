@@ -34,7 +34,20 @@ namespace Clean_Architecture.Application.services
         public List<showInKindDonationDTO> GetInKindDonationByDonorId(int id)
         {
             List<InKindDonation>inKindDonations = unitOfWork.inKindDonationRepository.GetAll().Where(i => i.DonorId == id).ToList();
-            return mapper.Map<List<showInKindDonationDTO>>(inKindDonations);
+          
+            List<showInKindDonationDTO>inKindDonationsDtos= mapper.Map<List<showInKindDonationDTO>>(inKindDonations);
+        foreach(var donation in inKindDonationsDtos)
+            {
+                var project = unitOfWork.projectRepository.Get(p => p.Id == donation.projectId);
+                donation.ProjectName = project.Title;
+                donation.projectImage = project.ImgUrl;
+                var charity=unitOfWork.charities.Get(c=>c.Id==donation.CharityId);
+                donation.charityName = charity.Name;
+            }
+        
+        
+        return inKindDonationsDtos;
+        
         }
 
         public List<showInKindDonationDTO> GetInKindDonationByProjectId(int id)
