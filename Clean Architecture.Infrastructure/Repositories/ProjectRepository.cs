@@ -14,12 +14,14 @@ namespace Clean_Architecture.Infrastructure.Repositories
 
         public async Task<List<Project>> GetProjectsWithCategoryNameAsync()
         {
-            return await context.projects.Include(p => p.category).ToListAsync();
+            return await context.projects.Include(p => p.category)
+                                         .Include(p => p.Charity).ToListAsync();
         }
 
         public List<Project> GetProjectsWithCategoryName()
         {
-            return context.projects.Include(p => p.category).ToList();
+            return context.projects.Include(p => p.category)
+                                    .Include(p => p.Charity).ToList();
         }
 
         public Project GetOneProjectWithCategoryName(int id)

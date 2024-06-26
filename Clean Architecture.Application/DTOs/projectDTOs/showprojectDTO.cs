@@ -17,6 +17,7 @@ namespace Clean_Architecture.Application.DTOs.projectDTOs
         public ProjectState State { get; set; } = ProjectState.Initiated;
 
         public int CharityId { get; set; }
+        public string CharityName { set; get; }
 
     }
 }
