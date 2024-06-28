@@ -12,7 +12,7 @@ namespace Clean_Architecture.core.Interfaces
         public IRepository<Corporate> corporations { get; }
         public IRepository<Charity> charities { get; }
         public IRepository<Advertisment> advertisments { get; }
-        public IRepository<Badge> badgs { get; }
+        public IRepository<Badge> Badges { get; }
 
         public IUserRepository UserRepository { get; }
         public IDonationReportRepository DonationReportRepository { get; }

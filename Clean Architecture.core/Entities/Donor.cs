@@ -1,5 +1,6 @@
 ﻿
 using Clean_Architecture.Application.Interfaces;
+using Clean_Architecture.core.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -22,7 +23,7 @@ namespace charityPulse.core.Models
         public ApplicationUser ApplicationUser { get; set; }
 
         public ICollection<Donation>? Donations { get; set; }
-        public ICollection<Badge>? Badges { get; set; }
+        public ICollection<AwardedBadge>? Badges { get; set; }
         public ICollection<Review>? Reviews { get; set; }
         public ICollection<Project>? Projects { get; set; }
 

@@ -11,14 +11,10 @@ namespace Clean_Architecture.Application.DTOs.BadgeDTOs
 {
     public class AddBadgeDTO
     {
+       public string Name { get; set; }
+       public string Description { get; set; }    
+       public IFormFile Icon { get; set; }
       
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public DateTime DateRecived { get; set; }
-        public IFormFile Icon { get; set; }
-        public int? DonorId { get; set; }  
-        public int? CharityId { get; set; }
-        public int? CorporateId { get; set; }
        
 
     }

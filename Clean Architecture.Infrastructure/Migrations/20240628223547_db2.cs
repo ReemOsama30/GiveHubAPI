@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Clean_Architecture.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class db : Migration
+    public partial class db2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -25,6 +25,22 @@ namespace Clean_Architecture.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetRoles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Badges",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Icon = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Badges", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -270,35 +286,39 @@ namespace Clean_Architecture.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Badges",
+                name: "AwardedBadges",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DateRecived = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Icon = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DateReceived = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    BadgeId = table.Column<int>(type: "int", nullable: false),
                     DonorId = table.Column<int>(type: "int", nullable: true),
                     CharityId = table.Column<int>(type: "int", nullable: true),
                     CorporateId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Badges", x => x.Id);
+                    table.PrimaryKey("PK_AwardedBadges", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Badges_charities_CharityId",
+                        name: "FK_AwardedBadges_Badges_BadgeId",
+                        column: x => x.BadgeId,
+                        principalTable: "Badges",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AwardedBadges_charities_CharityId",
                         column: x => x.CharityId,
                         principalTable: "charities",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Badges_corporations_CorporateId",
+                        name: "FK_AwardedBadges_corporations_CorporateId",
                         column: x => x.CorporateId,
                         principalTable: "corporations",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Badges_donors_DonorId",
+                        name: "FK_AwardedBadges_donors_DonorId",
                         column: x => x.DonorId,
                         principalTable: "donors",
                         principalColumn: "Id");
@@ -436,16 +456,7 @@ namespace Clean_Architecture.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "bb369dfd-58a9-420a-9358-4d2ce12ec8f0", null, "Admin", "ADMIN" });
-
-            migrationBuilder.InsertData(
-                table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "AccountType", "AdminId", "CharityId", "ConcurrencyStamp", "CorporateId", "DonorId", "Email", "EmailConfirmed", "IsDeleted", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[,]
-                {
-                    { "3b5165bb-2d8d-4489-b9ce-b5f3de12221d", 0, "Donor", null, null, "f8c75cb1-a7cd-492a-bc34-5812257af471", null, null, "user1@example.com", false, false, false, null, "USER1@EXAMPLE.COM", "USER1@EXAMPLE.COM", "AQAAAAIAAYagAAAAECEJfRPmSXpr0BLW9xAsWxTQ1BshbqIiaRfxOjGMB4M2cUbuWI1ezE2O+azs9un8tw==", "+1-555-1234", false, "7fceedcf-dd83-40dc-9038-0217385a1589", false, "user1@example.com" },
-                    { "6f6f7498-367a-4233-96a3-a5b854567067", 0, "Donor", null, null, "1c1e7b93-873c-4d6c-b534-1571b9668285", null, null, "user2@example.com", false, false, false, null, "USER2@EXAMPLE.COM", "USER2@EXAMPLE.COM", "AQAAAAIAAYagAAAAEHndlWslKvUQl1qJSuA7C+C56lDryHWlqAmefPC8VNVAymK31E4oSWJNuqYUKW0rGg==", "+1-555-5678", false, "a58e1b0a-1e13-4fab-ae53-bc2b70dcc9a0", false, "user2@example.com" }
-                });
+                values: new object[] { "016a8848-cf53-4cda-9deb-c5270b8a9f8f", null, "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "categories",
@@ -534,18 +545,23 @@ namespace Clean_Architecture.Infrastructure.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Badges_CharityId",
-                table: "Badges",
+                name: "IX_AwardedBadges_BadgeId",
+                table: "AwardedBadges",
+                column: "BadgeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AwardedBadges_CharityId",
+                table: "AwardedBadges",
                 column: "CharityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Badges_CorporateId",
-                table: "Badges",
+                name: "IX_AwardedBadges_CorporateId",
+                table: "AwardedBadges",
                 column: "CorporateId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Badges_DonorId",
-                table: "Badges",
+                name: "IX_AwardedBadges_DonorId",
+                table: "AwardedBadges",
                 column: "DonorId");
 
             migrationBuilder.CreateIndex(
@@ -751,7 +767,7 @@ namespace Clean_Architecture.Infrastructure.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Badges");
+                name: "AwardedBadges");
 
             migrationBuilder.DropTable(
                 name: "donations");
@@ -761,6 +777,9 @@ namespace Clean_Architecture.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Badges");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

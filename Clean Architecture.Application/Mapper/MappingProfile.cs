@@ -66,8 +66,18 @@ namespace Clean_Architecture.Application.Mapper
 
 
             CreateMap<AddBadgeDTO, Badge>();
+            CreateMap<UpdateBadgeDTO, Badge>();
             CreateMap<Badge, ShowBadgeDTO>();
-            CreateMap<AddBadgeDTO, Badge>();
+
+            //CreateMap<AwardBadgeDTO, AwardedBadge>();
+            //CreateMap<AwardedBadge, ShowAwardedBadgeDTO>()
+            //    .ForMember(dest => dest.BadgeName, opt => opt.MapFrom(src => src.Badge.Name))
+            //    .ForMember(dest => dest.BadgeDescription, opt => opt.MapFrom(src => src.Badge.Description));
+
+
+            //CreateMap<AddBadgeDTO, Badge>();
+            //CreateMap<Badge, ShowBadgeDTO>();
+            //CreateMap<AddBadgeDTO, Badge>();
             //.ForMember(dest => dest.Icon, opt => opt.MapFrom(src => ConvertIconToBytes(src.Icon)));
             //CreateMap<UpdateBadgeDTO, Badge>()
             // .ForMember(dest => dest.Icon, opt => opt.MapFrom(src => ConvertIconToBytes(src.Icon)));
@@ -103,8 +113,8 @@ namespace Clean_Architecture.Application.Mapper
             CreateMap<updateDonorDTO, Donor>();
             CreateMap<Donor, updateDonorDTO>();
 
-            CreateMap<Donor, showDonorWithBadgeDTO>()
-           .ForMember(dest => dest.BadgeName, opt => opt.MapFrom(src => src.Badges.Select(b => b.Name).ToList()));
+            CreateMap<Donor, showDonorWithBadgeDTO>();
+          // .ForMember(dest => dest.BadgeName, opt => opt.MapFrom(src => src.Badges.Select(b => b.Name).ToList()));
 
             CreateMap<showCategoriesDTO, Category>();
             CreateMap<Category, showCategoriesDTO>();
@@ -120,8 +130,8 @@ namespace Clean_Architecture.Application.Mapper
             CreateMap<showDonorDTO, Donor>();
             //   CreateMap<Donor, showDonorWithBadgeDTO>();
             CreateMap<showDonorWithBadgeDTO, Donor>();
-            CreateMap<Donor, showDonorWithBadgeDTO>()
-            .ForMember(dest => dest.BadgeName, opt => opt.MapFrom(src => src.Badges.Select(b => b.Name).ToList()));
+            CreateMap<Donor, showDonorWithBadgeDTO>();
+            //.ForMember(dest => dest.BadgeName, opt => opt.MapFrom(src => src.Badges.Select(b => b.Name).ToList()));
 
             CreateMap<updateDonorDTO, Donor>();
             CreateMap<Donor, updateDonorDTO>();

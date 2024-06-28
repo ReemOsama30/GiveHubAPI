@@ -10,16 +10,43 @@ namespace Clean_Architecture.APIs.Controllers
     [ApiController]
     public class BadgeController : ControllerBase
     {
-        private readonly BadgeService BadgeService;
+        private readonly BadgeService _BadgeService;
 
         public BadgeController(BadgeService BadgeService)
         {
-            this.BadgeService = BadgeService;
+            _BadgeService = BadgeService;
         }
-        [HttpGet]
+
+        [HttpPost]
+        public ActionResult<GeneralResponse> Insert(AddBadgeDTO addBadgeDTO)
+        {
+
+            if (ModelState.IsValid)
+            {
+                _BadgeService.Add(addBadgeDTO);
+
+                return new GeneralResponse
+                {
+                    IsPass = true,
+                    Status = 200,
+                    Message = addBadgeDTO
+                };
+            }
+            return new GeneralResponse
+            {
+                IsPass = false,
+                Status = 400,
+                Message = "unable to add new badge"
+            };
+
+        }
+
+
+        /*
+         *  [HttpGet]
         public async Task<ActionResult<GeneralResponse>> Get()
         {
-            var result = await BadgeService.GetBadgs();
+            var result = await _BadgeService.GetBadgs();
 
             var response = new GeneralResponse
             {
@@ -35,7 +62,7 @@ namespace Clean_Architecture.APIs.Controllers
         [HttpGet("{id}")]
         public ActionResult<GeneralResponse> GetbyId(int id)
         {
-            var badge = BadgeService.GetBadgeById(id);
+            var badge = _BadgeService.GetBadgeById(id);
             if (badge == null)
             {
                 return new GeneralResponse
@@ -60,34 +87,12 @@ namespace Clean_Architecture.APIs.Controllers
 
         }
 
-        [HttpPost]
-        public ActionResult<GeneralResponse> InsertBadge(AddBadgeDTO addBadgeDTO)
-        {
-
-            if (ModelState.IsValid)
-            {
-                BadgeService.AddBadge(addBadgeDTO);
-
-                return new GeneralResponse
-                {
-                    IsPass = true,
-                    Status = 200,
-                    Message = addBadgeDTO
-                };
-            }
-            return new GeneralResponse
-            {
-                IsPass = false,
-                Status = 400,
-                Message = "unable to add new badge"
-            };
-
-        }
+        
         [HttpDelete]
         public ActionResult<GeneralResponse> DeleteBadge(int id)
         {
 
-            var badge = BadgeService.GetBadgeById(id);
+            var badge = _BadgeService.GetBadgeById(id);
             if (badge == null)
             {
                 return new GeneralResponse
@@ -99,7 +104,7 @@ namespace Clean_Architecture.APIs.Controllers
             }
             else
             {
-                BadgeService.DeleteBadge(id);
+                _BadgeService.DeleteBadge(id);
                 return new GeneralResponse
                 {
                     IsPass = true,
@@ -113,7 +118,7 @@ namespace Clean_Architecture.APIs.Controllers
         public ActionResult<GeneralResponse> Update(int id, UpdateBadgeDTO updateBadgeDTO)
         {
             {
-                var existingBadge = BadgeService.GetBadgeById(id);
+                var existingBadge = _BadgeService.GetBadgeById(id);
                 if (existingBadge == null)
                 {
                     return new GeneralResponse
@@ -123,7 +128,7 @@ namespace Clean_Architecture.APIs.Controllers
                         Message = "invalid Badge"
                     };
                 }
-                BadgeService.UpdateBadge(id, updateBadgeDTO);
+                _BadgeService.UpdateBadge(id, updateBadgeDTO);
                 return new GeneralResponse
                 {
                     IsPass = true,
@@ -137,7 +142,7 @@ namespace Clean_Architecture.APIs.Controllers
         [HttpGet("donor/{id:int}")]
         public ActionResult<GeneralResponse> GetByDonnerID(int id)
         {
-            List<Badge> result = BadgeService.GetBadgesByDonnerId(id);
+            List<Badge> result = _BadgeService.GetBadgesByDonnerId(id);
 
             var response = new GeneralResponse
             {
@@ -153,7 +158,7 @@ namespace Clean_Architecture.APIs.Controllers
         [HttpGet("corporate/{id:int}")]
         public ActionResult<GeneralResponse> GetByCorporateID(int id)
         {
-            List<Badge> result = BadgeService.GetBadgesByCorporateId(id);
+            List<Badge> result = _BadgeService.GetBadgesByCorporateId(id);
 
             var response = new GeneralResponse
             {
@@ -169,7 +174,7 @@ namespace Clean_Architecture.APIs.Controllers
         [HttpGet("charity/{id:int}")]
         public ActionResult<GeneralResponse> GetByCharityID(int id)
         {
-            List<Badge> result = BadgeService.GetBadgesByCharityId(id);
+            List<Badge> result = _BadgeService.GetBadgesByCharityId(id);
 
             var response = new GeneralResponse
             {
@@ -181,5 +186,7 @@ namespace Clean_Architecture.APIs.Controllers
 
             return response;
         }
+         */
+
     }
 }

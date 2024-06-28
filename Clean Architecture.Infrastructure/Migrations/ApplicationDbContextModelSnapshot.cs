@@ -22,6 +22,45 @@ namespace Clean_Architecture.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Clean_Architecture.core.Entities.AwardedBadge", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BadgeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CharityId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CorporateId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateReceived")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DonorId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BadgeId");
+
+                    b.HasIndex("CharityId");
+
+                    b.HasIndex("CorporateId");
+
+                    b.HasIndex("DonorId");
+
+                    b.ToTable("AwardedBadges");
+                });
+
             modelBuilder.Entity("Clean_Architecture.core.Entities.Category", b =>
                 {
                     b.Property<int>("id")
@@ -103,7 +142,7 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "bb369dfd-58a9-420a-9358-4d2ce12ec8f0",
+                            Id = "016a8848-cf53-4cda-9deb-c5270b8a9f8f",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -368,46 +407,6 @@ namespace Clean_Architecture.Infrastructure.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "3b5165bb-2d8d-4489-b9ce-b5f3de12221d",
-                            AccessFailedCount = 0,
-                            AccountType = "Donor",
-                            ConcurrencyStamp = "f8c75cb1-a7cd-492a-bc34-5812257af471",
-                            Email = "user1@example.com",
-                            EmailConfirmed = false,
-                            IsDeleted = false,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "USER1@EXAMPLE.COM",
-                            NormalizedUserName = "USER1@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAECEJfRPmSXpr0BLW9xAsWxTQ1BshbqIiaRfxOjGMB4M2cUbuWI1ezE2O+azs9un8tw==",
-                            PhoneNumber = "+1-555-1234",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "7fceedcf-dd83-40dc-9038-0217385a1589",
-                            TwoFactorEnabled = false,
-                            UserName = "user1@example.com"
-                        },
-                        new
-                        {
-                            Id = "6f6f7498-367a-4233-96a3-a5b854567067",
-                            AccessFailedCount = 0,
-                            AccountType = "Donor",
-                            ConcurrencyStamp = "1c1e7b93-873c-4d6c-b534-1571b9668285",
-                            Email = "user2@example.com",
-                            EmailConfirmed = false,
-                            IsDeleted = false,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "USER2@EXAMPLE.COM",
-                            NormalizedUserName = "USER2@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEHndlWslKvUQl1qJSuA7C+C56lDryHWlqAmefPC8VNVAymK31E4oSWJNuqYUKW0rGg==",
-                            PhoneNumber = "+1-555-5678",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "a58e1b0a-1e13-4fab-ae53-bc2b70dcc9a0",
-                            TwoFactorEnabled = false,
-                            UserName = "user2@example.com"
-                        });
                 });
 
             modelBuilder.Entity("charityPulse.core.Models.Badge", b =>
@@ -418,21 +417,9 @@ namespace Clean_Architecture.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CharityId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CorporateId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DateRecived")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("DonorId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Icon")
                         .IsRequired()
@@ -446,12 +433,6 @@ namespace Clean_Architecture.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CharityId");
-
-                    b.HasIndex("CorporateId");
-
-                    b.HasIndex("DonorId");
 
                     b.ToTable("Badges");
                 });
@@ -763,6 +744,35 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.HasDiscriminator().HasValue("Monetary");
                 });
 
+            modelBuilder.Entity("Clean_Architecture.core.Entities.AwardedBadge", b =>
+                {
+                    b.HasOne("charityPulse.core.Models.Badge", "Badge")
+                        .WithMany("AwardedBadges")
+                        .HasForeignKey("BadgeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("charityPulse.core.Models.Charity", "Charity")
+                        .WithMany("Badges")
+                        .HasForeignKey("CharityId");
+
+                    b.HasOne("charityPulse.core.Models.Corporate", "Corporate")
+                        .WithMany("Badges")
+                        .HasForeignKey("CorporateId");
+
+                    b.HasOne("charityPulse.core.Models.Donor", "Donor")
+                        .WithMany("Badges")
+                        .HasForeignKey("DonorId");
+
+                    b.Navigation("Badge");
+
+                    b.Navigation("Charity");
+
+                    b.Navigation("Corporate");
+
+                    b.Navigation("Donor");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -859,27 +869,6 @@ namespace Clean_Architecture.Infrastructure.Migrations
                         .HasForeignKey("DonorId");
 
                     b.Navigation("Admin");
-
-                    b.Navigation("Charity");
-
-                    b.Navigation("Corporate");
-
-                    b.Navigation("Donor");
-                });
-
-            modelBuilder.Entity("charityPulse.core.Models.Badge", b =>
-                {
-                    b.HasOne("charityPulse.core.Models.Charity", "Charity")
-                        .WithMany("Badges")
-                        .HasForeignKey("CharityId");
-
-                    b.HasOne("charityPulse.core.Models.Corporate", "Corporate")
-                        .WithMany("Badges")
-                        .HasForeignKey("CorporateId");
-
-                    b.HasOne("charityPulse.core.Models.Donor", "Donor")
-                        .WithMany("Badges")
-                        .HasForeignKey("DonorId");
 
                     b.Navigation("Charity");
 
@@ -1003,6 +992,11 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.Navigation("Charity");
 
                     b.Navigation("Donor");
+                });
+
+            modelBuilder.Entity("charityPulse.core.Models.Badge", b =>
+                {
+                    b.Navigation("AwardedBadges");
                 });
 
             modelBuilder.Entity("charityPulse.core.Models.Charity", b =>

@@ -40,16 +40,11 @@ namespace Clean_Architecture.APIs.Controllers
 
                 }
 
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
-
             }
             return new GeneralResponse
             {
                 IsPass = false,
-                Message = ModelState,
+                Message = "Account Already Taken",
                 Status = 400
             };
         }
