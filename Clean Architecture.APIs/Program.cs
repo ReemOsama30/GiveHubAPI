@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using YourNamespace.Clients;
 
 
 
@@ -162,6 +163,23 @@ namespace Clean_Architecture.APIs
                     });
             });
             //---------------------------------------------------------------
+
+            //paypal setting
+
+            builder.Services.AddSingleton(
+                x => new PaypalClient(
+
+                    builder.Configuration["paypalOptions:clientID"],
+                     builder.Configuration["paypalOptions:ClientSecretKey"],
+                      builder.Configuration["paypalOptions:Mode"]
+                    )
+
+               
+                );
+
+
+
+
 
             var app = builder.Build();
 
