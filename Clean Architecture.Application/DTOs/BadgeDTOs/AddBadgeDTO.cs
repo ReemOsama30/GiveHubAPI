@@ -1,11 +1,5 @@
-﻿using charityPulse.core.Models;
-using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Http;
+
 
 namespace Clean_Architecture.Application.DTOs.BadgeDTOs
 {
@@ -15,7 +9,5 @@ namespace Clean_Architecture.Application.DTOs.BadgeDTOs
        public string Description { get; set; }    
        public IFormFile Icon { get; set; }
       
-       
-
     }
 }

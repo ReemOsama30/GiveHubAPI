@@ -23,7 +23,7 @@ namespace Clean_Architecture.APIs.Controllers
 
             if (ModelState.IsValid)
             {
-                _BadgeService.Add(addBadgeDTO);
+                _BadgeService.AddBadge(addBadgeDTO);
 
                 return new GeneralResponse
                 {
@@ -41,152 +41,160 @@ namespace Clean_Architecture.APIs.Controllers
 
         }
 
-
-        /*
-         *  [HttpGet]
+        [HttpGet]
         public async Task<ActionResult<GeneralResponse>> Get()
         {
-            var result = await _BadgeService.GetBadgs();
+            List<ShowBadgeDTO> result = await _BadgeService.GetBadges();
 
-            var response = new GeneralResponse
+            return new GeneralResponse
             {
                 IsPass = true,
                 Message = result,
                 Status = 200
             };
 
-            //add
-            return response;
         }
 
         [HttpGet("{id}")]
-        public ActionResult<GeneralResponse> GetbyId(int id)
+        public ActionResult<GeneralResponse> GetById(int id)
         {
-            var badge = _BadgeService.GetBadgeById(id);
+            ShowBadgeDTO badge = _BadgeService.GetBadgeById(id);
+
             if (badge == null)
             {
-                return new GeneralResponse
-                {
-                    IsPass = false,
-                    Status = 404,
-                    Message = "invalid badge"
-                };
+                return NotFound(
+
+                    new GeneralResponse
+                    {
+                        IsPass = false,
+                        Status = 404,
+                        Message = "invalid badge"
+                    });
 
             }
-            else
+
+            return Ok(new GeneralResponse
             {
-                return new GeneralResponse
-                {
-                    IsPass = true,
-                    Status = 200,
-                    Message = badge
+                IsPass = true,
+                Status = 200,
+                Message = badge
+            });
 
-
-                };
-            }
 
         }
 
-        
         [HttpDelete]
-        public ActionResult<GeneralResponse> DeleteBadge(int id)
+        public ActionResult<GeneralResponse> Delete(int id)
         {
+            ShowBadgeDTO badge = _BadgeService.GetBadgeById(id);
 
-            var badge = _BadgeService.GetBadgeById(id);
             if (badge == null)
             {
-                return new GeneralResponse
+                return NotFound( new GeneralResponse
                 {
                     IsPass = false,
                     Status = 404,
                     Message = "invalid badge"
-                };
+                });
             }
-            else
-            {
+           
                 _BadgeService.DeleteBadge(id);
-                return new GeneralResponse
+
+                return Ok( new GeneralResponse
                 {
                     IsPass = true,
                     Status = 200,
-                    Message = badge.Name + "delete successfully"
-                };
-            }
+                    Message = badge.Name + " deleted successfully"
+                });
+            
         }
 
         [HttpPut]
         public ActionResult<GeneralResponse> Update(int id, UpdateBadgeDTO updateBadgeDTO)
         {
             {
-                var existingBadge = _BadgeService.GetBadgeById(id);
+                ShowBadgeDTO existingBadge = _BadgeService.GetBadgeById(id);
+
                 if (existingBadge == null)
                 {
-                    return new GeneralResponse
+                    return  NotFound( new GeneralResponse
                     {
                         IsPass = false,
-                        Status = 400,
+                        Status = 404,
                         Message = "invalid Badge"
-                    };
+                    });
                 }
+
                 _BadgeService.UpdateBadge(id, updateBadgeDTO);
-                return new GeneralResponse
+
+                ShowBadgeDTO updatedBadge = _BadgeService.GetBadgeById(id);
+
+                return Ok( new GeneralResponse
                 {
                     IsPass = true,
                     Status = 200,
-                    Message = updateBadgeDTO
+                    Message = updatedBadge 
+                });
+            }
+        }
+
+            /*
+             * 
+
+
+
+
+
+
+            }
+            [HttpGet("donor/{id:int}")]
+            public ActionResult<GeneralResponse> GetByDonnerID(int id)
+            {
+                List<Badge> result = _BadgeService.GetBadgesByDonnerId(id);
+
+                var response = new GeneralResponse
+                {
+                    IsPass = true,
+                    Message = result,
+                    Status = 200
                 };
+
+
+                return response;
             }
 
-
-        }
-        [HttpGet("donor/{id:int}")]
-        public ActionResult<GeneralResponse> GetByDonnerID(int id)
-        {
-            List<Badge> result = _BadgeService.GetBadgesByDonnerId(id);
-
-            var response = new GeneralResponse
+            [HttpGet("corporate/{id:int}")]
+            public ActionResult<GeneralResponse> GetByCorporateID(int id)
             {
-                IsPass = true,
-                Message = result,
-                Status = 200
-            };
+                List<Badge> result = _BadgeService.GetBadgesByCorporateId(id);
+
+                var response = new GeneralResponse
+                {
+                    IsPass = true,
+                    Message = result,
+                    Status = 200
+                };
 
 
-            return response;
-        }
+                return response;
+            }
 
-        [HttpGet("corporate/{id:int}")]
-        public ActionResult<GeneralResponse> GetByCorporateID(int id)
-        {
-            List<Badge> result = _BadgeService.GetBadgesByCorporateId(id);
-
-            var response = new GeneralResponse
+            [HttpGet("charity/{id:int}")]
+            public ActionResult<GeneralResponse> GetByCharityID(int id)
             {
-                IsPass = true,
-                Message = result,
-                Status = 200
-            };
+                List<Badge> result = _BadgeService.GetBadgesByCharityId(id);
+
+                var response = new GeneralResponse
+                {
+                    IsPass = true,
+                    Message = result,
+                    Status = 200
+                };
 
 
-            return response;
+                return response;
+            }
+             */
+
         }
-
-        [HttpGet("charity/{id:int}")]
-        public ActionResult<GeneralResponse> GetByCharityID(int id)
-        {
-            List<Badge> result = _BadgeService.GetBadgesByCharityId(id);
-
-            var response = new GeneralResponse
-            {
-                IsPass = true,
-                Message = result,
-                Status = 200
-            };
-
-
-            return response;
-        }
-         */
-
     }
-}

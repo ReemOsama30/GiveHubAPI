@@ -26,7 +26,7 @@ namespace Clean_Architecture.Application.services
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public void Add(AddBadgeDTO addBadgeDTO)
+        public void AddBadge(AddBadgeDTO addBadgeDTO)
         {
             Badge badge = _mapper.Map<Badge>(addBadgeDTO);
 
@@ -47,21 +47,19 @@ namespace Clean_Architecture.Application.services
             _unitOfWork.Save();
         }
 
-        // Method to get all badges (constant badge definitions)
         public async Task<List<ShowBadgeDTO>> GetBadges()
         {
-            var badges = await _unitOfWork.Badges.GetAllAsync();
+            IEnumerable<Badge> badges = await _unitOfWork.Badges.GetAllAsync();
             return _mapper.Map<List<ShowBadgeDTO>>(badges);
         }
 
-        // Method to get a badge by its ID (constant badge definition)
         public ShowBadgeDTO GetBadgeById(int id)
+
         {
-            var badge = _unitOfWork.Badges.Get(b => b.Id == id);
+            Badge badge = _unitOfWork.Badges.Get(b => b.Id == id);
             return _mapper.Map<ShowBadgeDTO>(badge);
         }
 
-        // Method to delete a badge (constant badge definition)
         public void DeleteBadge(int id)
         {
             Badge badge = _unitOfWork.Badges.Get(b => b.Id == id);
@@ -73,7 +71,11 @@ namespace Clean_Architecture.Application.services
         public void UpdateBadge(int id, UpdateBadgeDTO newBadge)
         {
             Badge existingBadge = _unitOfWork.Badges.Get(b => b.Id == id);
+
+
             _mapper.Map(newBadge, existingBadge);
+
+
             _unitOfWork.Badges.update(existingBadge);
             _unitOfWork.Save();
         }
