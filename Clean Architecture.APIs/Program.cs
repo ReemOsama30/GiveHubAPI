@@ -2,6 +2,7 @@ using charityPulse.core.Models;
 using Clean_Architecture.Application.Interfaces;
 using Clean_Architecture.Application.Mapper;
 using Clean_Architecture.Application.services;
+using Clean_Architecture.core.Entities;
 using Clean_Architecture.core.Interfaces;
 using Clean_Architecture.Infrastructure.DbContext;
 using Clean_Architecture.Infrastructure.Repositories;
@@ -11,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using YourNamespace.Clients;
 
 
 
@@ -46,10 +48,13 @@ namespace Clean_Architecture.APIs
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IRepository<Project>, Repository<Project>>();
             builder.Services.AddScoped<IRepository<Badge>, Repository<Badge>>();
+            builder.Services.AddScoped<IRepository<AwardedBadge>, Repository<AwardedBadge>>();
             builder.Services.AddScoped<IRepository<Charity>, Repository<Charity>>();
             builder.Services.AddScoped<projectService>();
             builder.Services.AddScoped<charityService>();
+
             builder.Services.AddScoped<BadgeService>();
+
 
             builder.Services.AddScoped<DonationReportService>();
             builder.Services.AddScoped<IDonationReportRepository, DonationReportRepository>();
@@ -158,6 +163,23 @@ namespace Clean_Architecture.APIs
                     });
             });
             //---------------------------------------------------------------
+
+            //paypal setting
+
+            builder.Services.AddSingleton(
+                x => new PaypalClient(
+
+                    builder.Configuration["paypalOptions:clientID"],
+                     builder.Configuration["paypalOptions:ClientSecretKey"],
+                      builder.Configuration["paypalOptions:Mode"]
+                    )
+
+               
+                );
+
+
+
+
 
             var app = builder.Build();
 
