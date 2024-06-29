@@ -12,6 +12,7 @@ namespace Clean_Architecture.Infrastructure.DbContext
         public DbSet<Advertisment> Advertisments { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Badge> Badges { get; set; }
+        public DbSet<AwardedBadge> AwardedBadges { get; set; }
         public DbSet<Charity> charities { get; set; }
         public DbSet<Corporate> corporations { get; set; }
         public DbSet<DonationReport> donationsReport { get; set; }
@@ -34,32 +35,7 @@ namespace Clean_Architecture.Infrastructure.DbContext
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<ApplicationUser>().HasData(
-                new List<ApplicationUser>
-                {
-                    new ApplicationUser
-                    {
-                        UserName = "user1@example.com",
-                        Email = "user1@example.com",
-                        NormalizedUserName = "USER1@EXAMPLE.COM",
-                        NormalizedEmail = "USER1@EXAMPLE.COM",
-                        PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null, "Password123"),
-                        PhoneNumber = "+1-555-1234",
-                        AccountType = "Donor",
-                        IsDeleted = false
-                    },
-                    new ApplicationUser
-                    {
-                        UserName = "user2@example.com",
-                        Email = "user2@example.com",
-                        NormalizedUserName = "USER2@EXAMPLE.COM",
-                        NormalizedEmail = "USER2@EXAMPLE.COM",
-                        PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null, "Password123"),
-                        PhoneNumber = "+1-555-5678",
-                        AccountType = "Donor",
-                        IsDeleted = false
-                    }
-                });
+           
 
             modelBuilder.Entity<IdentityRole>().HasData(
                 new IdentityRole

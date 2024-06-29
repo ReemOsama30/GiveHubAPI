@@ -28,7 +28,7 @@ namespace Clean_Architecture.Infrastructure.Repositories
 
         public IInkindDonationRepository inKindDonationRepository { get; }
 
-        public IRepository<Badge> badgs { get; }
+        public IRepository<Badge> Badges { get; }
 
 
         public IUserRepository UserRepository { get; }
@@ -48,7 +48,7 @@ namespace Clean_Architecture.Infrastructure.Repositories
             charities = new Repository<Charity>(context);
             corporations = new Repository<Corporate>(context);
             projects = new Repository<Project>(context);
-            badgs = new Repository<Badge>(context);
+            Badges = new Repository<Badge>(context);
             advertisments = new Repository<Advertisment>(context);
             reviewRepository = new ReviewRepository(context);
             DonationReportRepository = new DonationReportRepository(context);
