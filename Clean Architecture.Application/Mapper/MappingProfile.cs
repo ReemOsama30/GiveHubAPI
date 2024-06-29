@@ -66,7 +66,6 @@ namespace Clean_Architecture.Application.Mapper
 
 
             CreateMap<AddBadgeDTO, Badge>();
-            CreateMap<UpdateBadgeDTO, Badge>();
             CreateMap<Badge, ShowBadgeDTO>();
 
             //CreateMap<AwardBadgeDTO, AwardedBadge>();
