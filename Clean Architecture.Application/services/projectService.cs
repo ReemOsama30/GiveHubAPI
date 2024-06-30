@@ -116,7 +116,7 @@ namespace Clean_Architecture.Application.services
 
         public async Task<List<showprojectDTO>> GetProjectsByPage(int page)
         {
-            int pageSize = 3;
+            int pageSize = 6;
 
 
             var projects = await unitOfWork.projectRepository.GetProjectsWithCategoryNameAsync();

@@ -174,8 +174,8 @@ namespace Clean_Architecture.APIs
                       builder.Configuration["paypalOptions:Mode"]
                     )
 
-               
-                );
+
+            );
 
 
 

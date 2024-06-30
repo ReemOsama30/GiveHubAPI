@@ -7,6 +7,7 @@ namespace charityPulse.core.Models
     {
         public decimal Amount { get; set; }
         public string PaymentMethod { get; set; } // Specific to MonetaryDonation
+        public string PaypalOrderId { get; set; }
 
     }
 }
