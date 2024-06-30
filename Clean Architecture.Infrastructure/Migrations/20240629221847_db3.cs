@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Clean_Architecture.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class db2 : Migration
+    public partial class db3 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -423,8 +423,7 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     ReportId = table.Column<int>(type: "int", nullable: true),
                     CharityId = table.Column<int>(type: "int", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
-                    DonorId = table.Column<int>(type: "int", nullable: true)
+                    CategoryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -446,17 +445,12 @@ namespace Clean_Architecture.Infrastructure.Migrations
                         column: x => x.ReportId,
                         principalTable: "donationsReport",
                         principalColumn: "id");
-                    table.ForeignKey(
-                        name: "FK_projects_donors_DonorId",
-                        column: x => x.DonorId,
-                        principalTable: "donors",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "016a8848-cf53-4cda-9deb-c5270b8a9f8f", null, "Admin", "ADMIN" });
+                values: new object[] { "4d501c25-96e9-456d-b2a7-cb2e901b1fda", null, "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "categories",
@@ -615,11 +609,6 @@ namespace Clean_Architecture.Infrastructure.Migrations
                 column: "CharityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_projects_DonorId",
-                table: "projects",
-                column: "DonorId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_projects_ReportId",
                 table: "projects",
                 column: "ReportId");
@@ -741,10 +730,6 @@ namespace Clean_Architecture.Infrastructure.Migrations
                 table: "projects");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_projects_donors_DonorId",
-                table: "projects");
-
-            migrationBuilder.DropForeignKey(
                 name: "FK_donationsReport_projects_ProjectId",
                 table: "donationsReport");
 
@@ -791,10 +776,10 @@ namespace Clean_Architecture.Infrastructure.Migrations
                 name: "corporations");
 
             migrationBuilder.DropTable(
-                name: "charities");
+                name: "donors");
 
             migrationBuilder.DropTable(
-                name: "donors");
+                name: "charities");
 
             migrationBuilder.DropTable(
                 name: "projects");

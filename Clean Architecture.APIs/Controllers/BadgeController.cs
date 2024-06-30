@@ -1,4 +1,5 @@
 ﻿using charityPulse.core.Models;
+using Clean_Architecture.Application.DTOs.AwardedBadgeDTOs;
 using Clean_Architecture.Application.DTOs.BadgeDTOs;
 using Clean_Architecture.Application.responses;
 using Clean_Architecture.Application.services;
@@ -18,7 +19,7 @@ namespace Clean_Architecture.APIs.Controllers
         }
 
         [HttpPost]
-        public ActionResult<GeneralResponse> Insert(AddBadgeDTO addBadgeDTO)
+        public ActionResult<GeneralResponse> Add(AddBadgeDTO addBadgeDTO)
         {
 
             if (ModelState.IsValid)
@@ -138,63 +139,88 @@ namespace Clean_Architecture.APIs.Controllers
             }
         }
 
-            /*
-             * 
+        [HttpPost("AwardBadgeToEntity")]
+        public ActionResult<GeneralResponse> AwardBadgeToEntity(AwardBadgeDTO awardBadgeDTO)
+        {
 
-
-
-
-
-
-            }
-            [HttpGet("donor/{id:int}")]
-            public ActionResult<GeneralResponse> GetByDonnerID(int id)
+            if (ModelState.IsValid)
             {
-                List<Badge> result = _BadgeService.GetBadgesByDonnerId(id);
+                _BadgeService.AwardBadgeToEntity(awardBadgeDTO);
 
-                var response = new GeneralResponse
+                return Ok(new GeneralResponse
                 {
                     IsPass = true,
-                    Message = result,
-                    Status = 200
-                };
-
-
-                return response;
+                    Status = 200,
+                    Message = awardBadgeDTO
+                });
             }
-
-            [HttpGet("corporate/{id:int}")]
-            public ActionResult<GeneralResponse> GetByCorporateID(int id)
+            return BadRequest(new GeneralResponse
             {
-                List<Badge> result = _BadgeService.GetBadgesByCorporateId(id);
-
-                var response = new GeneralResponse
-                {
-                    IsPass = true,
-                    Message = result,
-                    Status = 200
-                };
-
-
-                return response;
-            }
-
-            [HttpGet("charity/{id:int}")]
-            public ActionResult<GeneralResponse> GetByCharityID(int id)
-            {
-                List<Badge> result = _BadgeService.GetBadgesByCharityId(id);
-
-                var response = new GeneralResponse
-                {
-                    IsPass = true,
-                    Message = result,
-                    Status = 200
-                };
-
-
-                return response;
-            }
-             */
+                IsPass = false,
+                Status = 400,
+                Message = "unable to award new badge to user"
+            });
 
         }
+
+
+        /*
+         * 
+
+
+
+
+
+
+        }
+        [HttpGet("donor/{id:int}")]
+        public ActionResult<GeneralResponse> GetByDonnerID(int id)
+        {
+            List<Badge> result = _BadgeService.GetBadgesByDonnerId(id);
+
+            var response = new GeneralResponse
+            {
+                IsPass = true,
+                Message = result,
+                Status = 200
+            };
+
+
+            return response;
+        }
+
+        [HttpGet("corporate/{id:int}")]
+        public ActionResult<GeneralResponse> GetByCorporateID(int id)
+        {
+            List<Badge> result = _BadgeService.GetBadgesByCorporateId(id);
+
+            var response = new GeneralResponse
+            {
+                IsPass = true,
+                Message = result,
+                Status = 200
+            };
+
+
+            return response;
+        }
+
+        [HttpGet("charity/{id:int}")]
+        public ActionResult<GeneralResponse> GetByCharityID(int id)
+        {
+            List<Badge> result = _BadgeService.GetBadgesByCharityId(id);
+
+            var response = new GeneralResponse
+            {
+                IsPass = true,
+                Message = result,
+                Status = 200
+            };
+
+
+            return response;
+        }
+         */
+
     }
+}

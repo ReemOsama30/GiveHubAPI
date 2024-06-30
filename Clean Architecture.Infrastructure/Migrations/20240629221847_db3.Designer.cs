@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Clean_Architecture.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240628223547_db2")]
-    partial class db2
+    [Migration("20240629221847_db3")]
+    partial class db3
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -145,7 +145,7 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "016a8848-cf53-4cda-9deb-c5270b8a9f8f",
+                            Id = "4d501c25-96e9-456d-b2a7-cb2e901b1fda",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -643,9 +643,6 @@ namespace Clean_Architecture.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("DonorId")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("FundingGoal")
                         .HasColumnType("decimal(18,2)");
 
@@ -675,8 +672,6 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("CharityId");
-
-                    b.HasIndex("DonorId");
 
                     b.HasIndex("ReportId");
 
@@ -967,10 +962,6 @@ namespace Clean_Architecture.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("charityPulse.core.Models.Donor", null)
-                        .WithMany("Projects")
-                        .HasForeignKey("DonorId");
-
                     b.HasOne("charityPulse.core.Models.DonationReport", "Report")
                         .WithMany()
                         .HasForeignKey("ReportId");
@@ -1029,8 +1020,6 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.Navigation("Badges");
 
                     b.Navigation("Donations");
-
-                    b.Navigation("Projects");
 
                     b.Navigation("Reviews");
                 });

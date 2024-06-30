@@ -1,6 +1,6 @@
-
 using charityPulse.core.Models;
 using Clean_Architecture.Application.Interfaces;
+using Clean_Architecture.core.Entities;
 using Clean_Architecture.core.Interfaces;
 using Clean_Architecture.Infrastructure.DbContext;
 using Microsoft.AspNetCore.Identity;
@@ -12,13 +12,14 @@ namespace Clean_Architecture.Infrastructure.Repositories
         private readonly ApplicationDbContext context;
 
 
-        public IDonationReportRepository DonationReportRepository { get; }
 
         public IRepository<Corporate> corporations { get; }
         public IRepository<Project> projects { get; }
         public IRepository<Charity> charities { get; }
         public IRepository<Advertisment> advertisments { get; }
 
+        public IRepository<Badge> Badges { get; }
+        public IRepository<AwardedBadge> AwardedBadges { get; }
 
 
 
@@ -28,7 +29,8 @@ namespace Clean_Architecture.Infrastructure.Repositories
 
         public IInkindDonationRepository inKindDonationRepository { get; }
 
-        public IRepository<Badge> Badges { get; }
+       
+        public IDonationReportRepository DonationReportRepository { get; }
 
 
         public IUserRepository UserRepository { get; }
@@ -49,7 +51,9 @@ namespace Clean_Architecture.Infrastructure.Repositories
             corporations = new Repository<Corporate>(context);
             projects = new Repository<Project>(context);
             Badges = new Repository<Badge>(context);
+            AwardedBadges= new Repository<AwardedBadge>(context);
             advertisments = new Repository<Advertisment>(context);
+
             reviewRepository = new ReviewRepository(context);
             DonationReportRepository = new DonationReportRepository(context);
             donorRepository = new DonorRepository(context);

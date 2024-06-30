@@ -51,8 +51,9 @@ namespace Clean_Architecture.APIs
             builder.Services.AddScoped<IRepository<Charity>, Repository<Charity>>();
             builder.Services.AddScoped<projectService>();
             builder.Services.AddScoped<charityService>();
-
+            
             builder.Services.AddScoped<BadgeService>();
+            builder.Services.AddScoped<SharedBadgeUtilityService>();
 
 
             builder.Services.AddScoped<DonationReportService>();

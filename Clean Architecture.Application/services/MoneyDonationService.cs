@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using charityPulse.core.Models;
+using Clean_Architecture.Application.DTOs.DonationDTOs;
 using Clean_Architecture.Application.DTOs.MoneyDonationDTOs;
 using Clean_Architecture.core.Enums;
 using Clean_Architecture.core.Interfaces;
+using Clean_Architecture.Infrastructure.Repositories;
 
 namespace Clean_Architecture.Application.services
 {
@@ -10,11 +12,14 @@ namespace Clean_Architecture.Application.services
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
+        private readonly SharedBadgeUtilityService badgeUtilityService;
 
-        public MoneyDonationService(IUnitOfWork unitOfWork, IMapper mapper)
+        public MoneyDonationService(IUnitOfWork unitOfWork, IMapper mapper, SharedBadgeUtilityService badgeUtilityService)
         {
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
+            this.badgeUtilityService = badgeUtilityService;
+
         }
 
         public async Task<List<showMoneyDonationDTO>> GetMoneyDonation()
@@ -62,8 +67,10 @@ namespace Clean_Architecture.Application.services
             var moneyDonation = mapper.Map<MoneyDonation>(addMoneyDonationDTO);
 
             unitOfWork.moneyDonationRepository.insert(moneyDonation);
-         Project project=  unitOfWork.projects.Get(p=>p.Id==moneyDonation.projectId);
+
+            Project project=  unitOfWork.projects.Get(p=>p.Id==moneyDonation.projectId);
             project.AmountRaised += addMoneyDonationDTO.Amount;
+
             if (project.AmountRaised >=project.FundingGoal)
             {
                 project.State = ProjectState.Compeleted;
@@ -73,6 +80,11 @@ namespace Clean_Architecture.Application.services
                 project.State = ProjectState.InProgress;
             }
             unitOfWork.Save();
+
+
+            badgeUtilityService.CheckDonationToAwardBadges(addMoneyDonationDTO);
+
+
         }
 
         public void UpdateMoneyDonation(int id, updateMoneyDonationDTO updateMoneyDonationDTO)

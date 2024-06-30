@@ -7,5 +7,11 @@ namespace Clean_Architecture.core.Interfaces
     {
         //b Task<List<Donor>> GetAllDonorWithBadgeAsync();
         public Task<List<Donor>> GetAllDonorWithBadgeAsync();
+        public Task<List<Project>> GetAllDistinctDonatedProjectsAsync(int id);
+        public int GetAllDistinctDonationCategories(int id);
+        public bool HasMultipleCausesSupporterBadge(int id);
+
+
+
     }
 }
