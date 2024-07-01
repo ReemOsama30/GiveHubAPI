@@ -62,15 +62,15 @@ namespace Clean_Architecture.Infrastructure.Repositories
 
         private bool IsFirstDonation(int donorId)
         {
-            return _unitOfWork.donorRepository.Get(d => d.Id == donorId).Donations.Count() == 1;
+            return _unitOfWork.donorRepository.GetDonationsCount(donorId) == 1;
         }
         private bool Is10thDonation(int donorId)
         {
-            return _unitOfWork.donorRepository.Get(d => d.Id == donorId).Donations.Count() == 10;
+            return _unitOfWork.donorRepository.GetDonationsCount(donorId) == 10;
         }
         private bool Is50thDonation(int donorId)
         {
-            return _unitOfWork.donorRepository.Get(d => d.Id == donorId).Donations.Count() == 50;
+            return _unitOfWork.donorRepository.GetDonationsCount(donorId) == 50;
         }
         private bool IsGenerousDonor(decimal? amount)
         {
@@ -78,7 +78,7 @@ namespace Clean_Architecture.Infrastructure.Repositories
         }
         private bool IsMultipleCausesSupporter(int donorId)
         {
-            bool AlreadyEarnedBadge = _unitOfWork.donorRepository.HasMultipleCausesSupporterBadge(donorId);
+            bool AlreadyEarnedBadge = _unitOfWork.donorRepository.HasBadge(donorId, "Supporter of Multiple Causes");
 
             if (AlreadyEarnedBadge)
             {

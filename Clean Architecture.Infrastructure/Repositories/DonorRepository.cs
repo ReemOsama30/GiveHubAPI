@@ -34,13 +34,21 @@ namespace Clean_Architecture.Infrastructure.Repositories
             return CatagoryCount;
         }
 
-        public bool HasMultipleCausesSupporterBadge(int id)
+        public bool HasBadge(int id , string badgeName)
         {
+            int badgeId = context.Badges.Where(b => b.Name == $"{badgeName}").Select(b => b.Id).FirstOrDefault();
+
             var donor = context.donors.Where(d => d.Id == id).Include(d => d.Badges).FirstOrDefault();
-            bool hasBadge = donor.Badges.Any(b => b.BadgeId == 3);
+            bool hasBadge = donor.Badges.Any(b => b.BadgeId ==badgeId);
 
             return hasBadge;
         }
+        public int GetDonationsCount(int id)
+        {
+            int count = context.donations.Where(d=>d.DonorId==id).Count();
+            return count;
+        }
+
         //here must return DTO but in interface i cant return DTo........
 
         //public async Task<List<Donor>> GetAllDonorWithBadgeAsync()
