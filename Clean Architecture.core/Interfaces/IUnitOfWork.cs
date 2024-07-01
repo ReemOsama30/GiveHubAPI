@@ -1,6 +1,7 @@
 
 using charityPulse.core.Models;
 using Clean_Architecture.Application.Interfaces;
+using Clean_Architecture.core.Entities;
 using Clean_Architecture.Infrastructure.Repositories;
 
 
@@ -13,6 +14,7 @@ namespace Clean_Architecture.core.Interfaces
         public IRepository<Charity> charities { get; }
         public IRepository<Advertisment> advertisments { get; }
         public IRepository<Badge> Badges { get; }
+        public IRepository<AwardedBadge> AwardedBadges { get; }
 
         public IUserRepository UserRepository { get; }
         public IDonationReportRepository DonationReportRepository { get; }

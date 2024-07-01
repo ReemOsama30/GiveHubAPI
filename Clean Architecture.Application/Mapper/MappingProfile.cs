@@ -1,6 +1,7 @@
 using AutoMapper;
 using charityPulse.core.Models;
 using Clean_Architecture.Application.DTOs.advertismentDTO;
+using Clean_Architecture.Application.DTOs.AwardedBadgeDTOs;
 using Clean_Architecture.Application.DTOs.BadgeDTOs;
 using Clean_Architecture.Application.DTOs.CategoryDTOs;
 using Clean_Architecture.Application.DTOs.charityDTOs;
@@ -70,7 +71,7 @@ namespace Clean_Architecture.Application.Mapper
             .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
             CreateMap<Badge, ShowBadgeDTO>();
 
-            //CreateMap<AwardBadgeDTO, AwardedBadge>();
+            CreateMap<AwardBadgeDTO, AwardedBadge>().ReverseMap();
             //CreateMap<AwardedBadge, ShowAwardedBadgeDTO>()
             //    .ForMember(dest => dest.BadgeName, opt => opt.MapFrom(src => src.Badge.Name))
             //    .ForMember(dest => dest.BadgeDescription, opt => opt.MapFrom(src => src.Badge.Description));

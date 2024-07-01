@@ -1,15 +1,13 @@
 ﻿using AutoMapper;
 using charityPulse.core.Models;
+using Clean_Architecture.Application.DTOs.AwardedBadgeDTOs;
 using Clean_Architecture.Application.DTOs.BadgeDTOs;
-using Clean_Architecture.Application.DTOs.charityDTOs;
-using Clean_Architecture.Application.DTOs.projectDTOs;
+using Clean_Architecture.Application.DTOs.DonationDTOs;
 using Clean_Architecture.core.Entities;
 using Clean_Architecture.core.Interfaces;
+using Clean_Architecture.Application.services;
 using Microsoft.AspNetCore.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Clean_Architecture.Infrastructure.Repositories;
 
 namespace Clean_Architecture.Application.services
 {
@@ -18,12 +16,14 @@ namespace Clean_Architecture.Application.services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly SharedBadgeUtilityService _badgeUtilityService;
 
-        public BadgeService(IUnitOfWork unitOfWork, IMapper mapper, IWebHostEnvironment webHostEnvironment)
+        public BadgeService(IUnitOfWork unitOfWork, IMapper mapper, IWebHostEnvironment webHostEnvironment , SharedBadgeUtilityService sharedBadgeUtilityService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _webHostEnvironment = webHostEnvironment;
+            _badgeUtilityService = sharedBadgeUtilityService;
         }
 
         public void AddBadge(AddBadgeDTO addBadgeDTO)
@@ -67,7 +67,6 @@ namespace Clean_Architecture.Application.services
             _unitOfWork.Save();
         }
 
-        // Method to update a badge (constant badge definition)
         public void UpdateBadge(int id, UpdateBadgeDTO newBadge)
         {
             Badge existingBadge = _unitOfWork.Badges.Get(b => b.Id == id);
@@ -80,15 +79,11 @@ namespace Clean_Architecture.Application.services
             _unitOfWork.Save();
         }
 
-        // Method to award a badge to a donor, charity, or corporate
-        //public void AwardBadgeToEntity(AwardBadgeDTO awardBadgeDTO)
-        //{
-        //    var awardedBadge = _mapper.Map<AwardedBadge>(awardBadgeDTO);
-        //    awardedBadge.DateReceived = DateTime.Now;
-        //    awardedBadge.IsDeleted = false;
-        //    _unitOfWork.AwardedBadges.Insert(awardedBadge);
-        //    _unitOfWork.Save();
-        //}
+        public void AwardBadgeToEntity(AwardBadgeDTO awardBadgeDTO)
+        {
+            _badgeUtilityService.AwardBadgeToEntity(awardBadgeDTO);
+        }
+
 
         //// Method to get all awarded badges for a specific donor
         //public List<ShowAwardedBadgeDTO> GetBadgesByDonorId(int donorId)
@@ -110,5 +105,10 @@ namespace Clean_Architecture.Application.services
         //    var awardedBadges = _unitOfWork.AwardedBadges.GetAll().Where(ab => ab.CorporateId == corporateId).ToList();
         //    return _mapper.Map<List<ShowAwardedBadgeDTO>>(awardedBadges);
         //}
+
+        //   private bool IsFirstDonation() { }
+
+
+
     }
 }
