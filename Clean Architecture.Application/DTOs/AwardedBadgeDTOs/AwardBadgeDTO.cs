@@ -11,6 +11,6 @@ namespace Clean_Architecture.Application.DTOs.AwardedBadgeDTOs
         public int BadgeId { get; set; }
         public int? DonorId { get; set; }
         public int? CharityId { get; set; }
-        public int? CorporateId { get; set; }
+       // public int? CorporateId { get; set; }
     }
 }
