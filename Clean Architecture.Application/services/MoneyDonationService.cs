@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using charityPulse.core.Models;
-using Clean_Architecture.Application.DTOs.DonationDTOs;
 using Clean_Architecture.Application.DTOs.MoneyDonationDTOs;
 using Clean_Architecture.core.Enums;
 using Clean_Architecture.core.Interfaces;
@@ -37,9 +36,9 @@ namespace Clean_Architecture.Application.services
         public List<showMoneyDonationDTO> GetMoneyDonationByDonorId(int id)
         {
             List<MoneyDonation> moneyDonations = unitOfWork.moneyDonationRepository.GetAll().Where(m => m.DonorId == id).ToList();
-        
-          List<showMoneyDonationDTO>moneyDonationDTOs=  mapper.Map<List<showMoneyDonationDTO>>(moneyDonations);
-               foreach(var donation in moneyDonationDTOs)
+
+            List<showMoneyDonationDTO> moneyDonationDTOs = mapper.Map<List<showMoneyDonationDTO>>(moneyDonations);
+            foreach (var donation in moneyDonationDTOs)
             {
                 var project = unitOfWork.projectRepository.Get(p => p.Id == donation.projectId);
                 donation.ProjectName = project.Title;
@@ -60,12 +59,26 @@ namespace Clean_Architecture.Application.services
             return mapper.Map<List<showMoneyDonationDTO>>(moneyDonations);
 
         }
-    
+
 
         public List<showMoneyDonationDTO> GetMoneyDonationByCharityId(int id)
         {
             List<MoneyDonation> moneyDonations = unitOfWork.moneyDonationRepository.GetAll().Where(m => m.CharityId == id).ToList();
-            return mapper.Map<List<showMoneyDonationDTO>>(moneyDonations);
+
+            List<showMoneyDonationDTO> moneyDonationDTOs = mapper.Map<List<showMoneyDonationDTO>>(moneyDonations);
+            foreach (var donation in moneyDonationDTOs)
+            {
+                var project = unitOfWork.projectRepository.Get(p => p.Id == donation.projectId);
+                donation.ProjectName = project.Title;
+                donation.projectImage = project.ImgUrl;
+
+                var charity = unitOfWork.charities.Get(c => c.Id == donation.CharityId);
+                donation.charityName = charity.Name;
+
+
+            }
+
+            return moneyDonationDTOs;
 
         }
 
@@ -82,10 +95,10 @@ namespace Clean_Architecture.Application.services
 
             unitOfWork.moneyDonationRepository.insert(moneyDonation);
 
-            Project project=  unitOfWork.projects.Get(p=>p.Id==moneyDonation.projectId);
+            Project project = unitOfWork.projects.Get(p => p.Id == moneyDonation.projectId);
             project.AmountRaised += addMoneyDonationDTO.Amount;
 
-            if (project.AmountRaised >=project.FundingGoal)
+            if (project.AmountRaised >= project.FundingGoal)
             {
                 project.State = ProjectState.Compeleted;
             }

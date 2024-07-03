@@ -20,5 +20,8 @@ namespace Clean_Architecture.Application.DTOs.projectDTOs
 
         public string CharityName { set; get; }
 
+        public int categoryId { get; set; }
+
+
     }
 }
