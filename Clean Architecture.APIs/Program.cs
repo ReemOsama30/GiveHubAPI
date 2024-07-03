@@ -134,7 +134,7 @@ namespace Clean_Architecture.APIs
                 swagger.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "Charity Pulse",
+                    Title = "GiveHub",
                     Description = " ITI Projrcy"
                 });
                 // To Enable authorization using Swagger (JWT)    
