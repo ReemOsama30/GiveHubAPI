@@ -73,7 +73,7 @@ namespace Clean_Architecture.APIs
             builder.Services.AddScoped<AdvertismentService>();
             builder.Services.AddScoped<DonorService>();
             builder.Services.AddScoped<IDonorRepository, DonorRepository>();
-
+            builder.Services.AddScoped<AwardedBadgeService>();
 
             builder.Services.AddScoped<AccountService>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -91,7 +91,6 @@ namespace Clean_Architecture.APIs
 
             builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
             builder.Services.AddTransient<IEmailService, EmailService>();
-
 
             builder.Services.AddCors(options =>
             {
