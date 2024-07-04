@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using charityPulse.core.Models;
 using Clean_Architecture.Application.DTOs.InKindDonationDTOs;
-using Clean_Architecture.Application.DTOs.MoneyDonationDTOs;
 using Clean_Architecture.core.Enums;
 using Clean_Architecture.core.Interfaces;
 
@@ -33,21 +32,21 @@ namespace Clean_Architecture.Application.services
 
         public List<showInKindDonationDTO> GetInKindDonationByDonorId(int id)
         {
-            List<InKindDonation>inKindDonations = unitOfWork.inKindDonationRepository.GetAll().Where(i => i.DonorId == id).ToList();
-          
-            List<showInKindDonationDTO>inKindDonationsDtos= mapper.Map<List<showInKindDonationDTO>>(inKindDonations);
-        foreach(var donation in inKindDonationsDtos)
+            List<InKindDonation> inKindDonations = unitOfWork.inKindDonationRepository.GetAll().Where(i => i.DonorId == id).ToList();
+
+            List<showInKindDonationDTO> inKindDonationsDtos = mapper.Map<List<showInKindDonationDTO>>(inKindDonations);
+            foreach (var donation in inKindDonationsDtos)
             {
                 var project = unitOfWork.projectRepository.Get(p => p.Id == donation.projectId);
                 donation.ProjectName = project.Title;
                 donation.projectImage = project.ImgUrl;
-                var charity=unitOfWork.charities.Get(c=>c.Id==donation.CharityId);
+                var charity = unitOfWork.charities.Get(c => c.Id == donation.CharityId);
                 donation.charityName = charity.Name;
             }
-        
-        
-        return inKindDonationsDtos;
-        
+
+
+            return inKindDonationsDtos;
+
         }
 
         public List<showInKindDonationDTO> GetInKindDonationByProjectId(int id)
@@ -60,7 +59,19 @@ namespace Clean_Architecture.Application.services
         public List<showInKindDonationDTO> GetInkindDonationByCharityId(int id)
         {
             List<InKindDonation> inKindDonations = unitOfWork.inKindDonationRepository.GetAll().Where(i => i.CharityId == id).ToList();
-            return mapper.Map<List<showInKindDonationDTO>>(inKindDonations);
+
+            List<showInKindDonationDTO> inKindDonationsDtos = mapper.Map<List<showInKindDonationDTO>>(inKindDonations);
+            foreach (var donation in inKindDonationsDtos)
+            {
+                var project = unitOfWork.projectRepository.Get(p => p.Id == donation.projectId);
+                donation.ProjectName = project.Title;
+                donation.projectImage = project.ImgUrl;
+                var charity = unitOfWork.charities.Get(c => c.Id == donation.CharityId);
+                donation.charityName = charity.Name;
+            }
+
+
+            return inKindDonationsDtos;
 
         }
         public List<showInKindDonationDTO> GetInkindDonationByCorporateId(int id)
