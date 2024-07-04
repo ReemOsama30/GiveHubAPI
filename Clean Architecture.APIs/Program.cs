@@ -88,6 +88,8 @@ namespace Clean_Architecture.APIs
 
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
             builder.Services.AddScoped<CategoryService>();
+            builder.Services.AddScoped<UserServices>();
+
 
             builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
             builder.Services.AddTransient<IEmailService, EmailService>();
