@@ -5,6 +5,7 @@ namespace Clean_Architecture.core.Interfaces
 {
     public interface IMoneyDonationRepository : IRepository<MoneyDonation>
     {
+        public int? GetTopDonorOfCurrentMonth();
 
     }
 }
