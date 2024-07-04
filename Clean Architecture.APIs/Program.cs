@@ -101,7 +101,14 @@ namespace Clean_Architecture.APIs
                                .AllowAnyMethod()
                                .AllowAnyHeader()
                                .AllowCredentials();
-                    });
+                    }); options.AddPolicy("dashboard",  // Add additional policies for other ports
+    builder => builder.WithOrigins("http://localhost:4300")
+      .AllowAnyMethod()
+      .AllowAnyHeader()
+      .AllowCredentials());
+
+
+
             });
 
             builder.Services.AddAuthentication(options =>
@@ -194,6 +201,7 @@ namespace Clean_Architecture.APIs
             //    app.UseHttpsRedirection();
 
             app.UseCors("MyPolicy");
+            app.UseCors("dashboard");
             app.UseAuthorization();
             app.UseStaticFiles();
             app.MapControllers();
