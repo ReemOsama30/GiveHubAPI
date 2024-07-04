@@ -19,35 +19,38 @@ namespace Clean_Architecture.Infrastructure.Repositories
                   .Include(d => d.Badges)
                   .ToListAsync();
 
-            
+
         }
 
-      public async Task <List<Project>> GetAllDistinctDonatedProjectsAsync(int id)
+        public async Task<List<Project>> GetAllDistinctDonatedProjectsAsync(int id)
         {
             var projects = context.donations.Where(d => d.DonorId == id).Select(d => d.Project).Distinct().ToList();
             return projects;
         }
 
-        public  int GetAllDistinctDonationCategories(int id)
+        public int GetAllDistinctDonationCategories(int id)
         {
-            var CatagoryCount = context.donations.Where(d => d.DonorId == id).Select(d=>d.Project.CategoryId).Distinct().Count(); 
+            var CatagoryCount = context.donations.Where(d => d.DonorId == id).Select(d => d.Project.CategoryId).Distinct().Count();
             return CatagoryCount;
         }
 
-        public bool HasBadge(int id , string badgeName)
+        public bool HasBadge(int id, string badgeName)
         {
             int badgeId = context.Badges.Where(b => b.Name == $"{badgeName}").Select(b => b.Id).FirstOrDefault();
 
             var donor = context.donors.Where(d => d.Id == id).Include(d => d.Badges).FirstOrDefault();
-            bool hasBadge = donor.Badges.Any(b => b.BadgeId ==badgeId);
+            bool hasBadge = donor.Badges.Any(b => b.BadgeId == badgeId);
 
             return hasBadge;
         }
         public int GetDonationsCount(int id)
         {
-            int count = context.donations.Where(d=>d.DonorId==id).Count();
+            int count = context.donations.Where(d => d.DonorId == id).Count();
             return count;
         }
+
+
+
 
         //here must return DTO but in interface i cant return DTo........
 

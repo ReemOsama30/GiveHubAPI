@@ -5,6 +5,7 @@ using Clean_Architecture.Application.DTOs.DonationDTOs;
 using Clean_Architecture.Application.DTOs.MoneyDonationDTOs;
 using Clean_Architecture.core.Entities;
 using Clean_Architecture.core.Interfaces;
+using System.Drawing;
 
 
 namespace Clean_Architecture.Infrastructure.Repositories
@@ -89,6 +90,22 @@ namespace Clean_Architecture.Infrastructure.Repositories
 
             return CauseCount >= 4;
         }
+        private bool IsTopDonor(int CurrentDonorId)
+        {
+            bool AlreadyEarnedBadge = _unitOfWork.donorRepository.HasBadge(CurrentDonorId, "Donor Of The Month");
+
+            if (AlreadyEarnedBadge)
+            {
+                return false;
+            }
+
+            int? TopDonorId = _unitOfWork.moneyDonationRepository.GetTopDonorOfCurrentMonth();
+
+
+
+            return TopDonorId == CurrentDonorId;
+
+        }
 
         public void CheckDonationToAwardBadges(addMoneyDonationDTO addMoneyDonationDTO)
 
@@ -125,14 +142,13 @@ namespace Clean_Architecture.Infrastructure.Repositories
                 AwardBadgeToEntity(GenerateAwardedBadge(donorId, "Supporter of Multiple Causes"));
             }
 
+            if (IsTopDonor(donorId))
+            {
+                AwardBadgeToEntity(GenerateAwardedBadge(donorId, "Donor Of The Month"));
+            }
 
 
-            // Check for Top Donor Badge (this might need more complex logic, e.g., calculating top donors of the month)
-            // For simplicity, we'll assume you have a method to get top donors
-            //if (IsTopDonor(donor))
-            //{
-            //    AwardBadge(donorId, BadgeType.TopDonor);
-            //}
+           
 
             _unitOfWork.Save();
         }
