@@ -2,6 +2,7 @@
 using Clean_Architecture.Application.DTOs.AccountDTOs;
 using Clean_Architecture.Application.responses;
 using Clean_Architecture.Application.services;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,6 +10,7 @@ namespace Clean_Architecture.APIs.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
     public class AccountController : ControllerBase
     {
         private readonly AccountService _accountService;
