@@ -68,6 +68,9 @@ namespace Clean_Architecture.Application.services
                 donation.projectImage = project.ImgUrl;
                 var charity = unitOfWork.charities.Get(c => c.Id == donation.CharityId);
                 donation.charityName = charity.Name;
+                var donor = unitOfWork.donorRepository.Get(d => d.Id == donation.DonorId);
+                donation.DonorName = donor.Name;
+
             }
 
 
