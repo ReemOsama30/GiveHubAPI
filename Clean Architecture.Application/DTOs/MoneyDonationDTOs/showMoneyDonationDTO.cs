@@ -9,10 +9,11 @@
 
         public string ProjectName { get; set; }
 
-        public string projectImage {  get; set; }
+        public string projectImage { get; set; }
         public int? CharityId { get; set; }
 
-        public string charityName {  get; set; }
+        public string charityName { get; set; }
+        public string DonorName { get; set; }
         public decimal Amount { get; set; }
         public string PaymentMethod { get; set; }
 
