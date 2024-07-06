@@ -24,7 +24,23 @@ namespace Clean_Architecture.Application.services
         public async Task<List<showMoneyDonationDTO>> GetMoneyDonation()
         {
             var moneyDonation = await unitOfWork.moneyDonationRepository.GetAllAsync();
-            return mapper.Map<List<showMoneyDonationDTO>>(moneyDonation);
+            List<showMoneyDonationDTO> moneyDonationDTOs = mapper.Map<List<showMoneyDonationDTO>>(moneyDonation);
+            foreach (var donation in moneyDonationDTOs)
+            {
+                var project = unitOfWork.projectRepository.Get(p => p.Id == donation.projectId);
+                donation.ProjectName = project.Title;
+                donation.projectImage = project.ImgUrl;
+
+                var charity = unitOfWork.charities.Get(c => c.Id == donation.CharityId);
+                donation.charityName = charity.Name;
+
+                var donor = unitOfWork.donorRepository.Get(d => d.Id == donation.DonorId);
+                donation.DonorName = donor.Name;
+
+
+            }
+
+            return moneyDonationDTOs;
         }
 
         public showMoneyDonationDTO GetMoeyDoationById(int id)

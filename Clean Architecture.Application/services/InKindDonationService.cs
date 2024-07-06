@@ -21,8 +21,24 @@ namespace Clean_Architecture.Application.services
         public async Task<List<showInKindDonationDTO>> GetInKindDonation()
         {
             var inKindDonation = await unitOfWork.inKindDonationRepository.GetAllAsync();
-            return mapper.Map<List<showInKindDonationDTO>>(inKindDonation);
+            var inKindDonationsDtos = mapper.Map<List<showInKindDonationDTO>>(inKindDonation);
+
+            foreach (var donation in inKindDonationsDtos)
+            {
+                var project = unitOfWork.projectRepository.Get(p => p.Id == donation.projectId);
+                donation.ProjectName = project.Title;
+                donation.projectImage = project.ImgUrl;
+                var charity = unitOfWork.charities.Get(c => c.Id == donation.CharityId);
+                donation.charityName = charity.Name;
+
+
+                var donor = unitOfWork.donorRepository.Get(d => d.Id == donation.DonorId);
+                donation.DonorName = donor.Name;
+            }
+
+            return inKindDonationsDtos;
         }
+
 
         public showInKindDonationDTO GetInKindDoationById(int id)
         {
