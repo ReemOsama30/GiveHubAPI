@@ -99,19 +99,11 @@ namespace Clean_Architecture.APIs
                 options.AddPolicy("MyPolicy",
                     builder =>
                     {
-                        builder.WithOrigins("http://localhost:4200")
+                        builder.SetIsOriginAllowed(alow=>true)
                                .AllowAnyMethod()
                                .AllowAnyHeader()
                                .AllowCredentials();
-                    }); options.AddPolicy("dashboard",  // Add additional policies for other ports
-    builder => builder.WithOrigins("http://localhost:4300")
-      .AllowAnyMethod()
-      .AllowAnyHeader()
-      .AllowCredentials());
-
-
-
-            });
+                    }); 
 
             builder.Services.AddAuthentication(options =>
             {
@@ -134,7 +126,21 @@ namespace Clean_Architecture.APIs
                     new SymmetricSecurityKey(
                         Encoding.UTF8.GetBytes(builder.Configuration["JWT:SecritKey"]))
                 };
+
+
+
+
+
             });
+
+
+
+
+
+
+
+
+
             // -----------------------------Swagger Part---------------------------- -/
 
             builder.Services.AddSwaggerGen(swagger =>
@@ -203,7 +209,7 @@ namespace Clean_Architecture.APIs
             //    app.UseHttpsRedirection();
 
             app.UseCors("MyPolicy");
-            app.UseCors("dashboard");
+            //app.UseCors("dashboard");
             app.UseAuthorization();
             app.UseStaticFiles();
             app.MapControllers();
