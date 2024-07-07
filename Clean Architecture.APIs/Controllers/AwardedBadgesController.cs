@@ -86,10 +86,10 @@ namespace Clean_Architecture.APIs.Controllers
 
         }
 
-        [HttpGet("user/{userId}")]
-        public async Task<ActionResult<GeneralResponse>> GetUserBadges(int userId)
+        [HttpGet("user/{id}")]
+        public async Task<ActionResult<GeneralResponse>> GetUserBadges(int id)
         {
-         var awardedBadges=awardedBadgeService.GetByDonorId(userId);
+         var awardedBadges=awardedBadgeService.GetByDonorId(id);
 
             if (awardedBadges == null)
             {

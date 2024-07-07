@@ -31,7 +31,7 @@ namespace Clean_Architecture.Application.services
             Badge badge = _mapper.Map<Badge>(addBadgeDTO);
 
 
-            string UploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "badgeImg");
+            string UploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "BadgeImg");
             string imageName = Guid.NewGuid().ToString() + "-" + addBadgeDTO.Icon.FileName;
             string filePath = Path.Combine(UploadPath, imageName);
 
@@ -40,7 +40,7 @@ namespace Clean_Architecture.Application.services
                 addBadgeDTO.Icon.CopyTo(fileStream);
             }
 
-            badge.Icon = $"/BadgeImg{imageName}";
+            badge.Icon = $"/BadgeImg/{imageName}";
            
 
             _unitOfWork.Badges.insert(badge);
