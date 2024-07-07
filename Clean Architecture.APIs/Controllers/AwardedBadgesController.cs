@@ -4,6 +4,7 @@ using Clean_Architecture.Application.services;
 using Clean_Architecture.Application.DTOs.AwardedBadgeDTOs;
 using Clean_Architecture.Application.responses;
 using Clean_Architecture.Application.DTOs.BadgeDTOs;
+using Clean_Architecture.Infrastructure.Repositories;
 
 namespace Clean_Architecture.APIs.Controllers
 {
@@ -73,6 +74,7 @@ namespace Clean_Architecture.APIs.Controllers
                 });
             }
 
+
             awardedBadgeService.Delete(id);
 
             return Ok(new GeneralResponse
@@ -84,6 +86,27 @@ namespace Clean_Architecture.APIs.Controllers
 
         }
 
+        [HttpGet("user/{userId}")]
+        public async Task<ActionResult<GeneralResponse>> GetUserBadges(int userId)
+        {
+         var awardedBadges=awardedBadgeService.GetByDonorId(userId);
+
+            if (awardedBadges == null)
+            {
+                return new GeneralResponse
+                {
+                    IsPass= false,
+                    Message="invalid Badges"
+
+                };
+            }
+            return new GeneralResponse
+            {
+                IsPass = true,
+                Status = 200,
+                Message = awardedBadges
+            };
+        }
 
         [HttpPut]
         public ActionResult<GeneralResponse> Update(int id, AwardBadgeDTO awardBadgeDTO)

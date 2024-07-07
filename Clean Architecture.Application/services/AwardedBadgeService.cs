@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -64,6 +65,36 @@ namespace Clean_Architecture.Application.services
         {
             AwardedBadge awardedBadge = _unitOfWork.AwardedBadges.Get(b => b.Id == id);
             return _mapper.Map<AwardBadgeDTO>(awardedBadge);
+        }
+
+
+        public List<ShowBadgeDTO> GetByDonorId(int donorId) {
+
+       List<AwardedBadge >awardedBadge = _unitOfWork.AwardedBadges.GetAll().Where(d=>d.DonorId==donorId).ToList();
+List<ShowBadgeDTO>showBadgeDTOs = new List<ShowBadgeDTO>();
+
+              foreach(var awardbadge in awardedBadge)
+            {
+                Badge badge = _unitOfWork.Badges.Get(b=>b.Id==awardbadge.BadgeId);
+                ShowBadgeDTO showbadge =new ShowBadgeDTO();
+                showbadge.Name=badge.Name;
+                showbadge.Description=badge.Description;
+                showbadge.Icon=badge.Icon;
+
+                showBadgeDTOs.Add(showbadge);  
+
+
+
+
+
+
+            }
+
+
+
+            return showBadgeDTOs;
+
+
         }
 
     }

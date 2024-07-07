@@ -40,7 +40,7 @@ namespace Clean_Architecture.Application.services
                 addBadgeDTO.Icon.CopyTo(fileStream);
             }
 
-            badge.Icon = $"/charityImg/{imageName}";
+            badge.Icon = $"/BadgeImg{imageName}";
            
 
             _unitOfWork.Badges.insert(badge);
@@ -85,29 +85,7 @@ namespace Clean_Architecture.Application.services
         }
 
 
-        //// Method to get all awarded badges for a specific donor
-        //public List<ShowAwardedBadgeDTO> GetBadgesByDonorId(int donorId)
-        //{
-        //    var awardedBadges = _unitOfWork.AwardedBadges.GetAll().Where(ab => ab.DonorId == donorId).ToList();
-        //    return _mapper.Map<List<ShowAwardedBadgeDTO>>(awardedBadges);
-        //}
-
-        //// Method to get all awarded badges for a specific charity
-        //public List<ShowAwardedBadgeDTO> GetBadgesByCharityId(int charityId)
-        //{
-        //    var awardedBadges = _unitOfWork.AwardedBadges.GetAll().Where(ab => ab.CharityId == charityId).ToList();
-        //    return _mapper.Map<List<ShowAwardedBadgeDTO>>(awardedBadges);
-        //}
-
-        //// Method to get all awarded badges for a specific corporate
-        //public List<ShowAwardedBadgeDTO> GetBadgesByCorporateId(int corporateId)
-        //{
-        //    var awardedBadges = _unitOfWork.AwardedBadges.GetAll().Where(ab => ab.CorporateId == corporateId).ToList();
-        //    return _mapper.Map<List<ShowAwardedBadgeDTO>>(awardedBadges);
-        //}
-
-        //   private bool IsFirstDonation() { }
-
+       
 
 
     }
