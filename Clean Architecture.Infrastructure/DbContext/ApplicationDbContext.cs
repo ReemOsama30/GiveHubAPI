@@ -35,7 +35,7 @@ namespace Clean_Architecture.Infrastructure.DbContext
         {
             base.OnModelCreating(modelBuilder);
 
-           
+
 
             modelBuilder.Entity<IdentityRole>().HasData(
                 new IdentityRole
@@ -50,6 +50,7 @@ namespace Clean_Architecture.Infrastructure.DbContext
                 new Category { id = 3, Name = "Animal Welfare" },
                 new Category { id = 4, Name = "Hunger and Thirst" },
                 new Category { id = 5, Name = "Environment" }
+
             );
 
             // Configure inheritance using TPH (Table per Hierarchy) strategy
