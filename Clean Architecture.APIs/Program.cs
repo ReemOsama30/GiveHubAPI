@@ -14,10 +14,6 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using YourNamespace.Clients;
 
-
-
-
-
 namespace Clean_Architecture.APIs
 {
     public class Program
@@ -27,23 +23,28 @@ namespace Clean_Architecture.APIs
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddControllers();
+
             // Add services to the container.
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-
             builder.Services.AddAutoMapper(typeof(MappingProfile));
 
-            builder.Services.AddDbContext<ApplicationDbContext>(Options =>
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
             {
-                Options.UseSqlServer(builder.Configuration.GetConnectionString("cs"));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("cs"));
             });
 
             // Configure Identity services
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.User.AllowedUserNameCharacters =
+                    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+ " +
+                    "\u0600-\u06FF"; // Adding Arabic Unicode range
+            })
+  .AddEntityFrameworkStores<ApplicationDbContext>()
+  .AddDefaultTokenProviders();
 
-            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-            .AddEntityFrameworkStores<ApplicationDbContext>()
-            .AddDefaultTokenProviders();
 
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IRepository<Project>, Repository<Project>>();
@@ -52,11 +53,8 @@ namespace Clean_Architecture.APIs
             builder.Services.AddScoped<IRepository<Charity>, Repository<Charity>>();
             builder.Services.AddScoped<projectService>();
             builder.Services.AddScoped<charityService>();
-
             builder.Services.AddScoped<BadgeService>();
             builder.Services.AddScoped<SharedBadgeUtilityService>();
-
-
             builder.Services.AddScoped<DonationReportService>();
             builder.Services.AddScoped<IDonationReportRepository, DonationReportRepository>();
             builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
@@ -64,53 +62,40 @@ namespace Clean_Architecture.APIs
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IRepository<Project>, Repository<Project>>();
             builder.Services.AddScoped<IRepository<Advertisment>, Repository<Advertisment>>();
-
             builder.Services.AddScoped<projectService>();
-
             builder.Services.AddScoped<corporateService>();
             builder.Services.AddScoped<IRepository<Corporate>, Repository<Corporate>>();
-
             builder.Services.AddScoped<AdvertismentService>();
             builder.Services.AddScoped<DonorService>();
             builder.Services.AddScoped<IDonorRepository, DonorRepository>();
             builder.Services.AddScoped<AwardedBadgeService>();
-
             builder.Services.AddScoped<AccountService>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
-
-
-
             builder.Services.AddScoped<IMoneyDonationRepository, MoneyDonationRepository>();
             builder.Services.AddScoped<MoneyDonationService>();
-
             builder.Services.AddScoped<IInkindDonationRepository, InkindDonationRepository>();
             builder.Services.AddScoped<InKindDonationService>();
-
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
             builder.Services.AddScoped<CategoryService>();
             builder.Services.AddScoped<UserServices>();
-
-
             builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
             builder.Services.AddTransient<IEmailService, EmailService>();
+
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("MyPolicy",
-                    builder =>
-                    {
-                        builder.SetIsOriginAllowed(alow => true)
-                               .AllowAnyMethod()
-                               .AllowAnyHeader()
-                               .AllowCredentials();
-                    });
-
+                options.AddPolicy("MyPolicy", builder =>
+                {
+                    builder.SetIsOriginAllowed(_ => true)
+                           .AllowAnyMethod()
+                           .AllowAnyHeader()
+                           .AllowCredentials();
+                });
             });
-                builder.Services.AddAuthentication(options =>
+
+            builder.Services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(options =>
             {
@@ -122,23 +107,20 @@ namespace Clean_Architecture.APIs
                     ValidIssuer = builder.Configuration["JWT:ValidIss"],
                     ValidateAudience = true,
                     ValidAudience = builder.Configuration["JWT:ValidAud"],
-                    IssuerSigningKey =
-                    new SymmetricSecurityKey(
-                        Encoding.UTF8.GetBytes(builder.Configuration["JWT:SecritKey"]))
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:SecritKey"]))
                 };
             });
-            // -----------------------------Swagger Part---------------------------- -/
 
+            // Swagger configuration
             builder.Services.AddSwaggerGen(swagger =>
             {
-                //This is to generate the Default UI of Swagger Documentation    
                 swagger.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
                     Title = "GiveHub",
-                    Description = " ITI Projrcy"
+                    Description = "ITI Project"
                 });
-                // To Enable authorization using Swagger (JWT)    
+
                 swagger.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
                 {
                     Name = "Authorization",
@@ -146,41 +128,31 @@ namespace Clean_Architecture.APIs
                     Scheme = "Bearer",
                     BearerFormat = "JWT",
                     In = ParameterLocation.Header,
-                    Description = "Enter 'Bearer' [space] and then your valid token in the text input below.\r\n\r\nExample: \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\"",
+                    Description = "Enter 'Bearer' [space] and then your valid token in the text input below.\r\n\r\nExample: \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\"",
                 });
+
                 swagger.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                     {
-                    new OpenApiSecurityScheme
-                    {
-                    Reference = new OpenApiReference
-                    {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[] {}
                     }
-                    },
-                    new string[] {}
-                    }
-                    });
+                });
             });
-            //---------------------------------------------------------------
 
-            //paypal setting
-
-            builder.Services.AddSingleton(
-                x => new PaypalClient(
-
-                    builder.Configuration["paypalOptions:clientID"],
-                     builder.Configuration["paypalOptions:ClientSecretKey"],
-                      builder.Configuration["paypalOptions:Mode"]
-                    )
-
-
-            );
-
-
-
-
+            // PayPal configuration
+            builder.Services.AddSingleton(x => new PaypalClient(
+                builder.Configuration["paypalOptions:clientID"],
+                builder.Configuration["paypalOptions:ClientSecretKey"],
+                builder.Configuration["paypalOptions:Mode"]
+            ));
 
             var app = builder.Build();
 
@@ -193,11 +165,10 @@ namespace Clean_Architecture.APIs
 
             app.UseHttpsRedirection();
             app.UseCors("MyPolicy");
-      
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseStaticFiles();
             app.MapControllers();
-
             app.Run();
         }
     }

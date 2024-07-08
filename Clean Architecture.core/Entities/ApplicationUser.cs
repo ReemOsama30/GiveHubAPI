@@ -11,6 +11,10 @@ using System.Threading.Tasks;
 namespace charityPulse.core.Models
 {public class ApplicationUser:IdentityUser,IsoftDeletable
 {
+
+
+        [Column(TypeName = "NVARCHAR(max)")]
+        public override string UserName { get; set; }
         public string? AccountType { get; set; } = "Donor";
         public bool IsDeleted { get; set; }
 

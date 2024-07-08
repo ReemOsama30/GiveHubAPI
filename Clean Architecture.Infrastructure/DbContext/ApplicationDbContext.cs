@@ -57,6 +57,25 @@ namespace Clean_Architecture.Infrastructure.DbContext
                 .HasDiscriminator<string>("DonationType")
                 .HasValue<MoneyDonation>("Monetary")
                 .HasValue<InKindDonation>("InKind");
+
+
+
+
+            modelBuilder.Entity<ApplicationUser>(entity =>
+            {
+                entity.Property(e => e.UserName)
+                      .IsUnicode(true)
+                      .HasMaxLength(int.MaxValue);
+
+                entity.Property(e => e.Email)
+                      .IsUnicode(false)
+                      .HasMaxLength(256);
+            });
         }
     }
-}
+
+
+
+
+    }
+
