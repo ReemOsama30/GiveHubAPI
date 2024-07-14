@@ -3,6 +3,7 @@ using Clean_Architecture.core.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Clean_Architecture.Infrastructure.DbContext
 {
@@ -35,7 +36,12 @@ namespace Clean_Architecture.Infrastructure.DbContext
         {
             base.OnModelCreating(modelBuilder);
 
-
+            modelBuilder.Entity<ApplicationUser>(entity =>
+            {
+                entity.Property(e => e.UserName)
+                    .HasColumnType("nvarchar(max)")
+                    .UseCollation("Arabic_CI_AS");
+            });
 
             modelBuilder.Entity<IdentityRole>().HasData(
                 new IdentityRole
@@ -50,8 +56,18 @@ namespace Clean_Architecture.Infrastructure.DbContext
                 new Category { id = 3, Name = "Animal Welfare" },
                 new Category { id = 4, Name = "Hunger and Thirst" },
                 new Category { id = 5, Name = "Environment" }
+                ,new Category { id=6,Name="Other"}
 
             );
+
+
+            void Configure(EntityTypeBuilder<ApplicationUser> builder)
+            {
+                builder.Property(u => u.UserName)
+                            .HasColumnType("nvarchar(256)");
+
+            }
+
 
             // Configure inheritance using TPH (Table per Hierarchy) strategy
             modelBuilder.Entity<Donation>()
