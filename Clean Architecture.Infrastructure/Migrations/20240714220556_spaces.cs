@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Clean_Architecture.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class db3 : Migration
+    public partial class spaces : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -170,7 +170,7 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     DonorId = table.Column<int>(type: "int", nullable: true),
                     CharityId = table.Column<int>(type: "int", nullable: true),
                     CorporateId = table.Column<int>(type: "int", nullable: true),
-                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    UserName = table.Column<string>(type: "nvarchar(max)", maxLength: 256, nullable: true, collation: "Arabic_CI_AS"),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -450,7 +450,7 @@ namespace Clean_Architecture.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "4d501c25-96e9-456d-b2a7-cb2e901b1fda", null, "Admin", "ADMIN" });
+                values: new object[] { "946a5e0d-5c7b-4709-bfa8-529cfcb36236", null, "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "categories",
@@ -461,7 +461,8 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     { 2, false, "Education" },
                     { 3, false, "Animal Welfare" },
                     { 4, false, "Hunger and Thirst" },
-                    { 5, false, "Environment" }
+                    { 5, false, "Environment" },
+                    { 6, false, "Other" }
                 });
 
             migrationBuilder.CreateIndex(

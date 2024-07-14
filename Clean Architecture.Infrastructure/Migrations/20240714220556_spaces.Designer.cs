@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Clean_Architecture.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240629221847_db3")]
-    partial class db3
+    [Migration("20240714220556_spaces")]
+    partial class spaces
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -113,6 +113,12 @@ namespace Clean_Architecture.Infrastructure.Migrations
                             id = 5,
                             IsDeleted = false,
                             Name = "Environment"
+                        },
+                        new
+                        {
+                            id = 6,
+                            IsDeleted = false,
+                            Name = "Other"
                         });
                 });
 
@@ -145,7 +151,7 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4d501c25-96e9-456d-b2a7-cb2e901b1fda",
+                            Id = "946a5e0d-5c7b-4709-bfa8-529cfcb36236",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -389,7 +395,8 @@ namespace Clean_Architecture.Infrastructure.Migrations
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(max)")
+                        .UseCollation("Arabic_CI_AS");
 
                     b.HasKey("Id");
 
