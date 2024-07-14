@@ -5,6 +5,7 @@ using Clean_Architecture.Application.services;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Clean_Architecture.APIs.Controllers
 {
@@ -24,34 +25,46 @@ namespace Clean_Architecture.APIs.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<GeneralResponse>> Register(UserRegisterDTO UserRegisterDTO)
         {
-
             if (ModelState.IsValid)
             {
                 IdentityResult result = await _accountService.RegisterUserAsync(UserRegisterDTO);
 
                 if (result.Succeeded)
                 {
-
                     GeneralResponse response = new GeneralResponse
                     {
                         IsPass = true,
-                        Message = "Account Created Sucessfully",
+                        Message = "Account Created Successfully",
                         Status = 200
                     };
                     return response;
-
                 }
-
+                else
+                {
+                    return new GeneralResponse
+                    {
+                        IsPass = false,
+                        Message = "This user name is already taken",
+                        Status = 400
+                    };
+                }
             }
-            return new GeneralResponse
+            else
             {
-                IsPass = false,
-                Message = "Account Already Taken",
-                Status = 400
-            };
+                // Extract the model state errors
+                var errors = ModelState.Values.SelectMany(v => v.Errors)
+                                              .Select(e => e.ErrorMessage)
+                                              .ToList();
+
+                return new GeneralResponse
+                {
+                    IsPass = false,
+                    Message = "Please enter a valid username or password",
+                    Status = 400,
+                    Errors = errors 
+                };
+            }
         }
-
-
 
         [HttpGet("confirm-email")]
         public async Task<IActionResult> ConfirmEmail(string userId, string token)
