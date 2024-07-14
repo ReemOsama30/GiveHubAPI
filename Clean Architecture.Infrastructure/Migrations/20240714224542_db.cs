@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Clean_Architecture.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class spaces : Migration
+    public partial class db : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -450,7 +450,7 @@ namespace Clean_Architecture.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "946a5e0d-5c7b-4709-bfa8-529cfcb36236", null, "Admin", "ADMIN" });
+                values: new object[] { "88b51ce2-6ccb-4955-ab2c-1b0889ac22aa", null, "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "categories",

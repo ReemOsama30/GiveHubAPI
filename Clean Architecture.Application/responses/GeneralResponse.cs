@@ -9,5 +9,6 @@
         //very important in front end
         public int Status { get; set; }
 
+        public List<string> Errors { get; set; }
     }
 }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Clean_Architecture.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240714220556_spaces")]
-    partial class spaces
+    [Migration("20240714224542_db")]
+    partial class db
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -151,7 +151,7 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "946a5e0d-5c7b-4709-bfa8-529cfcb36236",
+                            Id = "88b51ce2-6ccb-4955-ab2c-1b0889ac22aa",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
