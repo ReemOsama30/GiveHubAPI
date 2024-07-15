@@ -87,6 +87,8 @@ namespace Clean_Architecture.APIs
             builder.Services.AddScoped<AccountService>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
 
+            builder.Services.AddScoped<AdminService>();
+            builder.Services.AddScoped<IRepository<Admin>, Repository<Admin>>();
 
 
             builder.Services.AddScoped<IMoneyDonationRepository, MoneyDonationRepository>();

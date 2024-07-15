@@ -12,8 +12,8 @@ namespace charityPulse.core.Models
 {public class ApplicationUser:IdentityUser,IsoftDeletable
 {
         public string? AccountType { get; set; } = "Donor";
-        public bool IsDeleted { get; set; }
-
+        public bool IsDeleted { get; set; } = false;
+        public bool IsBlocked { get; set; } = false;
         [ForeignKey("Admin")]
         public int? AdminId { get; set; }
         public Admin? Admin { get; set; }
