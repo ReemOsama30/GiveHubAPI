@@ -12,7 +12,7 @@ namespace Clean_Architecture.Infrastructure.Repositories
         private readonly ApplicationDbContext context;
 
 
-
+        public IRepository<Admin> adminsRepository {  get; }
         public IRepository<Corporate> corporations { get; }
         public IRepository<Project> projects { get; }
         public IRepository<Charity> charities { get; }
@@ -45,7 +45,7 @@ namespace Clean_Architecture.Infrastructure.Repositories
         {
             this.context = context;
 
-
+            adminsRepository = new Repository<Admin>(context);
             projects = new Repository<Project>(context);
             charities = new Repository<Charity>(context);
             corporations = new Repository<Corporate>(context);
