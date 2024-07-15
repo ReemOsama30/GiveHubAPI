@@ -1,6 +1,7 @@
 ﻿
 using Clean_Architecture.Application.Interfaces;
 using Clean_Architecture.core.Entities;
+using Clean_Architecture.core.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -18,6 +19,7 @@ namespace charityPulse.core.Models
         public string WebsiteUrl { get; set; }
         public string ProfileImg { get; set; }
         public bool IsDeleted { get; set; }
+        public AccountState AccountState { get; set; } = AccountState.Pending;
 
         [ForeignKey("ApplicationUser")]
         public string ApplicationUserId { get; set; }
