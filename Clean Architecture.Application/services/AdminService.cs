@@ -1,4 +1,5 @@
-﻿using Clean_Architecture.core.Interfaces;
+﻿using charityPulse.core.Models;
+using Clean_Architecture.core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +16,27 @@ namespace Clean_Architecture.Application.services
         {
             this.unitOfWork = unitOfWork;
         }
+
+
+        public bool BlockCharity(int charityid)
+        {
+            Charity charity = unitOfWork.charities.Get(c => c.Id == charityid);
+            if (charity == null)
+            {
+
+                return false;
+
+            }
+            else
+            {
+                charity.IsBlocked = true;
+                unitOfWork.Save();
+                return true;
+            }
+        }
+
+
+
+
     }
 }
