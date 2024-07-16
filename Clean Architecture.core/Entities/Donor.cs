@@ -18,6 +18,8 @@ namespace charityPulse.core.Models
         public DateTime DateJoined { get; set; }= DateTime.Now;
         public bool IsDeleted { get; set; }
 
+        public bool IsPublic{ get; set; } = true;
+
         [ForeignKey("ApplicationUser")]
         public string ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
@@ -26,7 +28,6 @@ namespace charityPulse.core.Models
         public ICollection<AwardedBadge>? Badges { get; set; }
         public ICollection<Review>? Reviews { get; set; }
 
-       // public ICollection<Project>? Projects { get; set; }
 
     }
 }

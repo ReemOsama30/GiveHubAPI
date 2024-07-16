@@ -18,7 +18,7 @@ namespace Clean_Architecture.APIs.Controllers
 
 
 
-        [HttpGet("getAccountID/{name:alpha}")]
+        [HttpGet("getAccountID/{name}")]
         public ActionResult<GeneralResponse> GetAccountID(string name)
         {
             string accountID = donorService.getAccountIdBYdonorName(name);

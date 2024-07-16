@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace charityPulse.core.Models
 {
-    public class Charity:ApplicationUser, IsoftDeletable
+    public class Charity: IsoftDeletable
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -19,6 +19,7 @@ namespace charityPulse.core.Models
         public string WebsiteUrl { get; set; }
         public string ProfileImg { get; set; }
         public bool IsDeleted { get; set; }
+        public bool IsBlocked { get; set; } = false;
         public AccountState AccountState { get; set; } = AccountState.Pending;
 
         [ForeignKey("ApplicationUser")]
