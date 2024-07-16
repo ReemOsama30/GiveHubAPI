@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace charityPulse.core.Models
 {
-    public class Charity:IsoftDeletable
+    public class Charity:ApplicationUser, IsoftDeletable
     {
         public int Id { get; set; }
         public string Name { get; set; }
