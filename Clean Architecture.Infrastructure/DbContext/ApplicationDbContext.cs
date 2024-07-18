@@ -74,6 +74,13 @@ namespace Clean_Architecture.Infrastructure.DbContext
                 .HasDiscriminator<string>("DonationType")
                 .HasValue<MoneyDonation>("Monetary")
                 .HasValue<InKindDonation>("InKind");
+
+
+            modelBuilder.Entity<Notification>()
+           .HasOne(n => n.Admin)
+           .WithMany()
+           .HasForeignKey(n => n.AdminId)
+           .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

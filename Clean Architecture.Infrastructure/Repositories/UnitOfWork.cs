@@ -10,7 +10,7 @@ namespace Clean_Architecture.Infrastructure.Repositories
     public class UnitOfWork : IDisposable, IUnitOfWork
     {
         private readonly ApplicationDbContext context;
-
+        public IRepository<Notification> NotificationRepository { get; }
 
         public IRepository<Admin> adminsRepository {  get; }
         public IRepository<Corporate> corporations { get; }
@@ -44,7 +44,7 @@ namespace Clean_Architecture.Infrastructure.Repositories
         public UnitOfWork(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             this.context = context;
-
+            NotificationRepository = new Repository<Notification>(context);
             adminsRepository = new Repository<Admin>(context);
             projects = new Repository<Project>(context);
             charities = new Repository<Charity>(context);
