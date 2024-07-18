@@ -60,7 +60,7 @@ namespace Clean_Architecture.Application.services
             if (result.Succeeded)
             {
                 var admin = await userManager.Users.FirstOrDefaultAsync(u => u.AccountType == "Admin");
-                if (admin != null)
+                if (admin != null&&user.AccountType!="Admin")
                 {
                     // Add notification for the admin
                     var notification = new Notification
@@ -71,14 +71,13 @@ namespace Clean_Architecture.Application.services
                         AdminId = admin.Id
                     };
 
-                     unitOfWork.NotificationRepository.insert(notification);
-                }
+                    unitOfWork.NotificationRepository.insert(notification);
 
-                await SendConfirmationEmail(userDTO.Email, user);
-                if (result.Succeeded)
-                {
-                    await unitOfWork.SaveAsync();
                 }
+                await SendConfirmationEmail(userDTO.Email, user);
+             
+                await unitOfWork.SaveAsync();
+                
             }
 
             return result;
@@ -175,27 +174,34 @@ namespace Clean_Architecture.Application.services
 
         private async Task<SigningCredentials> CreateSigningCredentials()
         {
-            var signKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["JWT:SecretKey"]));
-            SigningCredentials signingCredentials = new SigningCredentials(signKey, SecurityAlgorithms.HmacSha256);
-            return signingCredentials;
-        }
+            var SignKey = new SymmetricSecurityKey(
+                         Encoding.UTF8.GetBytes(config["JWT:SecritKey"]));
 
-        public async Task<ValidTokenDTO> GenerateJWTtoken(ApplicationUser userFromDB)
+            SigningCredentials signingCredentials =
+                new SigningCredentials(SignKey, SecurityAlgorithms.HmacSha256);
+
+            return signingCredentials;
+
+        }
+        public async Task<ValidTokenDTO> GenerateJWTtoken(ApplicationUser UserFromDB)
         {
-            List<Claim> userLoginClaims = await CreateClaims(userFromDB);
+            List<Claim> UserLoginClaims = await CreateClaims(UserFromDB);
             SigningCredentials signingCredentials = await CreateSigningCredentials();
 
-            JwtSecurityToken loginJWTToken = new JwtSecurityToken(
-                issuer: config["JWT:ValidIss"],
-                audience: config["JWT:ValidAud"],
-                expires: DateTime.Now.AddHours(1),
-                claims: userLoginClaims,
-                signingCredentials: signingCredentials
-            );
 
-            ValidTokenDTO validToken = new ValidTokenDTO(loginJWTToken);
+            JwtSecurityToken LoginJWTToken = new JwtSecurityToken(
+                 issuer: config["JWT:ValidIss"],
+                 audience: config["JWT:ValidAud"],
+                 expires: DateTime.Now.AddHours(1),
+                 claims: UserLoginClaims,
+                 signingCredentials: signingCredentials
+                 );
+
+            ValidTokenDTO validToken = new ValidTokenDTO(LoginJWTToken);
 
             return validToken;
         }
+
+
     }
 }

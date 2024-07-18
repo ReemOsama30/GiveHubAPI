@@ -12,13 +12,13 @@ namespace Clean_Architecture.core.Entities
     public class Notification:IsoftDeletable
     {
 
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Message { get; set; }
         public DateTime CreatedAt { get; set; }
         public bool IsRead { get; set; }
 
         public string AdminId { get; set; }
-        public ApplicationUser Admin { get; set; }
+        public ApplicationUser ?Admin { get; set; }
         public bool IsDeleted { get; set; } = false;
     }
 }

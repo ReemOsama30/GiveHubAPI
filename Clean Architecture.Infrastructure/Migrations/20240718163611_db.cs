@@ -226,6 +226,8 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     WebsiteUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProfileImg = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    IsBlocked = table.Column<bool>(type: "bit", nullable: false),
+                    AccountState = table.Column<int>(type: "int", nullable: false),
                     ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
@@ -272,6 +274,7 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     ProfileImg = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateJoined = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    IsPublic = table.Column<bool>(type: "bit", nullable: false),
                     ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
@@ -280,6 +283,29 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     table.ForeignKey(
                         name: "FK_donors_AspNetUsers_ApplicationUserId",
                         column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Notification",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsRead = table.Column<bool>(type: "bit", nullable: false),
+                    AdminId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notification", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Notification_AspNetUsers_AdminId",
+                        column: x => x.AdminId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -450,7 +476,7 @@ namespace Clean_Architecture.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "88b51ce2-6ccb-4955-ab2c-1b0889ac22aa", null, "Admin", "ADMIN" });
+                values: new object[] { "1c2a531b-41a8-439a-a993-bc6b94847b87", null, "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "categories",
@@ -598,6 +624,11 @@ namespace Clean_Architecture.Infrastructure.Migrations
                 name: "IX_donors_ApplicationUserId",
                 table: "donors",
                 column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notification_AdminId",
+                table: "Notification",
+                column: "AdminId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_projects_CategoryId",
@@ -757,6 +788,9 @@ namespace Clean_Architecture.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "donations");
+
+            migrationBuilder.DropTable(
+                name: "Notification");
 
             migrationBuilder.DropTable(
                 name: "reviews");
