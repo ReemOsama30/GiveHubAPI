@@ -1,4 +1,6 @@
-﻿using charityPulse.core.Models;
+﻿using AutoMapper;
+using charityPulse.core.Models;
+using Clean_Architecture.Application.DTOs.NotificationDTOs;
 using Clean_Architecture.core.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -11,10 +13,12 @@ namespace Clean_Architecture.Application.services
     public class AdminService
     {
         private readonly IUnitOfWork unitOfWork;
+        private readonly IMapper mapper;
 
-        public AdminService(IUnitOfWork unitOfWork)
+        public AdminService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             this.unitOfWork = unitOfWork;
+            this.mapper = mapper;
         }
 
 
@@ -36,6 +40,12 @@ namespace Clean_Architecture.Application.services
         }
 
 
+        public List<showNotificationDTO> GetAllNotification()
+        {
+            var notifications = unitOfWork.NotificationRepository.GetAll();
+            var notificationDTOs = notifications.Select(notification => mapper.Map<showNotificationDTO>(notification)).ToList();
+            return notificationDTOs;
+        }
 
 
     }
