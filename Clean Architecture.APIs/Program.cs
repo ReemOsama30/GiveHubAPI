@@ -104,6 +104,11 @@ namespace Clean_Architecture.APIs
 
             builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
             builder.Services.AddTransient<IEmailService, EmailService>();
+
+
+
+            builder.Services.AddScoped<IRepository<Notification>, Repository<Notification>>();
+            builder.Services.AddScoped<AdminService>();
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("MyPolicy",

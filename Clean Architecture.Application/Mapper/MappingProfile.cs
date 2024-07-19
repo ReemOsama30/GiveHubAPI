@@ -10,6 +10,7 @@ using Clean_Architecture.Application.DTOs.DonationReportDTOs;
 using Clean_Architecture.Application.DTOs.DonorDTOs;
 using Clean_Architecture.Application.DTOs.InKindDonationDTOs;
 using Clean_Architecture.Application.DTOs.MoneyDonationDTOs;
+using Clean_Architecture.Application.DTOs.NotificationDTOs;
 using Clean_Architecture.Application.DTOs.projectDTOs;
 using Clean_Architecture.Application.DTOs.ReviewsDTOs;
 using Clean_Architecture.core.Entities;
@@ -113,8 +114,15 @@ namespace Clean_Architecture.Application.Mapper
             CreateMap<showCategoriesDTO, Category>();
             CreateMap<Category, showCategoriesDTO>();
 
+            //Notification Mappings
+            CreateMap<Notification, showNotificationDTO>();
 
         }
+
+
+
+
+        
         private byte[] ConvertIconToBytes(string iconPath)
         {
             return File.Exists(iconPath) ? File.ReadAllBytes(iconPath) : null;
