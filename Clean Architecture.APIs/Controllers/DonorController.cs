@@ -201,6 +201,20 @@ namespace Clean_Architecture.APIs.Controllers
 
         }
 
+        [HttpGet("getDonorProfile")]
+        public ActionResult<GeneralResponse>GetDonorsProfile()
+        {
+            var donorProfile=donorService.GetDonorProfile();
+            if(donorProfile == null)
+            {
+                return new GeneralResponse { IsPass = false, Message = "there is no donors yet!", Status = 404 };
+            }
+            else
+            {
+                return new GeneralResponse { IsPass = true, Status = 200, Message = donorProfile };
+            }
+        }
+
 
     }
 }

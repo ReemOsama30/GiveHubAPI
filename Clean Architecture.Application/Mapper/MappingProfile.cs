@@ -106,6 +106,7 @@ namespace Clean_Architecture.Application.Mapper
             CreateMap<Donor, showDonorDTO>();
             CreateMap<showDonorWithBadgeDTO, Donor>();
             CreateMap<Donor, showDonorWithBadgeDTO>();
+            CreateMap<Donor, DonorsProfilsDTO>();
             // .ForMember(dest => dest.BadgeName, opt => opt.MapFrom(src => src.Badges.Select(b => b.Name).ToList()));
             CreateMap<updateDonorDTO, Donor>();
             CreateMap<Donor, updateDonorDTO>();
@@ -119,7 +120,7 @@ namespace Clean_Architecture.Application.Mapper
 
         }
 
-
+        
 
 
         

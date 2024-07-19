@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using charityPulse.core.Models;
 using Clean_Architecture.Application.DTOs.DonorDTOs;
+using Clean_Architecture.Application.DTOs.NotificationDTOs;
+using Clean_Architecture.core.Entities;
 using Clean_Architecture.core.Interfaces;
 using Microsoft.AspNetCore.Hosting;
 
@@ -101,5 +103,14 @@ namespace Clean_Architecture.Application.services
             return donorDetails;
 
         }
+
+
+        public List<DonorsProfilsDTO> GetDonorProfile()
+        {
+            var donorProfile=unitOfWork.donorRepository.GetAll();
+            var donorProfileDto = donorProfile.Select(notification => mapper.Map<DonorsProfilsDTO>(notification)).ToList();
+        return donorProfileDto;
+        }
+
     }
 }
