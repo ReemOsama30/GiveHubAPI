@@ -39,6 +39,23 @@ namespace Clean_Architecture.Application.services
             }
         }
 
+        public bool UnBlockCharity(int charityid)
+        {
+            Charity charity = unitOfWork.charities.Get(c => c.Id == charityid);
+            if (charity == null)
+            {
+
+                return false;
+
+            }
+            else
+            {
+                charity.IsBlocked = false;
+                unitOfWork.Save();
+                return true;
+            }
+        }
+
 
         public List<showNotificationDTO> GetAllNotification()
         {

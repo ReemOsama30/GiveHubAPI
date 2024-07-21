@@ -11,23 +11,24 @@ namespace Clean_Architecture.APIs.Controllers
     {
         private readonly AdminService adminService;
 
-      public  AdminController(AdminService adminService )
+        public AdminController(AdminService adminService)
         {
             this.adminService = adminService;
         }
 
 
         [HttpGet]
-        public ActionResult<GeneralResponse>GetAllNotifications()
+        public ActionResult<GeneralResponse> GetAllNotifications()
         {
-            var Notification=adminService.GetAllNotification();
-            if (Notification != null) {
+            var Notification = adminService.GetAllNotification();
+            if (Notification != null)
+            {
 
                 return new GeneralResponse
                 {
-                    IsPass=true,
-                    Message=Notification,
-                    Status=200
+                    IsPass = true,
+                    Message = Notification,
+                    Status = 200
                 };
 
             }
@@ -43,5 +44,26 @@ namespace Clean_Architecture.APIs.Controllers
 
         }
 
+        [HttpPatch]
+        public ActionResult<GeneralResponse> BlockUsers(int id)
+        {
+
+            bool isblocked = adminService.BlockCharity(id);
+            if (isblocked) {
+
+
+                return new GeneralResponse
+                {
+                    IsPass = true,
+                    Message = "the user is blocked successfully"
+                };
+            }
+            return new GeneralResponse
+            {
+                IsPass=false,
+                Message="invalid user"
+            };
+
+        }
     }
 }
