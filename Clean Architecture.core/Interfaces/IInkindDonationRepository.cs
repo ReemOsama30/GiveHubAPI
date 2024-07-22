@@ -6,6 +6,6 @@ namespace Clean_Architecture.core.Interfaces
 {
     public interface IInkindDonationRepository : IRepository<InKindDonation>
     {
-        public List<Project> GetInkindDonationByCharityId(int id);
+        public List<Project> GetInkindDonationByCharityId(string id);
     }
 }

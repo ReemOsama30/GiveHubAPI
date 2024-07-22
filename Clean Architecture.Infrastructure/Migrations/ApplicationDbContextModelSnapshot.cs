@@ -33,8 +33,8 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.Property<int>("BadgeId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CharityId")
-                        .HasColumnType("int");
+                    b.Property<string>("CharityId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int?>("CorporateId")
                         .HasColumnType("int");
@@ -42,8 +42,8 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.Property<DateTime>("DateReceived")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("DonorId")
-                        .HasColumnType("int");
+                    b.Property<string>("DonorId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -180,7 +180,7 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1c2a531b-41a8-439a-a993-bc6b94847b87",
+                            Id = "e0e4173f-0370-454f-9b8f-dab1d9e84b82",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -292,28 +292,6 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("charityPulse.core.Models.Admin", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<string>("ApplicationUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.ToTable("Admins");
-                });
-
             modelBuilder.Entity("charityPulse.core.Models.Advertisment", b =>
                 {
                     b.Property<int>("Id")
@@ -326,8 +304,8 @@ namespace Clean_Architecture.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CharityId")
-                        .HasColumnType("int");
+                    b.Property<string>("CharityId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int?>("CorporateId")
                         .HasColumnType("int");
@@ -364,24 +342,14 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("AccountType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("AdminId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CharityId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CorporateId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("DonorId")
-                        .HasColumnType("int");
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(21)
+                        .HasColumnType("nvarchar(21)");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -427,15 +395,10 @@ namespace Clean_Architecture.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)")
                         .UseCollation("Arabic_CI_AS");
 
+                    b.Property<int>("accountType")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
-
-                    b.HasIndex("AdminId");
-
-                    b.HasIndex("CharityId");
-
-                    b.HasIndex("CorporateId");
-
-                    b.HasIndex("DonorId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -446,6 +409,10 @@ namespace Clean_Architecture.Infrastructure.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("ApplicationUser");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("charityPulse.core.Models.Badge", b =>
@@ -474,50 +441,6 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Badges");
-                });
-
-            modelBuilder.Entity("charityPulse.core.Models.Charity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AccountState")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ApplicationUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsBlocked")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProfileImg")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("WebsiteUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.ToTable("charities");
                 });
 
             modelBuilder.Entity("charityPulse.core.Models.Corporate", b =>
@@ -562,8 +485,8 @@ namespace Clean_Architecture.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CharityId")
-                        .HasColumnType("int");
+                    b.Property<string>("CharityId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int?>("CorporateId")
                         .HasColumnType("int");
@@ -576,8 +499,9 @@ namespace Clean_Architecture.Infrastructure.Migrations
                         .HasMaxLength(8)
                         .HasColumnType("nvarchar(8)");
 
-                    b.Property<int>("DonorId")
-                        .HasColumnType("int");
+                    b.Property<string>("DonorId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -631,42 +555,6 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.ToTable("donationsReport");
                 });
 
-            modelBuilder.Entity("charityPulse.core.Models.Donor", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ApplicationUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("DateJoined")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsPublic")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProfileImg")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.ToTable("donors");
-                });
-
             modelBuilder.Entity("charityPulse.core.Models.Project", b =>
                 {
                     b.Property<int>("Id")
@@ -681,8 +569,9 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CharityId")
-                        .HasColumnType("int");
+                    b.Property<string>("CharityId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -731,8 +620,8 @@ namespace Clean_Architecture.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CharityId")
-                        .HasColumnType("int");
+                    b.Property<string>("CharityId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Content")
                         .IsRequired()
@@ -741,8 +630,8 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.Property<DateTime>("DatePosted")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("DonorID")
-                        .HasColumnType("int");
+                    b.Property<string>("DonorID")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -757,6 +646,70 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.HasIndex("DonorID");
 
                     b.ToTable("reviews");
+                });
+
+            modelBuilder.Entity("charityPulse.core.Models.Admin", b =>
+                {
+                    b.HasBaseType("charityPulse.core.Models.ApplicationUser");
+
+                    b.HasDiscriminator().HasValue("Admin");
+                });
+
+            modelBuilder.Entity("charityPulse.core.Models.Charity", b =>
+                {
+                    b.HasBaseType("charityPulse.core.Models.ApplicationUser");
+
+                    b.Property<int>("AccountState")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsBlocked")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProfileImg")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("WebsiteUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("Charity");
+                });
+
+            modelBuilder.Entity("charityPulse.core.Models.Donor", b =>
+                {
+                    b.HasBaseType("charityPulse.core.Models.ApplicationUser");
+
+                    b.Property<DateTime>("DateJoined")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsPublic")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProfileImg")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.ToTable("AspNetUsers", t =>
+                        {
+                            t.Property("Name")
+                                .HasColumnName("Donor_Name");
+
+                            t.Property("ProfileImg")
+                                .HasColumnName("Donor_ProfileImg");
+                        });
+
+                    b.HasDiscriminator().HasValue("Donor");
                 });
 
             modelBuilder.Entity("charityPulse.core.Models.InKindDonation", b =>
@@ -799,7 +752,7 @@ namespace Clean_Architecture.Infrastructure.Migrations
                         .WithMany("Badges")
                         .HasForeignKey("CharityId");
 
-                    b.HasOne("charityPulse.core.Models.Corporate", "Corporate")
+                    b.HasOne("charityPulse.core.Models.Corporate", null)
                         .WithMany("Badges")
                         .HasForeignKey("CorporateId");
 
@@ -810,8 +763,6 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.Navigation("Badge");
 
                     b.Navigation("Charity");
-
-                    b.Navigation("Corporate");
 
                     b.Navigation("Donor");
                 });
@@ -878,68 +829,17 @@ namespace Clean_Architecture.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("charityPulse.core.Models.Admin", b =>
-                {
-                    b.HasOne("charityPulse.core.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ApplicationUser");
-                });
-
             modelBuilder.Entity("charityPulse.core.Models.Advertisment", b =>
                 {
                     b.HasOne("charityPulse.core.Models.Charity", "Charity")
                         .WithMany("Advertisments")
                         .HasForeignKey("CharityId");
 
-                    b.HasOne("charityPulse.core.Models.Corporate", "Corporate")
+                    b.HasOne("charityPulse.core.Models.Corporate", null)
                         .WithMany("Advertisments")
                         .HasForeignKey("CorporateId");
 
                     b.Navigation("Charity");
-
-                    b.Navigation("Corporate");
-                });
-
-            modelBuilder.Entity("charityPulse.core.Models.ApplicationUser", b =>
-                {
-                    b.HasOne("charityPulse.core.Models.Admin", "Admin")
-                        .WithMany()
-                        .HasForeignKey("AdminId");
-
-                    b.HasOne("charityPulse.core.Models.Charity", "Charity")
-                        .WithMany()
-                        .HasForeignKey("CharityId");
-
-                    b.HasOne("charityPulse.core.Models.Corporate", "Corporate")
-                        .WithMany()
-                        .HasForeignKey("CorporateId");
-
-                    b.HasOne("charityPulse.core.Models.Donor", "Donor")
-                        .WithMany()
-                        .HasForeignKey("DonorId");
-
-                    b.Navigation("Admin");
-
-                    b.Navigation("Charity");
-
-                    b.Navigation("Corporate");
-
-                    b.Navigation("Donor");
-                });
-
-            modelBuilder.Entity("charityPulse.core.Models.Charity", b =>
-                {
-                    b.HasOne("charityPulse.core.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ApplicationUser");
                 });
 
             modelBuilder.Entity("charityPulse.core.Models.Corporate", b =>
@@ -959,7 +859,7 @@ namespace Clean_Architecture.Infrastructure.Migrations
                         .WithMany("Donations")
                         .HasForeignKey("CharityId");
 
-                    b.HasOne("charityPulse.core.Models.Corporate", "Corporate")
+                    b.HasOne("charityPulse.core.Models.Corporate", null)
                         .WithMany("Donations")
                         .HasForeignKey("CorporateId");
 
@@ -975,8 +875,6 @@ namespace Clean_Architecture.Infrastructure.Migrations
 
                     b.Navigation("Charity");
 
-                    b.Navigation("Corporate");
-
                     b.Navigation("Donor");
 
                     b.Navigation("Project");
@@ -991,17 +889,6 @@ namespace Clean_Architecture.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Project");
-                });
-
-            modelBuilder.Entity("charityPulse.core.Models.Donor", b =>
-                {
-                    b.HasOne("charityPulse.core.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ApplicationUser");
                 });
 
             modelBuilder.Entity("charityPulse.core.Models.Project", b =>
@@ -1049,6 +936,20 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.Navigation("AwardedBadges");
                 });
 
+            modelBuilder.Entity("charityPulse.core.Models.Corporate", b =>
+                {
+                    b.Navigation("Advertisments");
+
+                    b.Navigation("Badges");
+
+                    b.Navigation("Donations");
+                });
+
+            modelBuilder.Entity("charityPulse.core.Models.Project", b =>
+                {
+                    b.Navigation("Donations");
+                });
+
             modelBuilder.Entity("charityPulse.core.Models.Charity", b =>
                 {
                     b.Navigation("Advertisments");
@@ -1062,15 +963,6 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.Navigation("Reviews");
                 });
 
-            modelBuilder.Entity("charityPulse.core.Models.Corporate", b =>
-                {
-                    b.Navigation("Advertisments");
-
-                    b.Navigation("Badges");
-
-                    b.Navigation("Donations");
-                });
-
             modelBuilder.Entity("charityPulse.core.Models.Donor", b =>
                 {
                     b.Navigation("Badges");
@@ -1078,11 +970,6 @@ namespace Clean_Architecture.Infrastructure.Migrations
                     b.Navigation("Donations");
 
                     b.Navigation("Reviews");
-                });
-
-            modelBuilder.Entity("charityPulse.core.Models.Project", b =>
-                {
-                    b.Navigation("Donations");
                 });
 #pragma warning restore 612, 618
         }

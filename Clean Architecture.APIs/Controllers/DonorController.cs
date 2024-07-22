@@ -82,7 +82,7 @@ namespace Clean_Architecture.APIs.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<GeneralResponse> GetDonorById(int id)
+        public ActionResult<GeneralResponse> GetDonorById(string id)
         {
             var donor = donorService.GetDonorById(id);
             if (donor == null)
@@ -163,7 +163,7 @@ namespace Clean_Architecture.APIs.Controllers
 
 
         [HttpDelete]
-        public ActionResult<GeneralResponse> DeleteDonor(int id)
+        public ActionResult<GeneralResponse> DeleteDonor(string id)
         {
 
             var donor = donorService.GetDonorById(id);
@@ -189,17 +189,6 @@ namespace Clean_Architecture.APIs.Controllers
         }
 
 
-        [HttpGet("getDonorId/{id:guid}")]
-        public ActionResult<int> getDonorIdByUserId(string id)
-        {
-
-
-            int donorId = donorService.GetDonerIdByUserID(id);
-            return donorId;
-
-
-
-        }
 
         [HttpGet("getDonorProfile")]
         public ActionResult<GeneralResponse>GetDonorsProfile()

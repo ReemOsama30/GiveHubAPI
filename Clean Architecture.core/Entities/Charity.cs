@@ -11,21 +11,15 @@ using System.Threading.Tasks;
 
 namespace charityPulse.core.Models
 {
-    public class Charity: IsoftDeletable
+    public class Charity: ApplicationUser,IsoftDeletable
     {
-        public int Id { get; set; }
+   
         public string Name { get; set; }
         public string Description { get; set; }
         public string WebsiteUrl { get; set; }
-        public string ProfileImg { get; set; }
-        public bool IsDeleted { get; set; }
+        public string ?ProfileImg { get; set; }
         public bool IsBlocked { get; set; } = false;
         public AccountState AccountState { get; set; } = AccountState.Pending;
-
-        [ForeignKey("ApplicationUser")]
-        public string ApplicationUserId { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
-
 
         public ICollection<Review>? Reviews { get; set; }
         public ICollection<Project>? Projects { get; set; }

@@ -9,13 +9,11 @@ using System.Threading.Tasks;
 
 namespace charityPulse.core.Models
 {
-    public class Admin:IsoftDeletable
+    public class Admin:ApplicationUser,IsoftDeletable
     {
-        public int id { get; set; }
-        public bool IsDeleted { get; set; }
 
-        [ForeignKey("ApplicationUser")]
-        public string ApplicationUserId { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
+      
+
+  
     }
 }

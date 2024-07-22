@@ -69,6 +69,103 @@ namespace Clean_Architecture.APIs.Controllers
             }
         }
 
+
+        [HttpPost("Admin-register")]
+        public async Task<ActionResult<GeneralResponse>> AdminRegister(AdminRegisterDTO UserRegisterDTO)
+        {
+            if (ModelState.IsValid)
+            {
+                IdentityResult result = await _accountService.AdminRegisteration(UserRegisterDTO);
+
+                if (result.Succeeded)
+                {
+                    GeneralResponse response = new GeneralResponse
+                    {
+                        IsPass = true,
+                        Message = "Account Created Successfully",
+                        Status = 200
+                    };
+
+
+
+                    return response;
+                }
+                else
+                {
+                    return new GeneralResponse
+                    {
+                        IsPass = false,
+                        Message = "This user name is already taken",
+                        Status = 400
+                    };
+                }
+            }
+            else
+            {
+                // Extract the model state errors
+                var errors = ModelState.Values.SelectMany(v => v.Errors)
+                                              .Select(e => e.ErrorMessage)
+                                              .ToList();
+
+                return new GeneralResponse
+                {
+                    IsPass = false,
+                    Message = "Please enter a valid username or password",
+                    Status = 400,
+                    Errors = errors
+                };
+            }
+        }
+
+        [HttpPost("Charity-register")]
+        public async Task<ActionResult<GeneralResponse>> CharityRegister(CharityRegisterDTO UserRegisterDTO)
+        {
+            if (ModelState.IsValid)
+            {
+                IdentityResult result = await _accountService.CharityRegisteration(UserRegisterDTO);
+
+                if (result.Succeeded)
+                {
+                    GeneralResponse response = new GeneralResponse
+                    {
+                        IsPass = true,
+                        Message = "Account Created Successfully",
+                        Status = 200
+                    };
+
+
+
+                    return response;
+                }
+                else
+                {
+                    return new GeneralResponse
+                    {
+                        IsPass = false,
+                        Message = "This charity name is already taken",
+                        Status = 400
+                    };
+                }
+            }
+            else
+            {
+            
+                var errors = ModelState.Values.SelectMany(v => v.Errors)
+                                              .Select(e => e.ErrorMessage)
+                                              .ToList();
+
+                return new GeneralResponse
+                {
+                    IsPass = false,
+                    Message = "Please enter a valid username or password",
+                    Status = 400,
+                    Errors = errors
+                };
+            }
+        }
+
+
+
         [HttpGet("confirm-email")]
         public async Task<IActionResult> ConfirmEmail(string userId, string token)
         {

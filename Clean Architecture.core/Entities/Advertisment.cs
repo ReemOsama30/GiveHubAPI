@@ -21,12 +21,9 @@ namespace charityPulse.core.Models
         public DateTime Duration { get; set; }
         public bool IsDeleted { get; set; }
         [ForeignKey("Charity")]
-        public int? CharityId { get; set; }
+        public string? CharityId { get; set; }
         public Charity? Charity { get; set; }
 
-        [ForeignKey("Corporate")]
-        public int? CorporateId { get; set; }
-        public Corporate? Corporate { get; set; }
-
+     
     }
 }

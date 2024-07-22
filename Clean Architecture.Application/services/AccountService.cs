@@ -17,6 +17,8 @@ using static System.Net.WebRequestMethods;
 using System.Net;
 using Clean_Architecture.core.Entities;
 using Microsoft.EntityFrameworkCore;
+using Clean_Architecture.core.Enums;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Clean_Architecture.Application.services
 {
@@ -29,12 +31,13 @@ namespace Clean_Architecture.Application.services
         private readonly IHttpContextAccessor httpContextAccessor;
         private readonly IEmailService emailService;
         private readonly UserManager<ApplicationUser> userManager;
-
+        private readonly IWebHostEnvironment webHostEnvironment;
         public AccountService(IUnitOfWork unitOfWork, IMapper mapper,
             IConfiguration config, SignInManager<ApplicationUser> signInManager,
             IHttpContextAccessor httpContextAccessor,
             IEmailService emailService,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            IWebHostEnvironment webHostEnvironment)
         {
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
@@ -43,6 +46,7 @@ namespace Clean_Architecture.Application.services
             this.httpContextAccessor = httpContextAccessor;
             this.emailService = emailService;
             this.userManager = userManager;
+            this.webHostEnvironment = webHostEnvironment;
         }
 
         public async Task<IdentityResult> RegisterUserAsync(UserRegisterDTO userDTO)
@@ -52,15 +56,15 @@ namespace Clean_Architecture.Application.services
                 UserName = userDTO.UserName,
                 Email = userDTO.Email,
                 PasswordHash = userDTO.Password,
-                AccountType = userDTO.AccountType,
+                accountType = userDTO.AccountType,
             };
 
             var result = await unitOfWork.UserRepository.CreateUserAsync(user, userDTO.Password);
 
             if (result.Succeeded)
             {
-                var admin = await userManager.Users.FirstOrDefaultAsync(u => u.AccountType == "Admin");
-                if (admin != null&&user.AccountType!="Admin")
+                var admin = await userManager.Users.FirstOrDefaultAsync(u => u.accountType ==AccountType.Admin);
+                if (admin != null&&user.accountType!= AccountType.Admin)
                 {
                     // Add notification for the admin
                     var notification = new Notification
@@ -82,6 +86,98 @@ namespace Clean_Architecture.Application.services
 
             return result;
         }
+        public async Task<IdentityResult> AdminRegisteration(AdminRegisterDTO AdminDTO)
+        {
+            Admin user = new Admin
+            {
+                UserName = AdminDTO.UserName,
+                Email = AdminDTO.Email,
+                PasswordHash = AdminDTO.Password,
+               
+                accountType = AccountType.Admin,
+            };
+         
+
+            var result = await unitOfWork.UserRepository.CreateUserAsync(user, AdminDTO.Password);
+
+            if (result.Succeeded)
+            {
+               
+                await SendConfirmationEmail(AdminDTO.Email, user);
+
+                await unitOfWork.SaveAsync();
+
+            }
+
+            return result;
+        }
+
+
+
+
+        public async Task<IdentityResult> CharityRegisteration(CharityRegisterDTO CharityDTO)
+        {
+            Charity user = new Charity
+            {
+                UserName = CharityDTO.UserName,
+                Email = CharityDTO.Email,
+                PasswordHash = CharityDTO.Password,
+                accountType = AccountType.Chatiry,
+                Name= CharityDTO.Name,
+                Description= CharityDTO.Description,
+                WebsiteUrl = CharityDTO.WebsiteUrl,
+
+            };
+            if (CharityDTO.ProfileImg != null)
+            {
+                string UploadPath = Path.Combine(webHostEnvironment.WebRootPath, "charityImg");
+                string imageName = Guid.NewGuid().ToString() + "-" + CharityDTO.ProfileImg.FileName;
+                string filePath = Path.Combine(UploadPath, imageName);
+
+                using (FileStream fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    CharityDTO.ProfileImg.CopyTo(fileStream);
+                }
+
+                user.ProfileImg = $"/charityImg/{imageName}";
+            }
+      
+
+            var result = await unitOfWork.UserRepository.CreateUserAsync(user, CharityDTO.Password);
+
+            if (result.Succeeded)
+            {
+                var admin = await userManager.Users.FirstOrDefaultAsync(u => u.accountType == AccountType.Admin);
+                if (admin != null && user.accountType != AccountType.Admin)
+                {
+                    // Add notification for the admin
+                    var notification = new Notification
+                    {
+                        Message = $"New user registered: {user.UserName}",
+                        CreatedAt = DateTime.Now,
+                        IsRead = false,
+                        AdminId = admin.Id
+                    };
+
+                    unitOfWork.NotificationRepository.insert(notification);
+
+                }
+                await SendConfirmationEmail(CharityDTO.Email, user);
+
+                await unitOfWork.SaveAsync();
+
+            }
+
+            return result;
+        }
+
+
+
+
+
+
+
+
 
         public async Task<ApplicationUser> FindByNameAsync(UserLogInDTO userDTO)
         {
@@ -160,7 +256,7 @@ namespace Clean_Architecture.Application.services
                 new Claim(ClaimTypes.Name, userFromDB.UserName),
                 new Claim(ClaimTypes.NameIdentifier, userFromDB.Id),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim("AccountType", userFromDB.AccountType)
+                new Claim("AccountType", userFromDB.accountType.ToString())
             };
 
             IList<string> roles = await unitOfWork.UserRepository.GetRolesAsync(userFromDB);

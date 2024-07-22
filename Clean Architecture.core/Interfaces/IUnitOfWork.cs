@@ -9,6 +9,7 @@ namespace Clean_Architecture.core.Interfaces
 {
     public interface IUnitOfWork
     {
+        public IRepository<Admin> Admins { get; }
         public IRepository<Notification> NotificationRepository { get; }
         public IRepository<Project> projects { get; }
         public IRepository<Corporate> corporations { get; }

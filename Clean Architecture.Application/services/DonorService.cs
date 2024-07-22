@@ -26,7 +26,7 @@ namespace Clean_Architecture.Application.services
             var donors = await unitOfWork.donorRepository.GetAllAsync();
             return mapper.Map<List<showDonorDTO>>(donors);
         }
-        public showDonorDTO GetDonorById(int id)
+        public showDonorDTO GetDonorById(string id)
         {
             var donor = unitOfWork.donorRepository.Get(i => i.Id == id);
             return mapper.Map<showDonorDTO>(donor);
@@ -54,24 +54,25 @@ namespace Clean_Architecture.Application.services
             donor.ProfileImg = $"/donorImg/{imageName}";
             unitOfWork.donorRepository.insert(donor);
             unitOfWork.Save();
-            int donorId = donor.Id;
-
-            var user = unitOfWork.UserRepository.Get(u => u.Id == donor.ApplicationUserId);
-            user.DonorId = donorId;
-            unitOfWork.Save();
+           
         }
 
+
+        /// <summary>
+        //need to be fixed later
+        /// </summary>
+        /// <param name="updateDonorDTO"></param>
         public void UpdateDonor(updateDonorDTO updateDonorDTO)
         {
             Donor donor = mapper.Map<Donor>(updateDonorDTO);
 
             // donor.ProfileImg = File.ReadAllBytes(updateDonorDTO.img);
-            donor.ApplicationUserId = "439213c3-e1c8-4fc5-a601-9d441a657dbd";
+            donor.Id = "439213c3-e1c8-4fc5-a601-9d441a657dbd";
             unitOfWork.donorRepository.update(donor);
             unitOfWork.Save();
 
         }
-        public void DeleteDonor(int id)
+        public void DeleteDonor(string id)
         {
             Donor donor = unitOfWork.donorRepository.Get(d => d.Id == id);
             unitOfWork.donorRepository.delete(donor);
@@ -88,12 +89,7 @@ namespace Clean_Architecture.Application.services
 
 
 
-        public int GetDonerIdByUserID(string UserId)
-        {
-            Donor donor = unitOfWork.donorRepository.Get(c => c.ApplicationUserId == UserId);
-
-            return donor.Id;
-        }
+   
         public donorDetailsDTO getDonorDetails(string userId)
         {
             var userDetails = unitOfWork.UserRepository.Get(u => u.Id == userId);

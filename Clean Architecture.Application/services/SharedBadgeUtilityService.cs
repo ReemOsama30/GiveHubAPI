@@ -46,7 +46,7 @@ namespace Clean_Architecture.Infrastructure.Repositories
             return generalDonation;
         }
 
-        private AwardBadgeDTO GenerateAwardedBadge(int donorId, string badgeName)
+        private AwardBadgeDTO GenerateAwardedBadge(string donorId, string badgeName)
         {
             int badgeId = _unitOfWork.Badges.Get(b => b.Name == $"{badgeName}").Id;
 
@@ -61,15 +61,15 @@ namespace Clean_Architecture.Infrastructure.Repositories
         }
 
 
-        private bool IsFirstDonation(int donorId)
+        private bool IsFirstDonation(string donorId)
         {
             return _unitOfWork.donorRepository.GetDonationsCount(donorId) == 1;
         }
-        private bool Is10thDonation(int donorId)
+        private bool Is10thDonation(string donorId)
         {
             return _unitOfWork.donorRepository.GetDonationsCount(donorId) == 10;
         }
-        private bool Is50thDonation(int donorId)
+        private bool Is50thDonation(string donorId)
         {
             return _unitOfWork.donorRepository.GetDonationsCount(donorId) == 50;
         }
@@ -77,7 +77,7 @@ namespace Clean_Architecture.Infrastructure.Repositories
         {
             return amount >= 30000;
         }
-        private bool IsMultipleCausesSupporter(int donorId)
+        private bool IsMultipleCausesSupporter(string donorId)
         {
             bool AlreadyEarnedBadge = _unitOfWork.donorRepository.HasBadge(donorId, "Supporter of Multiple Causes");
 
@@ -90,7 +90,7 @@ namespace Clean_Architecture.Infrastructure.Repositories
 
             return CauseCount >= 4;
         }
-        private bool IsTopDonor(int CurrentDonorId)
+        private bool IsTopDonor(string CurrentDonorId)
         {
             bool AlreadyEarnedBadge = _unitOfWork.donorRepository.HasBadge(CurrentDonorId, "Donor Of The Month");
 
@@ -99,7 +99,7 @@ namespace Clean_Architecture.Infrastructure.Repositories
                 return false;
             }
 
-            int? TopDonorId = _unitOfWork.moneyDonationRepository.GetTopDonorOfCurrentMonth();
+            string? TopDonorId = _unitOfWork.moneyDonationRepository.GetTopDonorOfCurrentMonth();
 
 
 

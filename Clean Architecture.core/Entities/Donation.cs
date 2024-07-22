@@ -13,19 +13,16 @@ namespace charityPulse.core.Models
         public bool IsDeleted { get; set; }
 
         [ForeignKey("Donor")]
-        public int DonorId { get; set; }
+        public string DonorId { get; set; }
         public Donor Donor { get; set; }
 
-        [ForeignKey("Corporate")]
-        public int? CorporateId { get; set; }
-        public Corporate? Corporate { get; set; }
-
+     
         [ForeignKey("Project")]
         public int? projectId { get; set; }
         public Project? Project { get; set; }
 
         [ForeignKey("Charity")]
-        public int? CharityId { get; set; }
+        public string? CharityId { get; set; }
         public Charity? Charity { get; set; }
 
 

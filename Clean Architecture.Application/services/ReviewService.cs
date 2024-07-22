@@ -31,7 +31,7 @@ namespace Clean_Architecture.Application.services
             return mapper.Map<List<ReviewDTOWithDoner>>(reviews);
         }
 
-        public List<ReviewDTOWithDoner> GetAllReviewsOnCharity(int charityId)
+        public List<ReviewDTOWithDoner> GetAllReviewsOnCharity(string charityId)
         {
             var reviews = unitOfWork.reviewRepository.GetByCharityId(charityId);
             return mapper.Map<List<ReviewDTOWithDoner>>(reviews);

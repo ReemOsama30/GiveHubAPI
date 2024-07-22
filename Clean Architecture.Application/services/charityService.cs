@@ -18,34 +18,7 @@ namespace Clean_Architecture.Application.services
             this.mapper = mapper;
             this.webHostEnvironment = webHostEnvironment;
         }
-        public void addCharity(addCharityDTO CharityDTO)
-        {
-            var charity = mapper.Map<Charity>(CharityDTO);
-            string UploadPath = Path.Combine(webHostEnvironment.WebRootPath, "charityImg");
-            string imageName = Guid.NewGuid().ToString() + "-" + CharityDTO.ImgUrl.FileName;
-            string filePath = Path.Combine(UploadPath, imageName);
-
-            using (FileStream fileStream = new FileStream(filePath, FileMode.Create))
-            {
-                CharityDTO.ImgUrl.CopyTo(fileStream);
-            }
-
-            charity.ProfileImg = $"/charityImg/{imageName}";
-            unitOfWork.charities.insert(charity);
-            unitOfWork.Save();
-            int charityId = charity.Id;
-            var user = unitOfWork.UserRepository.Get(u => u.Id == charity.ApplicationUserId);
-            user.CharityId = charityId;
-            unitOfWork.Save();
-
-        }
-        public int GetCharityIdByUserID(string UserId)
-        {
-            Charity charity = unitOfWork.charities.Get(c => c.ApplicationUserId == UserId);
-
-            return charity.Id;
-        }
-
+    
 
         public string getAccountIdBYcharityName(string charityName)
         {
@@ -58,7 +31,7 @@ namespace Clean_Architecture.Application.services
             List<showCharityDTO> showCharityDTOs = mapper.Map<List<showCharityDTO>>(charities);
             return showCharityDTOs;
         }
-        public showCharityDTO getCharityById(int id)
+        public showCharityDTO getCharityById(string id)
         {
             Charity charity = unitOfWork.charities.Get(c => c.Id == id);
             showCharityDTO charityDTO = mapper.Map<showCharityDTO>(charity);
@@ -70,17 +43,17 @@ namespace Clean_Architecture.Application.services
 
         public showCharityDTO getCharitiesByAccountId(string id)
         {
-            Charity charity = unitOfWork.charities.Get(c => c.ApplicationUserId == id);
+            Charity charity = unitOfWork.charities.Get(c => c.Id == id);
             showCharityDTO charitiesDTOs = mapper.Map<showCharityDTO>(charity);
             return charitiesDTOs;
         }
-        public void updateCharity(int id, updateCharityDTO newCharity)
+        public void updateCharity(string id, updateCharityDTO newCharity)
         {
-            Charity existingCharity = unitOfWork.charities.Get(c => c.Id == id);
-            string accountId = existingCharity.ApplicationUserId;
+            Charity existingCharity = unitOfWork.charities.Get(c => c. Id == id);
+            string accountId = existingCharity.Id;
             existingCharity.Description = newCharity.Description;
             existingCharity.WebsiteUrl = newCharity.WebsiteUrl;
-            existingCharity.ApplicationUserId = accountId;
+            existingCharity.Id = accountId;
             unitOfWork.charities.update(existingCharity);
             var charity = unitOfWork.charities.Get(c => c.Id == id);
             unitOfWork.charities.update(charity);
@@ -102,7 +75,7 @@ namespace Clean_Architecture.Application.services
                 unitOfWork.Save();
             }
         }
-        public void deleteCharity(int id)
+        public void deleteCharity(string id)
         {
             Charity charity = unitOfWork.charities.Get(c => c.Id == id);
             unitOfWork.charities.delete(charity);

@@ -19,11 +19,11 @@ namespace charityPulse.core.Models
         public bool IsDeleted { get; set; }
 
         [ForeignKey("Donor")]
-        public int? DonorID { get; set; } // Id of the user who posted the review
+        public string? DonorID { get; set; } // Id of the user who posted the review
         public Donor Donor { get; set; }
 
         [ForeignKey("Charity")]
-        public int? CharityId { get; set; } // Id of the project being reviewed
+        public string? CharityId { get; set; } // Id of the project being reviewed
         public Charity Charity { get; set; }       
         
         // Add other relevant properties like reviewer name, project name, etc.

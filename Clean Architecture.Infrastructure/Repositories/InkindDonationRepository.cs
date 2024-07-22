@@ -10,7 +10,7 @@ namespace Clean_Architecture.Infrastructure.Repositories
         {
             this.context = context;
         }
-        public List<Project> GetInkindDonationByCharityId(int id)
+        public List<Project> GetInkindDonationByCharityId(string id)
         {
             var projects = context.donations.Where(c => c.CharityId == id).Select(d => d.Project).Distinct().ToList();
             return projects;

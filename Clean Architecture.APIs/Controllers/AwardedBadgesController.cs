@@ -87,7 +87,7 @@ namespace Clean_Architecture.APIs.Controllers
         }
 
         [HttpGet("user/{id}")]
-        public async Task<ActionResult<GeneralResponse>> GetUserBadges(int id)
+        public async Task<ActionResult<GeneralResponse>> GetUserBadges(string id)
         {
          var awardedBadges=awardedBadgeService.GetByDonorId(id);
 

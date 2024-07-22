@@ -62,7 +62,7 @@ namespace Clean_Architecture.APIs.Controllers
 
 
         [HttpGet("charity/{id}")]
-        public ActionResult<GeneralResponse> getByCharityID(int id)
+        public ActionResult<GeneralResponse> getByCharityID(string id)
         {
             var project = projectService.getProjectByCharityID(id);
 

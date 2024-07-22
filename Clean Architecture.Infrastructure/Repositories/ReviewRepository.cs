@@ -12,7 +12,7 @@ namespace Clean_Architecture.Infrastructure.Repositories
 
         }
 
-        public List<Review> GetByCharityId(int charityId)
+        public List<Review> GetByCharityId(string charityId)
         {
             return context.Set<Review>()
                           .Where(r => r.CharityId == charityId && !r.IsDeleted)
