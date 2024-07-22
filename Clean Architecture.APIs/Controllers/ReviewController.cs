@@ -58,7 +58,7 @@ namespace Clean_Architecture.APIs.Controllers
 
 
         [HttpGet("charity/{id}")]
-        public ActionResult<GeneralResponse> GetAllByCharityId(int id)
+        public ActionResult<GeneralResponse> GetAllByCharityId(string id)
         {
             var review = reviewService.GetAllReviewsOnCharity(id);
             var response = new GeneralResponse

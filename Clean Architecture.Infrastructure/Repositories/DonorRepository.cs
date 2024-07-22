@@ -22,19 +22,19 @@ namespace Clean_Architecture.Infrastructure.Repositories
 
         }
 
-        public async Task<List<Project>> GetAllDistinctDonatedProjectsAsync(int id)
+        public async Task<List<Project>> GetAllDistinctDonatedProjectsAsync(string id)
         {
             var projects = context.donations.Where(d => d.DonorId == id).Select(d => d.Project).Distinct().ToList();
             return projects;
         }
 
-        public int GetAllDistinctDonationCategories(int id)
+        public int GetAllDistinctDonationCategories(string id)
         {
             var CatagoryCount = context.donations.Where(d => d.DonorId == id).Select(d => d.Project.CategoryId).Distinct().Count();
             return CatagoryCount;
         }
 
-        public bool HasBadge(int id, string badgeName)
+        public bool HasBadge(string id, string badgeName)
         {
             int badgeId = context.Badges.Where(b => b.Name == $"{badgeName}").Select(b => b.Id).FirstOrDefault();
 
@@ -43,7 +43,7 @@ namespace Clean_Architecture.Infrastructure.Repositories
 
             return hasBadge;
         }
-        public int GetDonationsCount(int id)
+        public int GetDonationsCount(string id)
         {
             int count = context.donations.Where(d => d.DonorId == id).Count();
             return count;

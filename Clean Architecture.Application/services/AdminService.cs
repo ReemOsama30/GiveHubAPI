@@ -22,7 +22,7 @@ namespace Clean_Architecture.Application.services
         }
 
 
-        public bool BlockCharity(int charityid)
+        public bool BlockCharity(string charityid)
         {
             Charity charity = unitOfWork.charities.Get(c => c.Id == charityid);
             if (charity == null)
@@ -39,7 +39,7 @@ namespace Clean_Architecture.Application.services
             }
         }
 
-        public bool UnBlockCharity(int charityid)
+        public bool UnBlockCharity(string charityid)
         {
             Charity charity = unitOfWork.charities.Get(c => c.Id == charityid);
             if (charity == null)

@@ -11,7 +11,7 @@ namespace Clean_Architecture.Infrastructure.Repositories
     {
         private readonly ApplicationDbContext context;
         public IRepository<Notification> NotificationRepository { get; }
-
+        public IRepository<Admin>Admins { get; }
         public IRepository<Admin> adminsRepository {  get; }
         public IRepository<Corporate> corporations { get; }
         public IRepository<Project> projects { get; }

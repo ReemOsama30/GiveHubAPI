@@ -1,5 +1,6 @@
 ﻿using charityPulse.core.Models;
 using Clean_Architecture.Application.DTOs.UsersDTO;
+using Clean_Architecture.core.Enums;
 using Clean_Architecture.core.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -32,19 +33,19 @@ namespace Clean_Architecture.Application.services
             {
                 ShowUsers usersList = new ShowUsers();
                 usersList.name = user.UserName;
-                usersList.AccountType = user.AccountType;
+                usersList.AccountType = user.accountType;
                 usersList.email = user.Email;
                 usersList.emailConfirmed = user.EmailConfirmed;
 
 
-                if(user.AccountType=="donor")
+                if(user.accountType==AccountType.Donor)
                 {
-                    Donor donor = unitOfWork.donorRepository.Get(u =>u.Id==user.DonorId);
+                    Donor donor = unitOfWork.donorRepository.Get(u =>u.Id==user.Id);
                     usersList.image = donor.ProfileImg;
                 }
-                else if(user.AccountType== "charityOrganization")
+                else if(user.accountType== AccountType.Chatiry)
                 {
-                    Charity charity=unitOfWork.charities.Get(c=>user.CharityId==c.Id);
+                    Charity charity=unitOfWork.charities.Get(c=>user.Id==c.Id);
                     usersList.image= charity.ProfileImg;
                 }
                 else

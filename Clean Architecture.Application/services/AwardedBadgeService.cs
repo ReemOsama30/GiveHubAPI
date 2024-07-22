@@ -68,7 +68,7 @@ namespace Clean_Architecture.Application.services
         }
 
 
-        public List<ShowBadgeDTO> GetByDonorId(int donorId) {
+        public List<ShowBadgeDTO> GetByDonorId(string donorId) {
 
        List<AwardedBadge >awardedBadge = _unitOfWork.AwardedBadges.GetAll().Where(d=>d.DonorId==donorId).ToList();
 List<ShowBadgeDTO>showBadgeDTOs = new List<ShowBadgeDTO>();

@@ -1,5 +1,6 @@
 ﻿
 using Clean_Architecture.Application.Interfaces;
+using Clean_Architecture.core.Enums;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -11,25 +12,10 @@ using System.Threading.Tasks;
 namespace charityPulse.core.Models
 {public class ApplicationUser:IdentityUser,IsoftDeletable
 {
-        public string? AccountType { get; set; } = "Donor";
+        public AccountType accountType { get; set; } = AccountType.Donor;
         public bool IsDeleted { get; set; } = false;
       
-        [ForeignKey("Admin")]
-        public int? AdminId { get; set; }
-        public Admin? Admin { get; set; }
-
-        [ForeignKey("Donor")]
-        public int? DonorId { get; set; }
-        public Donor? Donor { get; set; }
-
-        [ForeignKey("Charity")]
-        public int? CharityId { get; set; }
-        public Charity? Charity { get; set; }
-
-        [ForeignKey("Corporate")]
-        public int? CorporateId { get; set; }
-        public Corporate? Corporate { get; set; }
-
+  
        
     }
 }

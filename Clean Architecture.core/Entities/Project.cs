@@ -24,7 +24,7 @@ namespace charityPulse.core.Models
         public DonationReport? Report { get; set; }
 
         [ForeignKey("Charity")]
-        public int CharityId { get; set; }
+        public string CharityId { get; set; }
         public Charity Charity { get; set; }
 
         [ForeignKey("category")]

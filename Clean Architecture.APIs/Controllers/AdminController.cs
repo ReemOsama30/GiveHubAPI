@@ -45,7 +45,7 @@ namespace Clean_Architecture.APIs.Controllers
         }
 
         [HttpPatch]
-        public ActionResult<GeneralResponse> BlockUsers(int id)
+        public ActionResult<GeneralResponse> BlockUsers(string id)
         {
 
             bool isblocked = adminService.BlockCharity(id);

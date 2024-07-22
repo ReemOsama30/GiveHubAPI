@@ -46,7 +46,7 @@ namespace Clean_Architecture.Application.services
             return mapper.Map<showInKindDonationDTO>(inKindDonationByid);
         }
 
-        public List<showInKindDonationDTO> GetInKindDonationByDonorId(int id)
+        public List<showInKindDonationDTO> GetInKindDonationByDonorId(string id)
         {
             List<InKindDonation> inKindDonations = unitOfWork.inKindDonationRepository.GetAll().Where(i => i.DonorId == id).ToList();
 
@@ -72,7 +72,7 @@ namespace Clean_Architecture.Application.services
 
         }
 
-        public List<showInKindDonationDTO> GetInkindDonationByCharityId(int id)
+        public List<showInKindDonationDTO> GetInkindDonationByCharityId(string id)
         {
             List<InKindDonation> inKindDonations = unitOfWork.inKindDonationRepository.GetAll().Where(i => i.CharityId == id).ToList();
 
@@ -93,12 +93,7 @@ namespace Clean_Architecture.Application.services
             return inKindDonationsDtos;
 
         }
-        public List<showInKindDonationDTO> GetInkindDonationByCorporateId(int id)
-        {
-            List<InKindDonation> inKindDonations = unitOfWork.inKindDonationRepository.GetAll().Where(i => i.CorporateId == id).ToList();
-            return mapper.Map<List<showInKindDonationDTO>>(inKindDonations);
 
-        }
         public void AddInKindDonation(addInKindDonationDTO addInKindDonationDTO)
         {
             var inKindDonation = mapper.Map<InKindDonation>(addInKindDonationDTO);

@@ -12,7 +12,7 @@ namespace Clean_Architecture.Infrastructure.Repositories
         {
             _context = context;
         }
-        public int? GetTopDonorOfCurrentMonth()
+        public string? GetTopDonorOfCurrentMonth()
         {
             DateTime startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(-1); 
             DateTime endDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);

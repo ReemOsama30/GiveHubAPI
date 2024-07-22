@@ -69,7 +69,7 @@ namespace Clean_Architecture.APIs.Controllers
         }
 
         [HttpGet("donor/{id}")]
-        public ActionResult<GeneralResponse> GetByDonorId(int id)
+        public ActionResult<GeneralResponse> GetByDonorId(string id)
         {
 
             List<showMoneyDonationDTO> showMoneyDonationDonors = moneyDonationService.GetMoneyDonationByDonorId(id);
@@ -98,7 +98,7 @@ namespace Clean_Architecture.APIs.Controllers
         }
 
         [HttpGet("charity/{id}")]
-        public ActionResult<GeneralResponse> GetByCharityId(int id)
+        public ActionResult<GeneralResponse> GetByCharityId(string id)
         {
 
             List<showMoneyDonationDTO> showMoneyDonationCharity = moneyDonationService.GetMoneyDonationByCharityId(id);
@@ -111,20 +111,6 @@ namespace Clean_Architecture.APIs.Controllers
 
         }
 
-
-        [HttpGet("corporate/{id}")]
-        public ActionResult<GeneralResponse> GetByCorporateId(int id)
-        {
-
-            List<showMoneyDonationDTO> showMoneyDonationCorporate = moneyDonationService.GetMoneyDonationByCorporateId(id);
-            return new GeneralResponse
-            {
-                IsPass = true,
-                Message = showMoneyDonationCorporate,
-                Status = 200,
-            };
-
-        }
 
 
         [HttpPost]

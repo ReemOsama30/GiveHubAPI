@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Clean_Architecture.core.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ namespace Clean_Architecture.Application.DTOs.UsersDTO
 
         public string email { get; set; }
         public bool emailConfirmed { get; set; }
-        public string AccountType { get; set; }
+        public AccountType AccountType { get; set; }
         public string image { get; set; }
 
     }

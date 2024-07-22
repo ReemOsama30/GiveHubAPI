@@ -56,7 +56,7 @@ namespace Clean_Architecture.APIs.Controllers
 
         }
         [HttpGet("getByCharityId/{id}")]
-        public ActionResult<GeneralResponse> getByCharityId(int id)
+        public ActionResult<GeneralResponse> getByCharityId(string id)
         {
             showCharityDTO charityDTO = charityService.getCharityById(id);
             if (charityDTO != null)
@@ -96,7 +96,7 @@ namespace Clean_Architecture.APIs.Controllers
             };
         }
         [HttpPut]
-        public ActionResult<GeneralResponse> updateCharity(int id, updateCharityDTO charityDTO)
+        public ActionResult<GeneralResponse> updateCharity(string id, updateCharityDTO charityDTO)
         {
             charityService.updateCharity(id, charityDTO);
             var charity = charityService.getCharityById(id);
@@ -108,7 +108,7 @@ namespace Clean_Architecture.APIs.Controllers
             };
         }
         [HttpDelete]
-        public ActionResult<GeneralResponse> deleteCharity(int id)
+        public ActionResult<GeneralResponse> deleteCharity(string id)
         {
             var charity = charityService.getCharityById(id);
             if (charity != null)
@@ -132,17 +132,6 @@ namespace Clean_Architecture.APIs.Controllers
         }
 
 
-        [HttpGet("getCharityID/{id:guid}")]
-        public ActionResult<int> getCharityIdByUserId(string id)
-        {
-
-
-            int charityId = charityService.GetCharityIdByUserID(id);
-            return charityId;
-
-
-
-        }
 
         [HttpGet("getAccountID/{name:alpha}")]
         public ActionResult<GeneralResponse> GetAccountID(string name)

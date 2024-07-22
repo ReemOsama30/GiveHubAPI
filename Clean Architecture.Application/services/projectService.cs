@@ -99,7 +99,7 @@ namespace Clean_Architecture.Application.services
             }
 
         }
-        public List<showprojectDTO> getProjectByCharityID(int charityID)
+        public List<showprojectDTO> getProjectByCharityID(string charityID)
         {
             var projects = unitOfWork.projectRepository.GetProjectsWithCategoryName().Where(p => p.CharityId == charityID);
             if (projects.Count() > 0)
