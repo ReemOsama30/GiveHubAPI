@@ -173,7 +173,60 @@ namespace Clean_Architecture.Application.services
 
 
 
+        public async Task<IdentityResult>   DonorRegisteration(DonorRegisterDTO DonorDTO)
+        {
+            Donor user = new Donor
+            {
+                UserName = DonorDTO.UserName,
+                Email = DonorDTO.Email,
+                PasswordHash = DonorDTO.Password,
+                accountType = AccountType.Donor,
+                Name = DonorDTO.Name,
+            
 
+            };
+            if (DonorDTO.ProfileImg != null)
+            {
+                string UploadPath = Path.Combine(webHostEnvironment.WebRootPath, "donorImg");
+                string imageName = Guid.NewGuid().ToString() + "-" + DonorDTO.ProfileImg.FileName;
+                string filePath = Path.Combine(UploadPath, imageName);
+
+                using (FileStream fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    DonorDTO.ProfileImg.CopyTo(fileStream);
+                }
+
+                user.ProfileImg = $"/donorImg/{imageName}";
+            }
+
+
+            var result = await unitOfWork.UserRepository.CreateUserAsync(user, DonorDTO.Password);
+
+            if (result.Succeeded)
+            {
+                var admin = await userManager.Users.FirstOrDefaultAsync(u => u.accountType == AccountType.Admin);
+                if (admin != null && user.accountType != AccountType.Admin)
+                {
+                    // Add notification for the admin
+                    var notification = new Notification
+                    {
+                        Message = $"New user registered: {user.UserName}",
+                        CreatedAt = DateTime.Now,
+                        IsRead = false,
+                        AdminId = admin.Id
+                    };
+
+                    unitOfWork.NotificationRepository.insert(notification);
+
+                }
+                await SendConfirmationEmail(DonorDTO.Email, user);
+
+                await unitOfWork.SaveAsync();
+
+            }
+
+            return result;
+        }
 
 
 
