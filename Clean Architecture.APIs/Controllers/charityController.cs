@@ -19,27 +19,7 @@ namespace Clean_Architecture.APIs.Controllers
         {
             this.charityService = charityService;
         }
-        [HttpPost]
-        public ActionResult<GeneralResponse> InsertCharity(addCharityDTO charityDTO)
-        {
-            if (ModelState.IsValid)
-            {
-               
-                charityService.addCharity(charityDTO);
-                return new GeneralResponse
-                {
-                    IsPass = true,
-                    Status = 200,
-                    Message = charityDTO
-                };
-            }
-            return new GeneralResponse
-            {
-                IsPass = false,
-                Status = 400,
-                Message = "Can't Add New Charity"
-            };
-        }
+      
 
         [HttpGet]
         // [Authorize]
