@@ -135,5 +135,31 @@ namespace Clean_Architecture.APIs.Controllers
         }
 
 
+        
+              [HttpGet("getCharityIdByProjectID/{id}")]
+        public ActionResult<GeneralResponse> getCharityIdByProjectID(int id)
+        {
+            string accountID = charityService.getCharityIdByProjectID(id);
+            if (accountID == null)
+            {
+                return new GeneralResponse
+                {
+                    IsPass = false,
+                    Status = 400,
+                    Message = "Not Found"
+                };
+            }
+            return new GeneralResponse
+            {
+                IsPass = true,
+                Status = 200,
+                Message = accountID
+            };
+        }
+
+
+
+
+
     }
 }

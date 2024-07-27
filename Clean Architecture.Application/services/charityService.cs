@@ -22,7 +22,7 @@ namespace Clean_Architecture.Application.services
 
         public string getAccountIdBYcharityName(string charityName)
         {
-            ApplicationUser user = unitOfWork.UserRepository.Get(c => c.UserName == charityName);
+            Charity user = unitOfWork.charities.Get(c => c.Name == charityName);
             return user?.Id;
         }
         public async Task<List<showCharityDTO>> getCharities()
@@ -37,6 +37,16 @@ namespace Clean_Architecture.Application.services
             showCharityDTO charityDTO = mapper.Map<showCharityDTO>(charity);
             return charityDTO;
         }
+
+
+        public string getCharityIdByProjectID(int id)
+        {
+            Project project = unitOfWork.projectRepository.Get(p => p.Id == id);
+            Charity charity = unitOfWork.charities.Get(c => c.Id == project.CharityId);
+           
+            return charity.Id;
+        }
+
 
 
 
