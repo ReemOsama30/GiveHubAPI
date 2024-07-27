@@ -12,7 +12,7 @@ namespace Clean_Architecture.Application.DTOs.projectDTOs
         public decimal AmountRaised { get; set; }
         public IFormFile ImgPath { get; set; }
         public ProjectState State { get; set; } = ProjectState.Initiated;
-        public int CharityId { get; set; }
+        public string CharityId { get; set; }
         public string Location { get; set; }
         public int CategoryId { get; set; }
     }

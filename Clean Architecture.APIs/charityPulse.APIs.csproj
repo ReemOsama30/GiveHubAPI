@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\projectImg\NewFolder\**" />
+    <Content Remove="wwwroot\projectImg\NewFolder\**" />
+    <EmbeddedResource Remove="wwwroot\projectImg\NewFolder\**" />
+    <None Remove="wwwroot\projectImg\NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.3" />
@@ -31,7 +38,6 @@
     <Folder Include="wwwroot\charityImg\" />
     <Folder Include="wwwroot\donorImg\" />
     <Folder Include="wwwroot\BadgeImg\" />
-    <Folder Include="wwwroot\projectImg\NewFolder\" />
   </ItemGroup>
 
 </Project>

@@ -11,7 +11,6 @@ namespace Clean_Architecture.Infrastructure.DbContext
     {
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Advertisment> Advertisments { get; set; }
-        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Badge> Badges { get; set; }
         public DbSet<AwardedBadge> AwardedBadges { get; set; }
         public DbSet<Charity> charities { get; set; }
@@ -43,12 +42,7 @@ namespace Clean_Architecture.Infrastructure.DbContext
                     .UseCollation("Arabic_CI_AS");
             });
 
-            modelBuilder.Entity<IdentityRole>().HasData(
-                new IdentityRole
-                {
-                    Name = "Admin",
-                    NormalizedName = "ADMIN"
-                });
+
 
             modelBuilder.Entity<Category>().HasData(
                 new Category { id = 1, Name = "Health" },

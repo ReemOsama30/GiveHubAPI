@@ -126,6 +126,7 @@ namespace Clean_Architecture.Application.services
                 Name= CharityDTO.Name,
                 Description= CharityDTO.Description,
                 WebsiteUrl = CharityDTO.WebsiteUrl,
+                
 
             };
             if (CharityDTO.ProfileImg != null)

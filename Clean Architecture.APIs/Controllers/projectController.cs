@@ -72,7 +72,7 @@ namespace Clean_Architecture.APIs.Controllers
                 {
                     IsPass = false,
                     Status = 404,
-                    Message = "invalid charity id"
+                    Message = "invalid projects for this charity"
                 };
             }
             else
