@@ -10,7 +10,7 @@ namespace Clean_Architecture.core.Enums
     public enum AccountType
     {
         Admin,
-       Chatiry,
+       Charity,
        Donor
 
     }

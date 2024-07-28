@@ -122,7 +122,7 @@ namespace Clean_Architecture.Application.services
                 UserName = CharityDTO.UserName,
                 Email = CharityDTO.Email,
                 PasswordHash = CharityDTO.Password,
-                accountType = AccountType.Chatiry,
+                accountType = AccountType.Charity,
                 Name= CharityDTO.Name,
                 Description= CharityDTO.Description,
                 WebsiteUrl = CharityDTO.WebsiteUrl,

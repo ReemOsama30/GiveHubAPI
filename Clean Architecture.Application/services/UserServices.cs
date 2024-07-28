@@ -43,7 +43,7 @@ namespace Clean_Architecture.Application.services
                     Donor donor = unitOfWork.donorRepository.Get(u =>u.Id==user.Id);
                     usersList.image = donor.ProfileImg;
                 }
-                else if(user.accountType== AccountType.Chatiry)
+                else if(user.accountType== AccountType.Charity)
                 {
                     Charity charity=unitOfWork.charities.Get(c=>user.Id==c.Id);
                     usersList.image= charity.ProfileImg;
