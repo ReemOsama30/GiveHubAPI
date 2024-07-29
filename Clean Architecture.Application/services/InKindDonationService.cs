@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using charityPulse.core.Models;
 using Clean_Architecture.Application.DTOs.InKindDonationDTOs;
+using Clean_Architecture.core.Entities;
 using Clean_Architecture.core.Enums;
 using Clean_Architecture.core.Interfaces;
+using Microsoft.AspNetCore.Identity;
 
 
 namespace Clean_Architecture.Application.services
@@ -11,11 +13,13 @@ namespace Clean_Architecture.Application.services
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public InKindDonationService(IUnitOfWork unitOfWork, IMapper mapper)
+        public InKindDonationService(IUnitOfWork unitOfWork, IMapper mapper,UserManager<ApplicationUser>userManager)
         {
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
+            this.userManager = userManager;
         }
 
         public async Task<List<showInKindDonationDTO>> GetInKindDonation()
@@ -101,17 +105,33 @@ namespace Clean_Architecture.Application.services
 
 
             Project project = unitOfWork.projects.Get(p => p.Id == addInKindDonationDTO.projectId);
-            project.AmountRaised += addInKindDonationDTO.Quantity;
-            if (project.AmountRaised >= project.FundingGoal)
+
+
+            var admin = userManager.Users.FirstOrDefault(u => u.accountType == AccountType.Admin);
+            Donor donor = unitOfWork.donorRepository.Get(d => d.Id == addInKindDonationDTO.DonorId);
+            if (admin != null)
             {
-                project.State = ProjectState.Compeleted;
-            }
-            else
-            {
-                project.State = ProjectState.InProgress;
-            }
-            unitOfWork.Save();
-        }
+                // Add notification for the admin
+                var notification = new Notification
+                {
+                    Message = $"New Inkind Donation from:{donor.Name}",
+                    CreatedAt = DateTime.Now,
+                    IsRead = false,
+                    AdminId = admin.Id
+                };
+
+                unitOfWork.NotificationRepository.insert(notification);
+               project.AmountRaised += addInKindDonationDTO.Quantity;
+                if (project.AmountRaised >= project.FundingGoal)
+                {
+                    project.State = ProjectState.Compeleted;
+                }
+                else
+                {
+                    project.State = ProjectState.InProgress;
+                }
+                unitOfWork.Save();
+            } }
         public void UpdateInKindDonation(int id, updateInKindDonationDTO updateInKindDonationDTO)
         {
 

@@ -17,7 +17,7 @@ namespace Clean_Architecture.APIs.Controllers
         }
 
 
-        [HttpGet]
+        [HttpGet("Notification")]
         public ActionResult<GeneralResponse> GetAllNotifications()
         {
             var Notification = adminService.GetAllNotification();
