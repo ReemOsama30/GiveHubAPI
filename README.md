@@ -32,7 +32,7 @@ clean-architecture-project/
 Getting Started
 
 1. Clone the Repository: 
-   git clone https://github.com/ReemOsama30/Clean-Architecture-trial.git
+   git clone https://github.com/ReemOsama30/GiveHubAPI.git
    
 2. Install Dependencies: 
    cd clean-architecture-project
@@ -55,3 +55,5 @@ Contributions are welcome! Please read the CONTRIBUTING.md file for guidelines.
 License
 
 This project is licensed under the MIT License.
+
+
