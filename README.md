@@ -48,9 +48,14 @@ Getting Started
 
 
 
-
-Contributing
-
+## Team 👥
+- [Reem Osama](https://github.com/ReemOsama30).
+- [Maria Ezzat](https://github.com/MariaEzat).
+- [Sarah Sameh](https://github.com/sarah-sameh).
+- [Seravia samuel](https://github.com/SeraviaSamuel).
+- [Caroline Emad](https://github.com/carolemad965).
+- [Nabila Nabil](https://github.com/Nabila-Nabil).
+- [Youstina Emad](https://github.com/YoustinaEmad).
 Contributions are welcome! Please read the CONTRIBUTING.md file for guidelines.
 
 License
