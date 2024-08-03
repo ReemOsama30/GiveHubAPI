@@ -13,21 +13,22 @@ The project is structured into several layers, each with its own set of responsi
 
 Project Structure
 
-clean-architecture-project/
-│
-├── src/
-│   ├── Domain/
-│   ├── Application/
-│   ├── Infrastructure/
-│   └── Presentation/
-├── tests/
-│   ├── UnitTests/
-│   ├── IntegrationTests/
-│   └── EndToEndTests/
-├── docs/
-│   ├── ArchitectureDiagram/
-│   └── APIReference/
-└── README.md
+## Architecture
+
+The application follows the Clean Architecture pattern and is divided into four layers:
+
+1. **Application Layer**: Contains DTOs, configurations, Helper Classes, interfaces, and services.
+2. **Presentation Layer**: Contains the MVC controllers and views.
+3. **Core Layer**: Contains the entities and enums.
+4. **Infrastructure Layer**: Contains the database context, repositories, and UnitOfWork implementation.
+
+### Design Patterns
+
+- **Repository Pattern**: To encapsulate the logic for accessing the data source.
+- **UnitOfWork**: To manage database transactions and coordinate the work of multiple repositories.
+- **Service Layer**: To encapsulate the business logic of the application and Mapping.
+- **AutoMapper**: For object-object mapping between DTOs and entities.
+
 
 Getting Started
 
